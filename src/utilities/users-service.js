@@ -4,7 +4,7 @@ import * as usersAPI from './users-api';
 export async function signUp(userData){
  const token = await usersAPI.signUp(userData);
  localStorage.setItem('token', token);
- return getUser(); // this was return token 
+ return getUser(); // this was return token -- but I'm not sure why?
 }
 
 // Login

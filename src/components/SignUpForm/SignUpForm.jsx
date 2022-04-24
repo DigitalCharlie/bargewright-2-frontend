@@ -27,7 +27,6 @@ export default function SignUpForm({setUser}) {
           delete formData.error;
           delete formData.confirm;
           const user = await userService.signUp(formData)
-          console.log(user)
           setUser(user)
           navigate(`/user/${formData.username}`);
         } catch (error) {

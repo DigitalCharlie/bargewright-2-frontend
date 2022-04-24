@@ -14,8 +14,8 @@ export default function NewCharPage({ user }) {
         image: '',
         sheet: '',
 		notes: '',
-		levelAdjust: '',
-		healthPotionAdjust:''
+		levelAdjust: 0,
+		healthPotionAdjust:0
     })
     const [ error, setError ] = useState('')
 	const [detailsToggle, setDetailsToggle] = useState(false)
@@ -57,11 +57,11 @@ export default function NewCharPage({ user }) {
 				{
 					detailsToggle ?
 					<>
-						<input type="text" name="name" value={formData.image} onChange={handleChange} />
-						<input type="text" name="name" value={formData.sheet} onChange={handleChange} />
-						<input type="text" name="name" value={formData.levelAdjust} onChange={handleChange} />
-						<input type="text" name="name" value={formData.healthPotionAdjust} onChange={handleChange} />
-						<input type="text" name="name" value={formData.notes} onChange={handleChange} />
+						<input type="text" name="image" value={formData.image} onChange={handleChange} />
+						<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} />
+						<input type="text" name="levelAdjust" value={formData.levelAdjust} onChange={handleChange} />
+						<input type="text" name="healthPotionAdjust" value={formData.healthPotionAdjust} onChange={handleChange} />
+						<input type="text" name="notes" value={formData.notes} onChange={handleChange} />
 					</>
 					:
 					''

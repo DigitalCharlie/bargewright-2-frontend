@@ -12,6 +12,8 @@ import HomePage from '../HomePage/HomePage';
 import UserHome from '../UserHome/UserHome';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import NewCharPage from '../NewChar/NewChar';
+import CharHome from '../CharHome/CharHome'
+import EditChar from '../EditChar/EditChar'
 
 function App() {
   const [user, setUser ] = useState(getUser());
@@ -24,7 +26,9 @@ function App() {
           <Route path="/" element={<HomePage/>}/>
           <Route path="/login" element={<AuthPage setUser={setUser}/>}/>
           <Route path={`/user/${user.username}`} element={<UserHome user={user}/>}/>
-          <Route path={`/user/${user.username}/new`} element={<NewCharPage user={user}/>}/>
+          <Route path={`/user/${user.username}/character/new`} element={<NewCharPage user={user}/>}/>
+          <Route path={`/user/${user.username}/character/:charId`} element={<CharHome user={user}/>}/>
+          <Route path={`/user/${user.username}/character/:charId/edit`} element={<EditChar user={user}/>}/>
           <Route path="*" element={<ErrorPage/>}/>
         </Routes>
 

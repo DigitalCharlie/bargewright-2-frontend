@@ -1,10 +1,11 @@
 import * as userService from '../../utilities/users-service';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function Header () {
     return (
         <>
-            <Link to="/login/"><button onClick={userService.logout}>Log out</button></Link>
+            <Link to="/login/"><button onClick={userService.logout}>Log out</button></Link><br /><br />
+            <NavLink to={-1}>Back</NavLink>
         </>
     )
 }

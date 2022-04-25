@@ -13,3 +13,7 @@ export function getById(username, charId, advId) {
 export function editAdv(username, charId, advId, advData) {
   return sendRequest(`${BASE_URL}/${username}/character/${charId}/adventure/${advId}/edit`, 'PUT', advData);
 }
+
+export function deleteAdv(username, charId, advId) {
+  return sendRequest(`${BASE_URL}/${username}/character/${charId}/adventure/${advId}`, 'DELETE');
+}

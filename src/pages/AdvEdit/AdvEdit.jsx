@@ -46,7 +46,7 @@ export default function NewAdvPage({ user }) {
         try {
 			formData.character = charId
 			console.log(formData)
-			const editedAdv = await advAPI.editAdv(user.username, charId, formData)
+			const editedAdv = await advAPI.editAdv(user.username, charId, advId, formData)
 			console.log(editedAdv)
         } catch (error) {
           setError(error.message)

@@ -28,7 +28,7 @@ export default function UserHome({user}){
                     <p key={character._id}><Link to={`/user/${user.username}/character/${character._id}`}>{character.name}</Link></p>
                 ))
             }
-            <Link to={`/user/aaa/character/6265c1c8bbbaed6aa2dae704`}>Test hard link</Link><br />
+            <hr />
             <Link to={`/user/${user.username}/character/new`}>new character</Link>
         </main>
     )

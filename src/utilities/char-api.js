@@ -13,3 +13,7 @@ export function getById(username, id) {
 export function editChar(username, id, charData) {
   return sendRequest(`${BASE_URL}/${username}/character/${id}/edit`, 'PUT', charData);
 }
+
+export async function getAllAdv (username, charId) {
+  return sendRequest(`${BASE_URL}/${username}/character/${charId}/adventure/all`)
+}

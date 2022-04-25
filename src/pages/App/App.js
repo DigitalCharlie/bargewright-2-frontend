@@ -15,6 +15,7 @@ import CharNew from '../CharNew/CharNew';
 import CharHome from '../CharHome/CharHome'
 import CharEdit from '../CharEdit/CharEdit'
 import AdvNew from '../AdvNew/AdvNew'
+import AdvEdit from '../AdvEdit/AdvEdit'
 
 function App() {
   const [user, setUser ] = useState(getUser());
@@ -31,6 +32,8 @@ function App() {
           <Route path={`/user/${user.username}/character/:charId`} element={<CharHome user={user}/>}/>
           <Route path={`/user/${user.username}/character/:charId/edit`} element={<CharEdit user={user}/>}/>
           <Route path={`/user/${user.username}/character/:charId/adventure/new`} element={<AdvNew user={user}/>}/>
+          <Route path={`/user/${user.username}/character/:charId/adventure/:advId/edit`} element={<AdvEdit user={user}/>}/>
+
           <Route path="*" element={<ErrorPage/>}/>
         </Routes>
 

@@ -26,18 +26,7 @@ export default function NewCharPage({ user }) {
 		(async () => {
 			try {
 				const data = await charAPI.getById(user.username, charId)
-				setFormData({
-					// player:data.player,
-					// name:data.name,
-					// class:data.class,
-					// race:data.race,
-					// image:data.image,
-					// sheet:data.sheet,
-					// notes:data.notes,
-					// levelAdjust:data.levelAdjust,
-					// healthPotionAdjust:data.healthPotionAdjust
-					...data
-				})
+				setFormData({...data})
 				setChar(data) // this kind of method wasn't working so....
 			} catch(e) {
 				console.log(e)

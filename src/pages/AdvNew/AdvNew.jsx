@@ -18,7 +18,7 @@ export default function NewAdvPage({ user }) {
         goldFound: 0,
 		downtimeEarned: 10,
 		levelGain: 1,
-		notes:0,
+		notes:'',
 		magicItemNotes:'',
 		healingPotions:0
     })
@@ -33,6 +33,7 @@ export default function NewAdvPage({ user }) {
         evt.preventDefault();
         try {
 			formData.character = charId
+			console.log(formData)
 			const createdAdv = await advAPI.createNew(user.username, charId, formData)
 			console.log(createdAdv)
 			navigate(`/user/${user.username}/character/${charId}`);
@@ -56,8 +57,6 @@ export default function NewAdvPage({ user }) {
 				<input type="number" name="healingPotions" value={formData.healingPotions} onChange={handleChange}/>
 				<input type="text" name="magicItemNotes" value={formData.magicItemNotes} onChange={handleChange} placeholder="magicItemNotes"/>
 				<input type="text" name="notes" value={formData.notes} onChange={handleChange} placeholder="notes"/>
-
-
 
 				<button type="submit" onClick={handleSubmit}>Log adventure</button>
 			</form>

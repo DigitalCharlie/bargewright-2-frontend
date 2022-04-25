@@ -26,7 +26,6 @@ export default function NewCharPage({ user }) {
 		(async () => {
 			try {
 				const data = await charAPI.getById(user.username, charId)
-				console.log(data)
 				setFormData({
 					// player:data.player,
 					// name:data.name,
@@ -56,8 +55,7 @@ export default function NewCharPage({ user }) {
         try {
 		formData.player = user.username
           const editedChar = await charAPI.editChar(user.username, charId, formData)
-		  console.log(editedChar)
-          navigate(`/user/${user.username}`);
+          navigate(`/user/${user.username}/character/${charId}`);
         } catch (error) {
           setError(error.message)
         }

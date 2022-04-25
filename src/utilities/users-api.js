@@ -31,3 +31,7 @@ async function sendRequest(url, method = 'GET', payload = null) {
     if (res.ok) return res.json();
     throw new Error('Bad Request');
   }
+
+export async function getAllChars (user) {
+  return sendRequest(`${BASE_URL}/user/${user}/all`)
+}

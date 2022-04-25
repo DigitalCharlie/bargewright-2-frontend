@@ -11,5 +11,5 @@ export function getById(username, id) {
 }
 
 export function editChar(username, id, charData) {
-  return sendRequest(`${BASE_URL}/${username}/character/${id}`, 'PUT', charData);
+  return sendRequest(`${BASE_URL}/${username}/character/${id}/edit`, 'PUT', charData);
 }

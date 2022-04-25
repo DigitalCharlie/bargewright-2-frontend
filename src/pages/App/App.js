@@ -11,9 +11,9 @@ import AuthPage from '../AuthPage/AuthPage';
 import HomePage from '../HomePage/HomePage';
 import UserHome from '../UserHome/UserHome';
 import ErrorPage from '../ErrorPage/ErrorPage';
-import NewCharPage from '../NewChar/NewChar';
+import NewCharPage from '../CharNew/CharNew';
 import CharHome from '../CharHome/CharHome'
-import EditChar from '../EditChar/EditChar'
+import EditChar from '../CharEdit/CharEdit'
 
 function App() {
   const [user, setUser ] = useState(getUser());

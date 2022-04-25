@@ -12,7 +12,6 @@ export default function UserHome({user}){
 			try {
 				const data = await usersAPI.getAllChars(user.username)
 				setChars(data)
-                console.log(data)
 			} catch(e) {
 				console.log(e)
 			}

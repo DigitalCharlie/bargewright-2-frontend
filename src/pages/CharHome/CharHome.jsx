@@ -22,6 +22,7 @@ export default function UserHome({user}){
         <main>
             <h1>Character Home</h1>
             <p>Character name is: {char.name}</p>
+			<p><Link to={`/user/${user.username}/character/${charId}/adventure/new`}>Log Adventure</Link></p>
 			<p><Link to={`/user/${user.username}/character/${charId}/edit`}>Edit character</Link></p>
 			<p><Link to={`/user/${user.username}/`}>Home</Link></p>
         </main>

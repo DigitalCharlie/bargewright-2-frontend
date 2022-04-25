@@ -22,12 +22,14 @@ export default function NewAdvPage({ user }) {
 
 	const handleDelete = async () => {
 		try {
-			const deletedAdv = await advAPI.deleteAdv(user.username, charId, advId)
-			console.log(deletedAdv)
+			let confirm = window.confirm('Are you sure you want to delete this adventure log?')
+			if (confirm === true) {
+				const deletedAdv = await advAPI.deleteAdv(user.username, charId, advId)
+				console.log(deletedAdv)
+				navigate(`/user/${user.username}/character/${charId}`)
+			}
 		} catch(err) {
 			console.log(err)
-		} finally {
-			navigate(-1)
 		}
 	}
 

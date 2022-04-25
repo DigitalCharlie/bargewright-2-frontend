@@ -17,3 +17,7 @@ export function editChar(username, id, charData) {
 export async function getAllAdv (username, charId) {
   return sendRequest(`${BASE_URL}/${username}/character/${charId}/adventure/all`)
 }
+
+export function deleteChar(username, charId) {
+  return sendRequest(`${BASE_URL}/${username}/character/${charId}`, 'DELETE');
+}

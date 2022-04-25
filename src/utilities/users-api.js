@@ -35,3 +35,7 @@ async function sendRequest(url, method = 'GET', payload = null) {
 export async function getAllChars (user) {
   return sendRequest(`${BASE_URL}/user/${user}/all`)
 }
+
+export function deleteUser(username) {
+  return sendRequest(`${BASE_URL}/user/${username}`, 'DELETE');
+}

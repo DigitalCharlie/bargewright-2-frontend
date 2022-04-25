@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import * as usersAPI from '../../utilities/users-api'
+import * as userService from '../../utilities/users-service';
 
 
 export default function UserHome({user}){
 
     const [chars, setChars] = useState([])
+    const navigate = useNavigate()
 
 	useEffect(() => {
 		(async () => {
@@ -18,6 +20,20 @@ export default function UserHome({user}){
 		})()
 	}, [])
 
+    const handleDelete = async () => {
+		try {
+            let confirm = window.confirm(`Are you sure you want to delete your whole account? This cannot be undone.`)
+            if(confirm === true) {
+                const deletedUser = await usersAPI.deleteUser(user.username)
+                console.log(deletedUser)
+                userService.logout()
+                navigate(`/`)
+            }
+		} catch(err) {
+			console.log(err)
+		}
+	}
+
     return (
         <main>
             <h1>User's Home</h1>
@@ -29,7 +45,8 @@ export default function UserHome({user}){
                 ))
             }
             <hr />
-            <Link to={`/user/${user.username}/character/new`}>new character</Link>
+            <Link to={`/user/${user.username}/character/new`}>new character</Link><br />
+            <button onClick={handleDelete}>delete user</button>
         </main>
     )
 }

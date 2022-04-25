@@ -28,14 +28,20 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage/>}/>
           <Route path="/login" element={<AuthPage setUser={setUser}/>}/>
-          <Route path={`/user/${user.username}`} element={<UserHome user={user}/>}/>
-          <Route path={`/user/${user.username}/character/new`} element={<CharNew user={user}/>}/>
-          <Route path={`/user/${user.username}/character/:charId`} element={<CharHome user={user}/>}/>
-          <Route path={`/user/${user.username}/character/:charId/edit`} element={<CharEdit user={user}/>}/>
-          <Route path={`/user/${user.username}/character/:charId/adventure/new`} element={<AdvNew user={user}/>}/>
-          <Route path={`/user/${user.username}/character/:charId/adventure/:advId/`} element={<AdvShow user={user}/>}/>
-          <Route path={`/user/${user.username}/character/:charId/adventure/:advId/edit`} element={<AdvEdit user={user}/>}/>
-
+          {
+            user ?
+            <>
+              <Route path={`/user/${user.username}`} element={<UserHome user={user}/>}/>
+              <Route path={`/user/${user.username}/character/new`} element={<CharNew user={user}/>}/>
+              <Route path={`/user/${user.username}/character/:charId`} element={<CharHome user={user}/>}/>
+              <Route path={`/user/${user.username}/character/:charId/edit`} element={<CharEdit user={user}/>}/>
+              <Route path={`/user/${user.username}/character/:charId/adventure/new`} element={<AdvNew user={user}/>}/>
+              <Route path={`/user/${user.username}/character/:charId/adventure/:advId/`} element={<AdvShow user={user}/>}/>
+              <Route path={`/user/${user.username}/character/:charId/adventure/:advId/edit`} element={<AdvEdit user={user}/>}/>
+            </>
+            :
+            ''
+          }
           <Route path="*" element={<ErrorPage/>}/>
         </Routes>
 

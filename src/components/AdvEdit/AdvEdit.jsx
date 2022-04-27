@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import * as advAPI from '../../utilities/adv-api'
 import * as moment from 'moment'
 
-export default function NewAdvPage({ user }) {
+export default function NewAdvPage({ user, flipEditToggle }) {
 
 	const navigate = useNavigate()
 
@@ -48,6 +48,7 @@ export default function NewAdvPage({ user }) {
 			console.log(formData)
 			const editedAdv = await advAPI.editAdv(user.username, charId, advId, formData)
 			console.log(editedAdv)
+			flipEditToggle()
         } catch (error) {
           setError(error.message)
         }
@@ -71,8 +72,7 @@ export default function NewAdvPage({ user }) {
 
 				<button type="submit" onClick={handleSubmit}>Log edited adventure</button>
 			</form>
-			<hr />
-			<Link to={`/user/${user.username}`}>home</Link>
+
 			<h1 className="error-message">&nbsp;{error}</h1>
 		</main>
 	)

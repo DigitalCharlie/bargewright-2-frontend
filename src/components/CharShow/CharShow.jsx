@@ -3,13 +3,6 @@ import { Link, useParams, useNavigate } from "react-router-dom"
 import * as charAPI from '../../utilities/char-api'
 
 export default function UserHome({user}){
-
-	const [editToggle, setEditToggle] = useState(false)
-
-	const flipEditToggle = () => {
-		setEditToggle(!editToggle)
-	}
-
 	const {charId} = useParams()
 	const [char, setChar] = useState({})
 	const [advs, setAdvs] = useState([])

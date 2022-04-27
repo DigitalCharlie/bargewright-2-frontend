@@ -1,46 +1,29 @@
 import { useState, useEffect } from "react"
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import * as advAPI from '../../utilities/adv-api'
+import AdvShow from '../../components/AdvShow/AdvShow'
+import AdvEdit from '../../components/AdvEdit/AdvEdit'
 
 export default function NewAdvPage({ user }) {
 
-	const {charId, advId} = useParams()
-	const [adv, setAdv] = useState({})
-	const navigate = useNavigate()
 
-	useEffect(() => {
-		(async () => {
-			try {
-				const data = await advAPI.getById(user.username, charId, advId)
-				const date = data.datePlayed.slice(0,10)
-				setAdv({...data, datePlayed:date})
-			} catch(e) {
-				console.log(e)
-			}
-		})()
-	}, [])
+	const [editToggle, setEditToggle] = useState(false)
 
-	const handleDelete = async () => {
-		try {
-			let confirm = window.confirm('Are you sure you want to delete this adventure log?')
-			if (confirm === true) {
-				const deletedAdv = await advAPI.deleteAdv(user.username, charId, advId)
-				console.log(deletedAdv)
-				navigate(`/user/${user.username}/character/${charId}`)
-			}
-		} catch(err) {
-			console.log(err)
-		}
+	const flipEditToggle = () => {
+		setEditToggle(!editToggle)
 	}
 
 	return (
 		<main>
-			<h1>Adventure Log: {adv.adventureName}</h1>
+			<h1>Adventure Show Page</h1>
+			{!editToggle ? <button onClick={flipEditToggle}>Edit adventure log</button> : <button onClick={flipEditToggle}>Discard changes</button>}
 			<hr />
-			<p>Adventure details</p>
-			<p>Date played: {adv.datePlayed}</p>
-			<p><Link to={`/user/${user.username}/character/${charId}/adventure/${advId}/edit`}>Edit adventure log</Link></p>
-			<button onClick={handleDelete}>delete entry</button>
+				{
+					!editToggle ?
+					<AdvShow user={user}/>
+					:
+					<AdvEdit user={user} flipEditToggle={flipEditToggle}/>
+				}
 			<hr />
 			<Link to={`/user/${user.username}`}>home</Link>
 		</main>

@@ -21,7 +21,7 @@ function App() {
   const [user, setUser ] = useState(getUser());
 
   return (
-    <main className="App">
+    <div className="App">
       <Header />
 
         <Routes>
@@ -44,7 +44,7 @@ function App() {
           <Route path="*" element={<ErrorPage/>}/>
         </Routes>
 
-    </main>
+    </div>
   );
 }
 

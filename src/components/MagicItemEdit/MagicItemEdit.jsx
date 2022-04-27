@@ -2,9 +2,9 @@ import { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import * as magicAPI from '../../utilities/magic-api'
 
-export default function MagicItemNew({ user, magicItemCount, updateMagicItems, advId }) {
+export default function MagicItemEdit({ user, flipEditToggle }) {
 
-	const {charId} = useParams()
+	const {charId, magicItemId} = useParams()
 
 	const [formData, setFormData ] = useState({
 		character: '',
@@ -14,53 +14,48 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
         flavor: '',
 		rarity:'',
 		attunement:'',
-		itemCategory:'permanent',
+		itemCategory:'',
     })
+
+	const [attunement, setAttunement] = useState(formData.attunement)
+
     const [ error, setError ] = useState('')
 
-	const [attunement, setAttunement] = useState(false)
-
-    const handleChange = (evt) => {
-      setFormData({ ...formData, [evt.target.name]: evt.target.value });
-      setError('');
-    }
-
-    const handleSubmit = async (evt) => {
-        evt.preventDefault();
-        try {
-			attunement === true ? formData.attunement = true : formData.attunement = false;
-			formData.character = charId
-			formData.adventureFound = advId
-			console.log(formData)
-			const createdMagicItem = await magicAPI.createNew(user.username, charId, formData)
-			console.log(createdMagicItem)
-			setForNextMagicItem()
-			updateMagicItems(magicItemCount-1)
-        } catch (error) {
-          setError(error.message)
-        }
-    }
+	useEffect(() => {
+		(async () => {
+			try {
+				const data = await magicAPI.getById(user.username, charId, magicItemId)
+				data.attunement === true ? setAttunement(true) : setAttunement(false);
+				setFormData({...data})
+			} catch(e) {
+				console.log(e)
+			}
+		})()
+	}, [])
 
 	const toggleAttunement = () => {
 		setAttunement(!attunement)
 	}
 
-	const setForNextMagicItem = () => {
-		setFormData({
-			character: '',
-			adventureFound: '',
-			name:'',
-			effects: '',
-			flavor: '',
-			itemCategory:'permanent',
-			rarity:'',
-			attunement:'',
-		})
-	}
+	const handleChange = (evt) => {
+		setFormData({ ...formData, [evt.target.name]: evt.target.value });
+		setError('');
+	  }
+
+    const handleSubmit = async (evt) => {
+        evt.preventDefault();
+        try {
+			attunement === true ? formData.attunement = true : formData.attunement = false;
+			const editedMagicItem = await magicAPI.editMagicItem(user.username, charId, magicItemId, formData)
+			flipEditToggle()
+        } catch (error) {
+          setError(error.message)
+        }
+    }
 
 	return (
 		<main>
-			<h1>New Magic Item</h1>
+			<h1>Edit Magic Item</h1>
 			<hr />
 			<form>
 				<input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Magic Item name (required)" />
@@ -75,7 +70,7 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 					<option value="potion">Potion</option>
 				</select>
 
-				<button type="submit" onClick={handleSubmit}>Log magic item</button>
+				<button type="submit" onClick={handleSubmit}>Save edited magic item</button>
 			</form>
 			<hr />
 			<h1 className="error-message">&nbsp;{error}</h1>

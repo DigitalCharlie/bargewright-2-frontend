@@ -6,6 +6,8 @@ export default function UserHome({user}){
 	const {charId} = useParams()
 	const [char, setChar] = useState({})
 	const [advs, setAdvs] = useState([])
+	const [magicItems, setmagicItems] = useState([])
+
 	const navigate = useNavigate()
 
 
@@ -16,6 +18,9 @@ export default function UserHome({user}){
 				setChar(charData)
 				const advData = await charAPI.getAllAdv(user.username, charId)
 				setAdvs(advData)
+				const magicData = await charAPI.getAllMagic(user.username, charId)
+				setmagicItems(magicData)
+				console.log(magicData)
 			} catch(e) {
 				console.log(e)
 			}
@@ -44,6 +49,13 @@ export default function UserHome({user}){
 			{
 				advs.map((adventure) => (
 					<p key={adventure._id}><Link to={`/user/${user.username}/character/${charId}/adventure/${adventure._id}/`}>{adventure.adventureName}</Link></p>
+				))
+			}
+			<hr />
+			<p>Magic Items</p>
+			{
+				magicItems.map((magicItem) => (
+					<p key={magicItem._id}><Link to={`/user/${user.username}/character/${charId}/magicitem/${magicItem._id}/`}>{magicItem.name}</Link></p>
 				))
 			}
 			<hr />

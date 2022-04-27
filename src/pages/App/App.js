@@ -17,6 +17,7 @@ import CharEdit from '../CharEdit/CharEdit'
 import AdvNew from '../AdvNew/AdvNew'
 import AdvEdit from '../AdvEdit/AdvEdit'
 import AdvShow from '../AdvShow/AdvShow'
+import MagicItem from '../MagicItem/MagicItem'
 
 function App() {
   const [user, setUser ] = useState(getUser());
@@ -38,6 +39,8 @@ function App() {
               <Route path={`/user/${user.username}/character/:charId/adventure/new`} element={<AdvNew user={user}/>}/>
               <Route path={`/user/${user.username}/character/:charId/adventure/:advId/`} element={<AdvShow user={user}/>}/>
               <Route path={`/user/${user.username}/character/:charId/adventure/:advId/edit`} element={<AdvEdit user={user}/>}/>
+              <Route path={`/user/${user.username}/character/:charId/magicitem/:magicItemId/`} element={<MagicItem user={user}/>}/>
+
             </>
             :
             ''

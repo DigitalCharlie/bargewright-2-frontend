@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react"
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import * as charAPI from '../../utilities/char-api'
 
-export default function NewCharPage({ user }) {
+export default function NewCharPage({ user, flipEditToggle }) {
 
 	const {charId} = useParams()
 	const [char, setChar] = useState({})
-
-	const navigate = useNavigate()
 
 	const [formData, setFormData ] = useState({
 		player: '',
@@ -44,7 +42,7 @@ export default function NewCharPage({ user }) {
         try {
 		formData.player = user.username
           const editedChar = await charAPI.editChar(user.username, charId, formData)
-          navigate(`/user/${user.username}/character/${charId}`);
+		  flipEditToggle()
         } catch (error) {
           setError(error.message)
         }
@@ -64,10 +62,8 @@ export default function NewCharPage({ user }) {
 				<input type="text" name="levelAdjust" value={formData.levelAdjust} onChange={handleChange} />
 				<input type="text" name="healthPotionAdjust" value={formData.healthPotionAdjust} onChange={handleChange} />
 				<input type="text" name="notes" value={formData.notes} onChange={handleChange} />
-				<button type="submit" onClick={handleSubmit}>Edit character</button>
+				<button type="submit" onClick={handleSubmit}>Save changes character</button>
 			</form>
-			<hr />
-			<Link to={`/user/${user.username}`}>home</Link>
 			<h1 className="error-message">&nbsp;{error}</h1>
 		</main>
 	)

@@ -13,7 +13,6 @@ import UserHome from '../UserHome/UserHome';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import CharNew from '../CharNew/CharNew';
 import CharHome from '../CharHome/CharHome'
-import CharEdit from '../CharEdit/CharEdit'
 import AdvNew from '../AdvNew/AdvNew'
 import AdvShow from '../AdvShow/AdvShow'
 import MagicItem from '../MagicItem/MagicItem'
@@ -34,7 +33,6 @@ function App() {
               <Route path={`/user/${user.username}`} element={<UserHome user={user}/>}/>
               <Route path={`/user/${user.username}/character/new`} element={<CharNew user={user}/>}/>
               <Route path={`/user/${user.username}/character/:charId`} element={<CharHome user={user}/>}/>
-              <Route path={`/user/${user.username}/character/:charId/edit`} element={<CharEdit user={user}/>}/>
               <Route path={`/user/${user.username}/character/:charId/adventure/new`} element={<AdvNew user={user}/>}/>
               <Route path={`/user/${user.username}/character/:charId/adventure/:advId/`} element={<AdvShow user={user}/>}/>
               <Route path={`/user/${user.username}/character/:charId/magicitem/:magicItemId/`} element={<MagicItem user={user}/>}/>

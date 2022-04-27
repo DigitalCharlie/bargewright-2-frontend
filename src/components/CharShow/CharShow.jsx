@@ -27,19 +27,6 @@ export default function UserHome({user}){
 		})()
 	}, [])
 
-	const handleDelete = async () => {
-		try {
-			let confirm = window.confirm(`Are you sure you want to delete ${char.name}?`)
-			if (confirm === true) {
-				const deletedChar = await charAPI.deleteChar(user.username, charId)
-				console.log(deletedChar)
-				navigate(`/user/${user.username}`)
-			}
-		} catch(err) {
-			console.log(err)
-		} 
-	}
-
     return (
         <main>
             <h1>Character Home</h1>
@@ -58,11 +45,6 @@ export default function UserHome({user}){
 					<p key={magicItem._id}><Link to={`/user/${user.username}/character/${charId}/magicitem/${magicItem._id}/`}>{magicItem.name}</Link></p>
 				))
 			}
-			<hr />
-			<p><Link to={`/user/${user.username}/character/${charId}/adventure/new`}>Log Adventure</Link></p>
-			<p><Link to={`/user/${user.username}/character/${charId}/edit`}>Edit character</Link></p>
-			<button onClick={handleDelete}>delete character</button>
-			<p><Link to={`/user/${user.username}/`}>Home</Link></p>
         </main>
     )
 }

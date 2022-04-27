@@ -25,7 +25,6 @@ export default function UserHome({user}){
             let confirm = window.confirm(`Are you sure you want to delete your whole account? This cannot be undone.`)
             if(confirm === true) {
                 const deletedUser = await usersAPI.deleteUser(user.username)
-                console.log(deletedUser)
                 userService.logout()
                 navigate(`/`)
             }

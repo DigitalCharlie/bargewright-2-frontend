@@ -2,67 +2,36 @@ import { useState, useEffect } from "react"
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import * as advAPI from '../../utilities/adv-api'
 import * as moment from 'moment'
+import AdvNew from '../../components/AdvNew/AdvNew'
+import MagicItemNew from "../../components/MagicItemNew/MagicItemNew"
 
-export default function NewAdvPage({ user }) {
+export default function AdvNewPage({ user }) {
 
+	const [magicItemCount, setMagicItemCount] = useState(null)
+	const [advId, setAdvId] = useState('')
 	const navigate = useNavigate()
 
 	const {charId} = useParams()
 
-	const [formData, setFormData ] = useState({
-		character: '',
-        adventureName: '',
-        adventureCode: '',
-        datePlayed: moment().format('YYYY-MM-DD'),
-        dungeonMaster: '',
-        goldFound: 0,
-		downtimeEarned: 10,
-		levelGain: 1,
-		notes:'',
-		magicItemNotes:'',
-		healingPotions:0
-    })
-    const [ error, setError ] = useState('')
-
-    const handleChange = (evt) => {
-      setFormData({ ...formData, [evt.target.name]: evt.target.value });
-      setError('');
-    }
-
-    const handleSubmit = async (evt) => {
-        evt.preventDefault();
-        try {
-			formData.character = charId
-			console.log(formData)
-			const createdAdv = await advAPI.createNew(user.username, charId, formData)
-			console.log(createdAdv)
-			navigate(`/user/${user.username}/character/${charId}`);
-        } catch (error) {
-          setError(error.message)
-        }
-    }
+	const updateMagicItems = (num) => {
+		if(num === 0) navigate(`/user/${user.username}/character/${charId}`)
+		setMagicItemCount(num)
+	}
 
 	return (
 		<main>
 			<h1>New Adventure</h1>
 			<hr />
-			<form>
-				<input type="text" name="adventureName" value={formData.adventureName} onChange={handleChange} placeholder="Adventure name (required)" />
-				<input type="text" name="adventureCode" value={formData.adventureCode} onChange={handleChange} placeholder="Adventure code" />
-				<input type="date" name="datePlayed" value={formData.datePlayed} onChange={handleChange} />
-				<input type="text" name="dungeonMaster" value={formData.dungeonMaster} onChange={handleChange} placeholder="Dungeon Master"/>
-				<input type="number" name="goldFound" value={formData.goldFound} onChange={handleChange}/>
-				<input type="number" name="downtimeEarned" value={formData.downtimeEarned} onChange={handleChange}/>
-				<input type="number" name="levelGain" value={formData.levelGain} onChange={handleChange}/>
-				<input type="number" name="healingPotions" value={formData.healingPotions} onChange={handleChange}/>
-				<input type="text" name="magicItemNotes" value={formData.magicItemNotes} onChange={handleChange} placeholder="magicItemNotes"/>
-				<input type="text" name="notes" value={formData.notes} onChange={handleChange} placeholder="notes"/>
-
-				<button type="submit" onClick={handleSubmit}>Log adventure</button>
-			</form>
+				{
+					!magicItemCount ?
+					<AdvNew user={user} updateMagicItems={updateMagicItems} setAdvId={setAdvId} />
+					:
+					<MagicItemNew user={user} updateMagicItems={updateMagicItems} magicItemCount={magicItemCount} advId={advId} />
+				}
 			<hr />
 			<Link to={`/user/${user.username}`}>home</Link>
-			<h1 className="error-message">&nbsp;{error}</h1>
+			<p>{magicItemCount}</p>
+			<p>{advId}</p>
 		</main>
 	)
 }

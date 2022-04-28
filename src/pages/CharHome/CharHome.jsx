@@ -3,11 +3,13 @@ import { Link, useParams, useNavigate } from "react-router-dom"
 import * as charAPI from '../../utilities/char-api'
 import CharShow from '../../components/CharShow/CharShow'
 import CharEdit from '../../components/CharEdit/CharEdit'
+import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
 
 export default function UserHome({user}){
 
 	const [editToggle, setEditToggle] = useState(false)
 	const [char, setChar] = useState({})
+	const [submittedForm, setSubmittedForm] = useState(false)
 
 
 	const {charId} = useParams()
@@ -15,6 +17,10 @@ export default function UserHome({user}){
 
 	const flipEditToggle = () => {
 		setEditToggle(!editToggle)
+	}
+
+	const flipSubmittedForm = () => {
+		setSubmittedForm(!submittedForm)
 	}
 
 	useEffect(() => {
@@ -26,7 +32,7 @@ export default function UserHome({user}){
 				console.log(e)
 			}
 		})()
-	}, [])
+	}, [submittedForm])
 
 	const handleDelete = async () => {
 		try {
@@ -48,14 +54,14 @@ export default function UserHome({user}){
 			<hr />
 				{
 					!editToggle ?
-					<CharShow user={user}/>
+					<CharShow user={user} char={char}/>
 					:
-					<CharEdit user={user} flipEditToggle={flipEditToggle}/>
+					<CharEdit user={user} char={char} flipEditToggle={flipEditToggle} flipSubmittedForm={flipSubmittedForm}/>
 				}
 			<hr />
 			<p><Link to={`/user/${user.username}/character/${charId}/adventure/new`}>Log Adventure</Link></p>
 			<button onClick={handleDelete}>delete character</button>
-			<p><Link to={`/user/${user.username}/`}>Home</Link></p>
+			<BreadcrumbNav user={user} char={char.name} />
 		</main>
 	)
 }

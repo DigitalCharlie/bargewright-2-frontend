@@ -2,15 +2,12 @@ import { useState, useEffect } from "react"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import * as charAPI from '../../utilities/char-api'
 
-export default function UserHome({user}){
+export default function UserHome({user, char}){
 	const {charId} = useParams()
-	const [char, setChar] = useState({})
 	const [advs, setAdvs] = useState([])
 	const [magicItems, setmagicItems] = useState([])
 	const [sortType, setSortType ] = useState(null)
 	const [sortOrder, setSortOrder] = useState(true)
-
-	const navigate = useNavigate()
 
 	const sortAdventures = (x, y) => {
 		let a = ''
@@ -41,8 +38,6 @@ export default function UserHome({user}){
 	useEffect(() => {
 		(async () => {
 			try {
-				const charData = await charAPI.getById(user.username, charId)
-				setChar(charData)
 				const advData = await charAPI.getAllAdv(user.username, charId)
 				setAdvs(advData)
 				setAdvs(advData.sort(sortAdventures))
@@ -55,7 +50,7 @@ export default function UserHome({user}){
 	}, [sortOrder, sortType])
 
     return (
-        <main>
+        <section>
             <h1>Character Home</h1>
             <p>Character name is: {char.name}</p>
 			<hr />
@@ -74,6 +69,6 @@ export default function UserHome({user}){
 					<p key={magicItem._id}><Link to={`/user/${user.username}/character/${charId}/magicitem/${magicItem._id}/`}>{magicItem.name}</Link></p>
 				))
 			}
-        </main>
+        </section>
     )
 }

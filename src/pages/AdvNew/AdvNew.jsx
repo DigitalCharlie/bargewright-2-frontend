@@ -30,8 +30,6 @@ export default function AdvNewPage({ user }) {
 				}
 			<hr />
 			<Link to={`/user/${user.username}`}>home</Link>
-			<p>{magicItemCount}</p>
-			<p>{advId}</p>
 		</main>
 	)
 }

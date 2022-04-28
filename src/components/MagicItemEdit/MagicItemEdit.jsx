@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import * as magicAPI from '../../utilities/magic-api'
 
-export default function MagicItemEdit({ user, flipEditToggle }) {
+export default function MagicItemEdit({ user, flipEditToggle, magicItem, flipSubmittedForm }) {
 
 	const {charId, magicItemId} = useParams()
 
@@ -24,9 +24,8 @@ export default function MagicItemEdit({ user, flipEditToggle }) {
 	useEffect(() => {
 		(async () => {
 			try {
-				const data = await magicAPI.getById(user.username, charId, magicItemId)
-				data.attunement === true ? setAttunement(true) : setAttunement(false);
-				setFormData({...data})
+				magicItem.attunement === true ? setAttunement(true) : setAttunement(false);
+				setFormData({...magicItem})
 			} catch(e) {
 				console.log(e)
 			}
@@ -48,13 +47,14 @@ export default function MagicItemEdit({ user, flipEditToggle }) {
 			attunement === true ? formData.attunement = true : formData.attunement = false;
 			const editedMagicItem = await magicAPI.editMagicItem(user.username, charId, magicItemId, formData)
 			flipEditToggle()
+			flipSubmittedForm()
         } catch (error) {
           setError(error.message)
         }
     }
 
 	return (
-		<main>
+		<section>
 			<h1>Edit Magic Item</h1>
 			<hr />
 			<form>
@@ -74,6 +74,6 @@ export default function MagicItemEdit({ user, flipEditToggle }) {
 			</form>
 			<hr />
 			<h1 className="error-message">&nbsp;{error}</h1>
-		</main>
+		</section>
 	)
 }

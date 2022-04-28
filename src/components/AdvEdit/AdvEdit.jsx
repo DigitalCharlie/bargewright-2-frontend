@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react"
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import * as advAPI from '../../utilities/adv-api'
 import * as moment from 'moment'
 
-export default function NewAdvPage({ user, flipEditToggle }) {
-
-	const navigate = useNavigate()
+export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedForm }) {
 
 	const {charId, advId} = useParams()
 
@@ -27,7 +25,8 @@ export default function NewAdvPage({ user, flipEditToggle }) {
 	useEffect(() => {
 		(async () => {
 			try {
-				const data = await advAPI.getById(user.username, charId, advId)
+				// const data = await advAPI.getById(user.username, charId, advId)
+				const data = adv
 				const date = data.datePlayed.slice(0,10)
 				setFormData({...data, datePlayed:date})
 			} catch(e) {
@@ -44,18 +43,16 @@ export default function NewAdvPage({ user, flipEditToggle }) {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
         try {
-			formData.character = charId
-			console.log(formData)
 			const editedAdv = await advAPI.editAdv(user.username, charId, advId, formData)
-			console.log(editedAdv)
 			flipEditToggle()
+			flipSubmittedForm()
         } catch (error) {
           setError(error.message)
         }
     }
 
 	return (
-		<main>
+		<section>
 			<h1>Edit Adventure</h1>
 			<hr />
 			<form>
@@ -74,6 +71,6 @@ export default function NewAdvPage({ user, flipEditToggle }) {
 			</form>
 
 			<h1 className="error-message">&nbsp;{error}</h1>
-		</main>
+		</section>
 	)
 }

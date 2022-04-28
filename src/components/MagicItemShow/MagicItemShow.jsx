@@ -1,23 +1,10 @@
-import { useState, useEffect } from "react"
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as magicAPI from '../../utilities/magic-api'
 
-export default function NewAdvPage({ user }) {
+export default function NewAdvPage({ user, magicItem }) {
 
 	const {charId, magicItemId} = useParams()
-	const [magicItem, setMagicItem] = useState({})
 	const navigate = useNavigate()
-
-	useEffect(() => {
-		(async () => {
-			try {
-				const data = await magicAPI.getById(user.username, charId, magicItemId)
-				setMagicItem(data)
-			} catch(e) {
-				console.log(e)
-			}
-		})()
-	}, [])
 
 	const handleDelete = async () => {
 		try {
@@ -33,12 +20,12 @@ export default function NewAdvPage({ user }) {
 	}
 
 	return (
-		<main>
+		<section>
 			<h1>Magic Item: {magicItem.name}</h1>
 			<hr />
 			<p>Magic Item details</p>
 			<p>Magic item type: {magicItem.itemCategory}</p>
 			<button onClick={handleDelete}>delete entry</button>
-		</main>
+		</section>
 	)
 }

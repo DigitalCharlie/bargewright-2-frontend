@@ -1,0 +1,10 @@
+header {
+	background-color:black;
+	border-bottom:3px solid var(--red);
+	padding:10px 0;
+	display:flex;
+	flex-direction:row;
+	justify-content: space-around;
+	align-items: center;
+	width:100%;
+}

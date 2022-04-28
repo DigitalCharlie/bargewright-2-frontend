@@ -2,10 +2,9 @@ import { useState, useEffect } from "react"
 import { Link, useParams } from 'react-router-dom'
 import * as charAPI from '../../utilities/char-api'
 
-export default function NewCharPage({ user, flipEditToggle }) {
+export default function NewCharPage({ user, flipEditToggle, char, flipSubmittedForm }) {
 
 	const {charId} = useParams()
-	const [char, setChar] = useState({})
 
 	const [formData, setFormData ] = useState({
 		player: '',
@@ -23,9 +22,7 @@ export default function NewCharPage({ user, flipEditToggle }) {
 	useEffect(() => {
 		(async () => {
 			try {
-				const data = await charAPI.getById(user.username, charId)
-				setFormData({...data})
-				setChar(data) // this kind of method wasn't working so....
+				setFormData({...char})
 			} catch(e) {
 				console.log(e)
 			}
@@ -43,13 +40,14 @@ export default function NewCharPage({ user, flipEditToggle }) {
 		formData.player = user.username
           const editedChar = await charAPI.editChar(user.username, charId, formData)
 		  flipEditToggle()
+		  flipSubmittedForm()
         } catch (error) {
           setError(error.message)
         }
     }
 
 	return (
-		<main>
+		<section>
 			<h1>Edit Character</h1>
 			<p>Edit character: {char.name}</p>
 			<hr />
@@ -65,6 +63,6 @@ export default function NewCharPage({ user, flipEditToggle }) {
 				<button type="submit" onClick={handleSubmit}>Save changes character</button>
 			</form>
 			<h1 className="error-message">&nbsp;{error}</h1>
-		</main>
+		</section>
 	)
 }

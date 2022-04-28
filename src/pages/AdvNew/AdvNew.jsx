@@ -29,6 +29,7 @@ export default function AdvNewPage({ user }) {
 					<MagicItemNew user={user} updateMagicItems={updateMagicItems} magicItemCount={magicItemCount} advId={advId} />
 				}
 			<hr />
+			<MagicItemNew user={user} updateMagicItems={updateMagicItems} magicItemCount={magicItemCount} advId={advId} />
 			<Link to={`/user/${user.username}`}>home</Link>
 		</main>
 	)

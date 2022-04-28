@@ -26,8 +26,7 @@ function App() {
       <Header user={user} setUser={setUser} />
         <div className="spacemaker">
           <Routes>
-            <Route path="/" element={<HomePage/>}/>
-            <Route path="/login" element={<AuthPage setUser={setUser}/>}/>
+            <Route path="/" element={<HomePage  setUser={setUser}/>}/>
             {
               user ?
               <>

@@ -1,0 +1,15 @@
+.button {
+	width:150px;
+}
+
+.button:hover {
+	background-color:var(--red);
+	color:white;
+}
+
+.buttonContainer {
+	margin:25px auto 0;
+	width:320px;
+	display:flex;
+	justify-content: space-around;
+}

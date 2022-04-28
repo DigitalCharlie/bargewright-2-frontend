@@ -1,0 +1,28 @@
+.input, .button {
+	width:300px;
+	height:35px;
+	display:block;
+	border:none;
+	margin:5px auto 15px;
+}
+
+.input {
+	font-size:1em;
+	padding-left:8px;
+	padding-right:8px;
+}
+
+.button {
+	text-transform: uppercase;
+}
+
+.formContainer {
+	width:300px;
+	margin:0 auto;
+	padding-top:15px;
+}
+
+.label {
+	color:lightgray;
+	font-size:.85em;
+}

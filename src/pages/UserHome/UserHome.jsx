@@ -35,16 +35,55 @@ export default function UserHome({user}){
 
     return (
         <main>
-            <h1>User's Home</h1>
-            <p>{user.username} </p>
-            <h3>View characters</h3>
+            <h1>Welcome back, {user.username}</h1>
             {
-                chars.map((character) => (
-                    <p key={character._id}><Link to={`/user/${user.username}/character/${character._id}`}>{character.name}</Link></p>
-                ))
+                user.welcome ?
+                <p>{user.welcome}</p>
+                :
+                <>
+                <p className="narrow-para">Click on any of your characters to view their details, or use the quicklinks to go directly to log a new adventure or downtime activity for them.</p>
+                <p className="narrow-para">Clicking on any of the table headings will sort your characters by that category, and clicking it a second time will reverse the sort. The same is true on your character's individual pages.</p>
+                </>
             }
             <hr />
-            <Link to={`/user/${user.username}/character/new`}>new character</Link><br />
+            <h2 className="center">Your characters</h2>
+
+
+            <table cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Race</th>
+                                <th scope="col">Class</th>
+                                <th scope="col">Level</th>
+                                <th scope="col" className="center">Quicklinks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                chars.map((character) => (
+                                    <tr key={`${character._id}`} className="table-row">
+                                        <td>
+                                            <Link to={`/user/${user.username}/character/${character._id}`}>{character.name}</Link>
+                                        </td>
+                                        <td>
+                                            <Link to={`/user/${user.username}/character/${character._id}`}>{character.race}</Link>
+                                        </td>
+                                        <td>
+                                            <Link to={`/user/${user.username}/character/${character._id}`}>{character.class}</Link>
+                                        </td>
+                                        <td>
+                                            <Link to={`/user/${user.username}/character/${character._id}`}>Character level (tbcalculated)</Link>
+                                        </td>
+                                        <td className="center"><Link to={`/user/${user.username}/character/${character._id}/adventure/new`}>🆕</Link>
+                                        </td>                                                                                                                 
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                    <Link to={`/user/${user.username}/character/new`}><button className="red-button button-center">Add new character</button></Link>
+            <hr />
             <button onClick={handleDelete}>delete user</button>
         </main>
     )

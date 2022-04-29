@@ -39,3 +39,7 @@ export async function getAllChars (user) {
 export function deleteUser(username) {
   return sendRequest(`${BASE_URL}/user/${username}`, 'DELETE');
 }
+
+export function editUser(username, formData) {
+	return sendRequest(`${BASE_URL}/user/${username}`, 'PUT', formData);
+}

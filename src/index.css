@@ -34,8 +34,18 @@ h2 {
 }
 
 .narrow-para {
-	max-width:650px;
+	max-width:550px;
 	margin:20px auto;
+}
+
+/* Text specific stuff */
+
+.smallText {
+	font-size:.85em;
+}
+
+.grayText {
+	color:var(--light-gray)
 }
 
 /* GENERAL LINKS */
@@ -46,7 +56,7 @@ a {
 	transition:.25s;
 }
 
-a:hover {
+a:hover, .red-hover:hover {
 	color:var(--red);
 }
 
@@ -83,6 +93,10 @@ button:hover {
 	color:var(--red);
 }
 
+.pointer {
+	cursor:pointer;
+}
+
 .button-center {
 	display:block;
 	margin:10px auto;
@@ -92,6 +106,15 @@ button:hover {
 
 .center {
 	text-align:center;
+}
+
+.block {
+	display:block;
+}
+
+.offsetTop {
+	position: relative;
+	top:25px;
 }
 
 hr {
@@ -114,6 +137,7 @@ input:focus-visible {
 
 table {
 	width:100%;
+	margin-bottom:25px;
 }
 
 thead {

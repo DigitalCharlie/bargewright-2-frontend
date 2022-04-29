@@ -26,3 +26,8 @@
 	color:lightgray;
 	font-size:.85em;
 }
+
+.textarea {
+	height:200px;
+	width:300px;
+}

@@ -1,9 +1,10 @@
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import styles from './BreadcrumbNav.module.css'
 
 export default function BreadcrumbNav ({user, char, adv, magicItem}) {
 
 	const {charId, advId, magicItemId} = useParams()
+	const navigate = useNavigate()
 
 	return (
 		<nav role="navigation" aria-label="breadcrumb navigation" className={styles.breadcrumbContainer}>
@@ -12,7 +13,7 @@ export default function BreadcrumbNav ({user, char, adv, magicItem}) {
 					charId 
 					?
 					<>
-					<li><Link to={`/user/${user.username}`} className="white-link">{user.username}</Link></li>
+					<li><Link to={`/user/${user.username}`}>{user.username}</Link></li>
 					<li> &gt; <Link to={`/user/${user.username}/character/${charId}`} className="white-link">{char}</Link></li>
 					</>
 					:
@@ -21,17 +22,19 @@ export default function BreadcrumbNav ({user, char, adv, magicItem}) {
 				{
 					advId 
 					?
-					<li> &gt; <Link to={`/user/${user.username}/character/${charId}/adventure/${advId}`}className="white-link">{adv}</Link></li>
+					<li> &gt; <Link to={`/user/${user.username}/character/${charId}/adventure/${advId}`}>{adv}</Link></li>
 					:
 					''
 				}
 				{
 					magicItemId 
 					?
-					<li> &gt; <Link to={`/user/${user.username}/character/${charId}/magicitem/${magicItemId}`}className="white-link">{magicItem}</Link></li>
+					<li> &gt; <Link to={`/user/${user.username}/character/${charId}/magicitem/${magicItemId}`}>{magicItem}</Link></li>
 					:
 					''
 				}
+				<li> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span className="red-hover pointer" onClick={() => navigate(-1)}>go back</span></li>
+
 			</ul>
 		</nav>
 	)

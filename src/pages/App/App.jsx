@@ -30,7 +30,7 @@ function App() {
             {
               user ?
               <>
-                <Route path={`/user/${user.username}`} element={<UserHome user={user}/>}/>
+                <Route path={`/user/${user.username}`} element={<UserHome user={user} setUser={setUser}/>}/>
                 <Route path={`/user/${user.username}/character/new`} element={<CharNew user={user}/>}/>
                 <Route path={`/user/${user.username}/character/:charId`} element={<CharHome user={user}/>}/>
                 <Route path={`/user/${user.username}/character/:charId/adventure/new`} element={<AdvNew user={user}/>}/>

@@ -7,8 +7,8 @@ import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
 
 export default function UserHome({user}){
 
-	const [editToggle, setEditToggle] = useState(false)
 	const [char, setChar] = useState({})
+	const [editToggle, setEditToggle] = useState(false)
 	const [submittedForm, setSubmittedForm] = useState(false)
 
 
@@ -49,7 +49,15 @@ export default function UserHome({user}){
 
 	return (
 		<main>
-			<h1>Character Show Page</h1>
+			<h1>{char.name}
+				{
+					char.race || char.class
+					?
+					` the ${char.race} ${char.class}`
+					:
+					''
+				}
+			</h1>
 			{!editToggle ? <button onClick={flipEditToggle}>Edit character details</button> : <button onClick={flipEditToggle}>Discard changes</button>}
 			<hr />
 				{

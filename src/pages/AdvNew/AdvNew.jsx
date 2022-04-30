@@ -15,9 +15,9 @@ export default function AdvNewPage({ user }) {
 
 	const {charId} = useParams()
 
-	const updateMagicItems = async (num) => {
-		await setMagicItemCount(num)
-		if(num === 0) navigate(`/user/${user.username}/character/${charId}/adventure/${advId}`)
+	const updateMagicItems = async (num, newAdvId) => {
+		await setMagicItemCount(num)	
+		if(num === 0) navigate(`/user/${user.username}/character/${charId}/adventure/${newAdvId}`)
 	}
 
 	return (

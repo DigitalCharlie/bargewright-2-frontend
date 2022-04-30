@@ -9,6 +9,8 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 
 	const {charId} = useParams()
 
+	const [storyAwardCount, setStoryAwardCount] = useState([])
+
 	const [formData, setFormData ] = useState({
 		character: '',
         adventureName: '',
@@ -21,7 +23,8 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 		notes:'',
 		magicItemNotes:'',
 		healingPotions:0,
-		magicItemsFound:0
+		magicItemsFound:0,
+		storyAwards:[],
     })
 
     const [ error, setError ] = useState('')
@@ -35,15 +38,29 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
         evt.preventDefault();
         try {
 			formData.character = charId
+			formData.storyAwards = currentStoryAwards
 			console.log(formData)			
 			const createdAdv = await advAPI.createNew(user.username, charId, formData)
 			console.log(createdAdv)
 			setAdvId(createdAdv._id)
-			updateMagicItems(createdAdv.magicItemsFound)
+			updateMagicItems(createdAdv.magicItemsFound, createdAdv._id)
         } catch (error) {
           setError(error.message)
         }
     }
+
+	console.log(storyAwardCount.length)
+
+	const currentStoryAwards = []
+
+	const test = (obj) => {
+		console.log(obj.e.target.value, obj.idx)
+		currentStoryAwards[obj.idx]=obj.e.target.value
+		console.log(currentStoryAwards)
+		// setFormData(formData.storyAwards[obj.idx] = obj.e.target.value)
+	}
+
+	console.log(formData)
 
 	return (
 		<section>
@@ -74,7 +91,7 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 				</div>
 				<div>
 					<label>Level(s) gained</label>
-					<input type="number" name="levelGain" value={formData.levelGain} onChange={handleChange}/>
+					<input type="number" name="levelGain" min='0' value={formData.levelGain} onChange={handleChange}/>
 				</div>
 				<div>
 					<label>Healing potions +/-</label>
@@ -85,17 +102,26 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 					<input type="text" name="magicItemNotes" value={formData.magicItemNotes} onChange={handleChange} placeholder="Anything destroyed? Used?"/>
 				</div>
 				<div>
-					<label>Magic Items Found</label>
-					<input type="number" name="magicItemsFound" value={formData.magicItemsFound} onChange={handleChange}/>
+					<label>Magic Items Found (details recorded on next page)</label>
+					<input type="number" name="magicItemsFound" min='0' value={formData.magicItemsFound} onChange={handleChange}/>
 				</div>
 				<div className="textarea">
 					<label>Adventure Notes</label>
 					<textarea name="notes" value={formData.notes} onChange={handleChange} placeholder="notes"/>
 				</div>
-
+				<button className="button-center button-fixed-width" type="button" onClick={()=>setStoryAwardCount([...storyAwardCount, 1])}>Add Story Award</button>
+				{
+					storyAwardCount.length > 0 
+					?
+					storyAwardCount.map((ele, idx)=> {
+						return <input value={formData.storyAwards[idx]} onChange={(e)=>test({e:e,idx:idx})} type="text"/>
+					})
+					:''
+				}
 
 				<button className="button-fixed-width button-center red-button" type="submit" onClick={handleSubmit}>Log adventure</button>
 			</form>
+
 			<h1 className="error-message">{error}</h1>
 		</section>
 	)

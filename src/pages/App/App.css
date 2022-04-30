@@ -1,6 +1,6 @@
 .App {
   min-height:100vh;
-  background-image:url('../../../public/images/yawning-portal.jpeg');
+  background:url('../../../public/images/yawning-portal.jpeg') no-repeat fixed;
   background-position:right;
   background-size:cover;
   display:flex;

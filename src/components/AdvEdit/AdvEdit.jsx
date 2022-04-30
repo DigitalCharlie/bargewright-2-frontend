@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import * as advAPI from '../../utilities/adv-api'
 import * as moment from 'moment'
 
 export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedForm }) {
 
 	const {charId, advId} = useParams()
+	const navigate = useNavigate()
 
 	const [formData, setFormData ] = useState({
 		character: '',
@@ -51,10 +52,22 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
         }
     }
 
+	const handleDelete = async () => {
+		try {
+			let confirm = window.confirm('Are you sure you want to delete this adventure log?')
+			if (confirm === true) {
+				const deletedAdv = await advAPI.deleteAdv(user.username, charId, advId)
+				console.log(deletedAdv)
+				navigate(`/user/${user.username}/character/${charId}`)
+			}
+		} catch(err) {
+			console.log(err)
+		}
+	}
+
 	return (
 		<section>
-			<h1>Edit Adventure</h1>
-			<hr />
+			<h2 className="center">Edit Adventure</h2>
 			<form className="wide-formContainer">
 				<div>
 					<label>Adventure code</label>
@@ -104,8 +117,12 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 
 				<button className="button-fixed-width button-center red-button" type="submit" onClick={handleSubmit}>Log adventure</button>
 			</form>
+				<button className="button-fixed-width button-center" onClick={flipEditToggle}>Discard changes</button>
+				<p className="center">or</p>
+				<button className="button-fixed-width button-center" onClick={handleDelete}>Delete entry</button>
 
-			<h1 className="error-message">&nbsp;{error}</h1>
+
+			<h1 className="error-message">{error}</h1>
 		</section>
 	)
 }

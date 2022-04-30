@@ -1,10 +1,10 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import * as magicAPI from '../../utilities/magic-api'
 
-export default function NewAdvPage({ user, magicItem }) {
+export default function NewAdvPage({ user, magicItem, flipEditToggle }) {
 
-	const {charId, magicItemId} = useParams()
 	const navigate = useNavigate()
+	const {charId, magicItemId} = useParams()
 
 	const handleDelete = async () => {
 		try {
@@ -19,13 +19,63 @@ export default function NewAdvPage({ user, magicItem }) {
 		}
 	}
 
+
 	return (
-		<section>
-			<h1>Magic Item: {magicItem.name}</h1>
-			<hr />
-			<p>Magic Item details</p>
-			<p>Magic item type: {magicItem.itemCategory}</p>
-			<button onClick={handleDelete}>delete entry</button>
+		<section className='show-section'>
+			<div className="log-details-container wide-log">
+				<table cellSpacing="0" cellPadding="0">
+					<tr>
+						<td>Name:</td>
+						<td>{magicItem.name}</td>
+					</tr>
+					<tr>
+						<td>Source:</td>
+						<td>
+							{
+								magicItem.adventureFound &&
+								<Link to={`/user/${user.username}/character/${charId}/adventure/${magicItem.adventureFound._id}`}>{magicItem.adventureFound.adventureName}</Link>
+							}
+						</td>
+					</tr>
+					<tr>
+						<td>Rarity: </td>
+						<td>{magicItem.rarity}</td>
+					</tr>
+					<tr>
+						<td>Type: </td>
+						<td>{magicItem.itemCategory}</td>
+					</tr>
+					<tr>
+						<td>Attunement?</td>
+						<td>{magicItem.attunement === true ? "Yes" : "No"}</td>
+					</tr>
+					{
+						magicItem.effects &&
+						<>
+							<br />
+							<tr>
+								<td>Description</td>
+								<td>{magicItem.effects}</td>
+							</tr>
+						</>
+					}
+					{
+						magicItem.flavor &&
+						<>
+							<br />
+							<tr>
+								<td>Description</td>
+								<td>{magicItem.flavor}</td>
+							</tr>
+						</>
+					}
+				</table>
+			</div>
+
+			<div className="show-buttons-container">
+				<button onClick={flipEditToggle}>Edit Magic Item</button>
+				<button onClick={handleDelete}>Delete entry</button>
+			</div>		
 		</section>
 	)
 }

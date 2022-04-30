@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import * as magicAPI from '../../utilities/magic-api'
 
 export default function MagicItemEdit({ user, flipEditToggle, magicItem, flipSubmittedForm }) {
 
 	const {charId, magicItemId} = useParams()
+	const navigate = useNavigate()
 
 	const [formData, setFormData ] = useState({
 		character: '',
@@ -53,10 +54,22 @@ export default function MagicItemEdit({ user, flipEditToggle, magicItem, flipSub
         }
     }
 
+	const handleDelete = async () => {
+		try {
+			let confirm = window.confirm('Are you sure you want to delete this magic item?')
+			if (confirm === true) {
+				const deletedMagicItem = await magicAPI.deleteMagicItem(user.username, charId, magicItemId)
+				console.log(deletedMagicItem)
+				navigate(`/user/${user.username}/character/${charId}`)
+			}
+		} catch(err) {
+			console.log(err)
+		}
+	}
+
 	return (
 		<section>
-			<h1>Edit Magic Item</h1>
-			<hr />
+			<h2 className="center">Edit Magic Item</h2>
 			<form className="magicItem-formContainer">
 				<div>
 					<label>Magic Item name</label>
@@ -83,10 +96,10 @@ export default function MagicItemEdit({ user, flipEditToggle, magicItem, flipSub
 					<div>
 						<label>Item Type</label>
 						<select id="itemCategory" name="itemCategory" value={formData.itemCategory} onChange={handleChange}>
-							<option value="permanent">Permanent Magic Item</option>
-							<option value="consumable">Consumeable (ex: necklace of fireballs)</option>
-							<option value="scroll">Scroll</option>
-							<option value="potion">Potion</option>
+							<option value="Permanent">Permanent Magic Item</option>
+							<option value="Consumable">Consumeable (ex: necklace of fireballs)</option>
+							<option value="Scroll">Scroll</option>
+							<option value="Potion">Potion</option>
 						</select>
 					</div>
 
@@ -100,8 +113,11 @@ export default function MagicItemEdit({ user, flipEditToggle, magicItem, flipSub
 					<textarea type="text" name="flavor" value={formData.flavor} onChange={handleChange} placeholder="Anything particularly special about your item?" />
 				</div>
 
-				<button className="button-center button-fixed-width red-button"type="submit" onClick={handleSubmit}>Log magic item</button>
+				<button className="button-center button-fixed-width red-button"type="submit" onClick={handleSubmit}>Save changes</button>
 			</form>
+			<button className="button-center button-fixed-width" onClick={flipEditToggle}>Discard changes</button>
+			<p className="center">or</p>
+			<button className="button-center button-fixed-width" onClick={handleDelete}>delete entry</button>
 			<h1 className="error-message">{error}</h1>
 		</section>
 	)

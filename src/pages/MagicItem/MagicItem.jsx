@@ -29,7 +29,7 @@ export default function AdvNewPage({ user }) {
 			try {
 				const data = await magicAPI.getById(user.username, charId, magicItemId)
 				setMagicItem(data)
-				console.log(data.character.name)
+				console.log(data)
 			} catch(e) {
 				console.log(e)
 			}
@@ -40,11 +40,10 @@ export default function AdvNewPage({ user }) {
 	return (
 		<main>
 			<h1>{magicItem.name}</h1>
-			{!editToggle ? <button onClick={flipEditToggle}>Edit magic item</button> : <button onClick={flipEditToggle}>Discard changes</button>}
 			<hr />
 				{
 					!editToggle ?
-					<MagicItemShow user={user} magicItem={magicItem}/>
+					<MagicItemShow user={user} magicItem={magicItem} flipEditToggle={flipEditToggle}/>
 					:
 					<MagicItemEdit user={user} magicItem={magicItem} flipEditToggle={flipEditToggle} flipSubmittedForm={flipSubmittedForm}/>
 				}

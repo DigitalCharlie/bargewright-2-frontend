@@ -1,0 +1,40 @@
+.filterButton {
+	display:block;
+	margin:0 auto 15px;
+	width:400px;
+}
+
+.filterDrawer {
+	max-width:100%;
+	display:flex;
+	flex-direction: column;
+	transition:.5s;
+	margin:0 auto;
+}
+
+.active {
+	height:100px;
+	opacity:1
+}
+
+.inactive {
+	height:0;
+	overflow:hidden;
+	opacity:0
+}
+
+.filterContainer {
+	transition:.5s;
+	display:flex;
+}
+
+.dropdownWrapper {
+	flex: 0 0 33.3333%;
+	padding:3px;
+}
+
+.dropdown {
+	color:black;
+	margin-top:2px;
+	margin-bottom:5px;
+}

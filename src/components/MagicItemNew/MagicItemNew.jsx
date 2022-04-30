@@ -19,7 +19,7 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
         flavor: '',
 		rarity:'',
 		attunement:'',
-		itemCategory:'permanent',
+		itemCategory:'Permanent',
     })
 
 	const {charId} = useParams()
@@ -35,11 +35,9 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 			attunement === true ? formData.attunement = true : formData.attunement = false;
 			formData.character = charId
 			formData.adventureFound = advId
-			console.log(formData)
 			const createdMagicItem = await magicAPI.createNew(user.username, charId, formData)
-			console.log(createdMagicItem)
 			setForNextMagicItem()
-			updateMagicItems(magicItemCount-1)
+			updateMagicItems(magicItemCount-1, advId)
         } catch (error) {
           setError(error.message)
         }
@@ -56,7 +54,7 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 			name:'',
 			effects: '',
 			flavor: '',
-			itemCategory:'permanent',
+			itemCategory:'Permanent',
 			rarity:'',
 			attunement:'',
 		})
@@ -108,13 +106,13 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 		if (option.value.toUpperCase().includes('SCROLL')) {
 			setFormData({
 				...formData,
-				itemCategory: 'scroll'
+				itemCategory: 'Scroll'
 			})
 		}
 		if (option.value.toUpperCase().includes('POTION')) {
 			setFormData({
 				...formData,
-				itemCategory: 'potion'
+				itemCategory: 'Potion'
 			})
 		}
 	}
@@ -153,10 +151,10 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 					<div>
 						<label>Item Type</label>
 						<select id="itemCategory" name="itemCategory" value={formData.itemCategory} onChange={handleChange}>
-							<option value="permanent">Permanent Magic Item</option>
-							<option value="consumable">Consumeable (ex: necklace of fireballs)</option>
-							<option value="scroll">Scroll</option>
-							<option value="potion">Potion</option>
+							<option value="Permanent">Permanent Magic Item</option>
+							<option value="Consumable">Consumeable (ex: necklace of fireballs)</option>
+							<option value="Scroll">Scroll</option>
+							<option value="Potion">Potion</option>
 						</select>
 					</div>
 				</article>

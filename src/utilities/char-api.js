@@ -8,11 +8,11 @@ export function getById(username, id) {
 }
 
 export function createNew(username, charData) {
-  return sendRequest(`${BASE_URL}/${username}/character/new`, 'POST', charData);
+  return sendRequest(`${BASE_URL}/${username}/character/`, 'POST', charData);
 }
 
 export function editChar(username, id, charData) {
-  return sendRequest(`${BASE_URL}/${username}/character/${id}/edit`, 'PUT', charData);
+  return sendRequest(`${BASE_URL}/${username}/character/${id}/`, 'PUT', charData);
 }
 
 export function deleteChar(username, charId) {

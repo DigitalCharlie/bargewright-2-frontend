@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import * as charAPI from '../../utilities/char-api'
+
+// COMPONENTS
 import CharShow from '../../components/CharShow/CharShow'
 import CharEdit from '../../components/CharEdit/CharEdit'
 import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
+
+// STYLES
+import styles from './CharHome.module.css'
+
 
 export default function UserHome({user}){
 
@@ -27,7 +33,11 @@ export default function UserHome({user}){
 		(async () => {
 			try {
 				const charData = await charAPI.getById(user.username, charId)
-				setChar(charData)
+				console.log(charData)
+				const fullTitle = displayName(charData.name, charData.race, charData.class)
+				let advLevels = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.levelGain), 1)
+				let currentLevel = charData.levelAdjust + parseInt(advLevels)
+				setChar({...charData, fullTitle, currentLevel})
 			} catch(e) {
 				console.log(e)
 			}
@@ -47,18 +57,54 @@ export default function UserHome({user}){
 		} 
 	}
 
+	const displayName = (charName,charRace,charClass) => {
+		if (charRace && charClass) return `${charName} the ${charRace} ${charClass}`
+		if (charRace) return `${charName} the ${charRace}`
+		if (charClass) return `${charName} the ${charClass}`
+		return charName
+	}
+
 	return (
 		<main>
-			<h1>{char.name}
-				{
-					char.race || char.class
-					?
-					` the ${char.race} ${char.class}`
-					:
-					''
-				}
-			</h1>
-			{!editToggle ? <button onClick={flipEditToggle}>Edit character details</button> : <button onClick={flipEditToggle}>Discard changes</button>}
+			<h1>{char.fullTitle}</h1>
+			<section className={styles.charTopSection}>
+				<img src={char.image || '../../../images/default-image.jpg'} alt="The character's portrait" className={styles.portrait}/>
+				<div className={styles.stats}>
+					<table cellSpacing="0" cellPadding="0" className={styles.tableStats}>
+						<tr>
+							<td>Level:</td>
+							<td>{char.currentLevel} / {char.levelTotal}</td>
+						</tr>
+						<tr>
+							<td>Gold:</td>
+							<td>21987123</td>
+						</tr>
+						<tr>
+							<td>Downtime:</td>
+							<td>100</td>
+						</tr>
+						<tr>
+							<td>Adventures Played:</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>Healing Potions in Stock:</td>
+							<td>7</td>
+						</tr>
+						<br />
+						<tr>
+							<td>Campaign Setting:</td>
+							<td>Forgotten Realms</td>
+						</tr>
+					</table>
+				</div>
+				<div className={styles.buttons}>
+					<Link to={`/user/${user.username}/character/${charId}/adventure/new`}><button>Log Adventure</button></Link>
+					<a href="" target="_blank"><button>View Character Sheet</button></a>
+					{!editToggle ? <button onClick={flipEditToggle}>Edit character details</button> : <button onClick={flipEditToggle}>Discard changes</button>}
+					<button onClick={handleDelete}>delete character</button>
+				</div>
+			</section>
 			<hr />
 				{
 					!editToggle ?
@@ -66,9 +112,6 @@ export default function UserHome({user}){
 					:
 					<CharEdit user={user} char={char} flipEditToggle={flipEditToggle} flipSubmittedForm={flipSubmittedForm}/>
 				}
-			<hr />
-			<p><Link to={`/user/${user.username}/character/${charId}/adventure/new`}>Log Adventure</Link></p>
-			<button onClick={handleDelete}>delete character</button>
 			<BreadcrumbNav user={user} char={char.name} />
 		</main>
 	)

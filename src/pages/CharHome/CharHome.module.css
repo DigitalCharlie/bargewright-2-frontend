@@ -1,0 +1,23 @@
+.charTopSection {
+	display:flex;
+	justify-content:space-evenly;
+	margin:20px 0;
+}
+
+.portrait {
+	width:200px;
+}
+
+.tableStats {
+
+}
+
+.tableStats td {
+	border-bottom:none;
+	padding:5px 10px;
+}
+
+.buttons {
+	display:flex;
+	flex-direction: column;
+}

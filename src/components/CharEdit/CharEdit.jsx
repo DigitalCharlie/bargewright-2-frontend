@@ -49,20 +49,43 @@ export default function NewCharPage({ user, flipEditToggle, char, flipSubmittedF
 	return (
 		<section>
 			<h1>Edit Character</h1>
-			<p>Edit character: {char.name}</p>
-			<hr />
-			<form>
-				<input type="text" name="name" value={formData.name} onChange={handleChange} defaultValue={char.name} placeholder="name (required)" />
-				<input type="text" name="race" value={formData.race} onChange={handleChange} placeholder="race" />
-				<input type="text" name="class" value={formData.class} onChange={handleChange} placeholder="class" />
-				<input type="text" name="image" value={formData.image} onChange={handleChange} />
-				<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} />
-				<input type="text" name="levelAdjust" value={formData.levelAdjust} onChange={handleChange} />
-				<input type="text" name="healthPotionAdjust" value={formData.healthPotionAdjust} onChange={handleChange} />
-				<input type="text" name="notes" value={formData.notes} onChange={handleChange} />
-				<button type="submit" onClick={handleSubmit}>Save changes character</button>
+			<form className="wide-formContainer">
+				<div>
+					<label>Name (required)</label>
+					<input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Flowers" />
+				</div>
+				<div>
+					<label>Race</label>
+					<input type="text" name="race" value={formData.race} onChange={handleChange} placeholder="Half-orc" />
+				</div>
+				<div>
+					<label>Class</label>
+					<input type="text" name="class" value={formData.class} onChange={handleChange} placeholder="Fighter" />
+				</div>
+				<div>
+					<label>Image URL</label>
+					<input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Ideally ending in .png or .jpeg" />
+				</div>
+				<div>
+					<label>Link to character sheet</label>
+					<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} placeholder="dndbeyond.com, for example" />
+				</div>
+				<div>
+					<label>Level adjustment (if not starting at 1)</label>
+					<input type="number" name="levelAdjust" value={formData.levelAdjust} onChange={handleChange}/>
+				</div>
+				<div>
+					<label>Health potion adjustment (for those not logged in adventures)</label>
+					<input type="number" name="healthPotionAdjust" value={formData.healthPotionAdjust} onChange={handleChange} />
+				</div>
+				<div className="textarea">
+					<label>Additional character notes</label>
+					<textarea name="notes" value={formData.notes} onChange={handleChange} />
+				</div>
+					<button type="submit" onClick={handleSubmit} className="button-fixed-width button-center red-button">Save changes</button>
 			</form>
-			<h1 className="error-message">&nbsp;{error}</h1>
+				<button className="button-fixed-width button-center" onClick={flipEditToggle}>Discard changes</button>
+			<h1 className="error-message">{error}</h1>
 		</section>
 	)
 }

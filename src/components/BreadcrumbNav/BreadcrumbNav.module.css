@@ -1,7 +1,9 @@
 .breadcrumbContainer {
 	position:relative;
-	bottom:-15px;
+	bottom:-20px;
 	margin:0 auto;
+	display: flex;
+    justify-content: space-between;
 }
 
 .breadcrumbUl {
@@ -13,7 +15,17 @@
 	color:var(--light-gray)
 }
 
+.breadcrumbBack {
+	width:50px;
+	font-size:.75em;
+	list-style-type: none;
+	text-align: center;
+	display: flex;
+    align-items: center;
+}
+
 .breadcrumbUl a {
 	margin: 0 10px;
-	color:var(--light-gray)
+	color:var(--light-gray);
+	text-transform: Capitalize;
 }

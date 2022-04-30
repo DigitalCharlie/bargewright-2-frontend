@@ -55,19 +55,54 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 		<section>
 			<h1>Edit Adventure</h1>
 			<hr />
-			<form>
-				<input type="text" name="adventureName" value={formData.adventureName} onChange={handleChange} placeholder="Adventure name (required)" />
-				<input type="text" name="adventureCode" value={formData.adventureCode} onChange={handleChange} placeholder="Adventure code" />
-				<input type="date" name="datePlayed" value={formData.datePlayed} onChange={handleChange} />
-				<input type="text" name="dungeonMaster" value={formData.dungeonMaster} onChange={handleChange} placeholder="Dungeon Master"/>
-				<input type="number" name="goldFound" value={formData.goldFound} onChange={handleChange}/>
-				<input type="number" name="downtimeEarned" value={formData.downtimeEarned} onChange={handleChange}/>
-				<input type="number" name="levelGain" value={formData.levelGain} onChange={handleChange}/>
-				<input type="number" name="healingPotions" value={formData.healingPotions} onChange={handleChange}/>
-				<input type="text" name="magicItemNotes" value={formData.magicItemNotes} onChange={handleChange} placeholder="magicItemNotes"/>
-				<input type="text" name="notes" value={formData.notes} onChange={handleChange} placeholder="notes"/>
+			<form className="wide-formContainer">
+				<div>
+					<label>Adventure code</label>
+					<input type="text" name="adventureCode" value={formData.adventureCode} onChange={handleChange} placeholder="DDAL-01" />
+				</div>
+				<div>
+					<label>Adventure title (required) </label>
+					<input type="text" name="adventureName" value={formData.adventureName} onChange={handleChange} placeholder="Super awesome adventure title" />
+				</div>
+				<div>
+					<label>Date played</label>
+					<input type="date" name="datePlayed" value={formData.datePlayed} onChange={handleChange} />
+				</div>
+				<div>
+					<label>Dungeon Master</label>
+					<input type="text" name="dungeonMaster" value={formData.dungeonMaster} onChange={handleChange} placeholder="Dungeon Master"/>
+				</div>
+				<div>
+					<label>Gold +/-</label>
+					<input type="number" name="goldFound" value={formData.goldFound} onChange={handleChange}/>
+				</div>
+				<div>
+					<label>Downtime +/-</label>
+					<input type="number" name="downtimeEarned" value={formData.downtimeEarned} onChange={handleChange}/>
+				</div>
+				<div>
+					<label>Level(s) gained</label>
+					<input type="number" name="levelGain" value={formData.levelGain} onChange={handleChange}/>
+				</div>
+				<div>
+					<label>Healing potions +/-</label>
+					<input type="number" name="healingPotions" value={formData.healingPotions} onChange={handleChange}/>
+				</div>
+				<div>
+					<label>Magic Item Notes?</label>
+					<input type="text" name="magicItemNotes" value={formData.magicItemNotes} onChange={handleChange} placeholder="Anything destroyed? Used?"/>
+				</div>
+				<div>
+					<label>Magic Items Found</label>
+					<input type="number" name="magicItemsFound" value={formData.magicItemsFound} onChange={handleChange}/>
+				</div>
+				<div className="textarea">
+					<label>Adventure Notes</label>
+					<textarea name="notes" value={formData.notes} onChange={handleChange} placeholder="notes"/>
+				</div>
 
-				<button type="submit" onClick={handleSubmit}>Log edited adventure</button>
+
+				<button className="button-fixed-width button-center red-button" type="submit" onClick={handleSubmit}>Log adventure</button>
 			</form>
 
 			<h1 className="error-message">&nbsp;{error}</h1>

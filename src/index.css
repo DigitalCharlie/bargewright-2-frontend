@@ -69,16 +69,23 @@ a:hover, .red-hover:hover {
 
 button {
 	padding:7px 12px;
-	border:2px solid black;
+	border:none;
+	color:black;
 	cursor:pointer;
 	font-size:1.2em;
 	text-transform: capitalize;
 	transition:.25s;
 	font-weight: bold;
 	font-family:modesto-condensed;
+	width:100%;
+	margin-bottom:5px;
 }
 
-button:hover {
+button a {
+	color:black;
+}
+
+button:hover, button a:hover {
 	background-color:black;
 	color:white;
 }
@@ -100,6 +107,10 @@ button:hover {
 .button-center {
 	display:block;
 	margin:10px auto;
+}
+
+.button-fixed-width {
+	width:300px;
 }
 
 /* FUNCTIONAL STUFF */
@@ -124,14 +135,6 @@ hr {
 	background-color: white;
 }
 
-/* FORMS */
-
-input:focus-visible {
-	outline:1px solid var(--red);
-	-webkit-box-shadow:0px 0px 15px 3px var(--red);
-	-moz-box-shadow: 0px 0px 15px 3px var(--red);
-	box-shadow: 0px 0px 15px 3px var(--red);
-}
 
 /* TABLE STUFF */
 
@@ -144,7 +147,7 @@ thead {
 	text-align:left;
 }
 
-.table-row:hover {
+.table-row:hover, tr:hover {
 	background-color:rgba(100,100,100,.6);
 }
 
@@ -165,4 +168,120 @@ table thead tr th {
 
 td {
 	border-bottom:1px solid white;
+}
+
+
+
+/* GENERAL FORMS */
+
+/* ALL FORMS */
+
+/* Doing something weird with the typing dropdown */
+/* input:focus-visible, textarea:focus-visible {
+	outline:1px solid var(--red);
+	border:none;
+	-webkit-box-shadow:0px 0px 15px 3px var(--red);
+	-moz-box-shadow: 0px 0px 15px 3px var(--red);
+	box-shadow: 0px 0px 15px 3px var(--red);
+} */
+
+input, textarea {
+	border:none;
+	margin-top:5px;
+}
+
+label {
+	color:lightgray;
+	font-size:.85em;
+}
+
+textarea {
+	height:200px;
+	width:300px;
+}
+
+input {
+	font-size:1em;
+	padding-left:8px;
+	padding-right:8px;
+	height:35px;
+}
+
+/* WIDE FORMS */
+
+.wide-formContainer {
+	display:flex;
+	flex-wrap: wrap;
+}
+
+.wide-formContainer div {
+	flex: 0 0 33.3333%;
+	padding-left:2%;
+	padding-right:2%;
+}
+
+.wide-formContainer input {
+	display:block;
+	height:40px;
+	width:100%;
+	margin-bottom:15px;
+}
+
+.wide-formContainer .textarea {
+	flex:0 0 100%;
+}
+
+.textarea textarea {
+	display:block;
+	width:100%;
+	height:100px;
+}
+
+/* NARRROW FORMS */
+
+.narrow-formContainer {
+	width:300px;
+	margin:0 auto;
+	padding-top:15px;
+}
+
+.narrow-formContainer input, .narrow-formContainer button {
+	width:300px;
+	height:35px;
+	display:block;
+	border:none;
+	margin:5px auto 15px;
+}
+
+/* Magic Item Form */
+
+.magicItem-formContainer select {
+	height:35px;
+	font-size:1em;
+	margin-top:5px;
+}
+
+.magicItem-formContainer div {
+	margin-top:15px;
+}
+
+.magicItem-formContainer input[type=text] {
+	display:block;
+	width:350px;
+}
+
+.magicItem-formContainer article {
+	display:flex;
+}
+
+.checkbox {
+	margin-left:33px;
+}
+
+article div {
+	flex: 0 0 20%;
+}
+
+article input, article select {
+	display:block;
 }

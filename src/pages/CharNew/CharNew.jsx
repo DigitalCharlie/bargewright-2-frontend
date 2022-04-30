@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { Link, useNavigate } from 'react-router-dom'
 import * as charAPI from '../../utilities/char-api'
 
+import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
+
 export default function NewCharPage({ user }) {
 
 	const navigate = useNavigate()
@@ -46,32 +48,39 @@ export default function NewCharPage({ user }) {
 	}
 
 	return (
-		<main>
+		<main className="main-narrow">
 			<h1>New Character</h1>
-			<p>New character for {user.username}</p>
 			<hr />
-			<form>
-				<input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="name (required)" />
-				<input type="text" name="race" value={formData.race} onChange={handleChange} placeholder="race" />
-				<input type="text" name="class" value={formData.class} onChange={handleChange} placeholder="class" />
+			<form className="narrow-formContainer">
+				<label>Name (required)</label>
+				<input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Flowers" />
+				<label>Race</label>
+				<input type="text" name="race" value={formData.race} onChange={handleChange} placeholder="Half-orc" />
+				<label>Class</label>
+				<input type="text" name="class" value={formData.class} onChange={handleChange} placeholder="Fighter" />
 				{
 					detailsToggle ?
 					<>
-						<input type="text" name="image" value={formData.image} onChange={handleChange} />
-						<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} />
-						<input type="text" name="levelAdjust" value={formData.levelAdjust} onChange={handleChange} />
-						<input type="text" name="healthPotionAdjust" value={formData.healthPotionAdjust} onChange={handleChange} />
-						<input type="text" name="notes" value={formData.notes} onChange={handleChange} />
+						<label>Image URL</label>
+						<input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Ideally ending in .png or .jpeg" />
+						<label>Link to character sheet</label>
+						<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} placeholder="dndbeyond.com, for example" />
+						<label>Level adjustment (if not starting at 1)</label>
+						<input type="number" name="levelAdjust" value={formData.levelAdjust} onChange={handleChange}/>
+						<label>Health potion adjustment (for those not logged in adventures)</label>
+						<input type="number" name="healthPotionAdjust" value={formData.healthPotionAdjust} onChange={handleChange} />
+						<label>Additional character notes</label>
+						<textarea name="notes" value={formData.notes} onChange={handleChange} />
 					</>
 					:
 					''
 				}
-				<button type="submit" onClick={handleSubmit}>Create character</button>
+				<button className="button-fixed-width button-center red-button" type="submit" onClick={handleSubmit}>Create character</button>
+				<p className="center">or</p>
 			</form>
-			<button onClick={toggleDetails}>{!detailsToggle ? 'Add details at character creation' : 'Hide Detail fields'}</button>
-			<hr />
-			<Link to={`/user/${user.username}`}>home</Link>
-			<h1 className="error-message">&nbsp;{error}</h1>
+			<button className="button-fixed-width button-center" onClick={toggleDetails}>{!detailsToggle ? 'Add additional details' : 'Hide additional details'}</button>
+			<h1 className="error-message">{error}</h1>
+			<BreadcrumbNav user={user} />
 		</main>
 	)
 }

@@ -96,7 +96,7 @@ export default function UserShow ({user, chars, flipEditToggle}) {
 					}
 				</tbody>
 			</table>
-			<Link to={`/user/${user.username}/character/new`}><button className="red-button button-center">Add new character</button></Link>
+			<Link to={`/user/${user.username}/character/new`}><button className="red-button button-center button-fixed-width">Add new character</button></Link>
 			<p className="smallText grayText center offsetTop pointer" onClick={flipEditToggle}>edit account</p>
 		</main>
 	)

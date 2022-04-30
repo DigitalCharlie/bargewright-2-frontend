@@ -8,6 +8,7 @@ export default function BreadcrumbNav ({user, char, adv, magicItem}) {
 
 	return (
 		<nav role="navigation" aria-label="breadcrumb navigation" className={styles.breadcrumbContainer}>
+			<li className={`${styles.breadcrumbBack} grayText red-hover pointer`} onClick={() => navigate(-1)}> Back</li>
 			<ul className={styles.breadcrumbUl}>
 				{
 					charId 
@@ -33,9 +34,9 @@ export default function BreadcrumbNav ({user, char, adv, magicItem}) {
 					:
 					''
 				}
-				<li> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span className="red-hover pointer" onClick={() => navigate(-1)}>go back</span></li>
-
+				<br />
 			</ul>
+
 		</nav>
 	)
 }

@@ -1,0 +1,30 @@
+.headlineToggles {
+	display:flex;
+	justify-content: space-around;
+	width:400px;
+	margin:0 auto;
+}
+
+
+.headlineToggles h2 {
+	transition:.25s;
+	width:200px;
+	text-align: center;
+	padding:3px 0 6px;
+}
+
+.headlineToggles h2:hover {
+	cursor:pointer;
+	background-color:white;
+	color:black;
+}
+
+.active {
+	text-decoration: underline;
+	text-decoration-color: red;
+	text-underline-offset: 2px;
+}
+
+.inactive {
+	color:var(--dark-gray)
+}

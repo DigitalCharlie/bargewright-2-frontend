@@ -4,18 +4,20 @@ import * as advAPI from '../../utilities/adv-api'
 import * as moment from 'moment'
 import AdvNew from '../../components/AdvNew/AdvNew'
 import MagicItemNew from "../../components/MagicItemNew/MagicItemNew"
+import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
 
 export default function AdvNewPage({ user }) {
 
 	const [magicItemCount, setMagicItemCount] = useState(null)
+	const [magicItemsFound, setMagicItemsFound] = useState(null)
 	const [advId, setAdvId] = useState('')
 	const navigate = useNavigate()
 
 	const {charId} = useParams()
 
-	const updateMagicItems = (num) => {
-		if(num === 0) navigate(`/user/${user.username}/character/${charId}`)
-		setMagicItemCount(num)
+	const updateMagicItems = async (num) => {
+		await setMagicItemCount(num)
+		if(num === 0) navigate(`/user/${user.username}/character/${charId}/adventure/${advId}`)
 	}
 
 	return (
@@ -24,13 +26,11 @@ export default function AdvNewPage({ user }) {
 			<hr />
 				{
 					!magicItemCount ?
-					<AdvNew user={user} updateMagicItems={updateMagicItems} setAdvId={setAdvId} />
+					<AdvNew user={user} updateMagicItems={updateMagicItems} setMagicItemsFound={setMagicItemsFound} setAdvId={setAdvId} />
 					:
-					<MagicItemNew user={user} updateMagicItems={updateMagicItems} magicItemCount={magicItemCount} advId={advId} />
+					<MagicItemNew user={user} updateMagicItems={updateMagicItems} magicItemCount={magicItemCount} advId={advId} magicItemsFound={magicItemsFound} />
 				}
-			<hr />
-			<MagicItemNew user={user} updateMagicItems={updateMagicItems} magicItemCount={magicItemCount} advId={advId} />
-			<Link to={`/user/${user.username}`}>home</Link>
+			<BreadcrumbNav user={user} />
 		</main>
 	)
 }

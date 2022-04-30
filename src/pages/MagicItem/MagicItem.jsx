@@ -39,7 +39,7 @@ export default function AdvNewPage({ user }) {
 
 	return (
 		<main>
-			<h1>Magic Item Show Page</h1>
+			<h1>{magicItem.name}</h1>
 			{!editToggle ? <button onClick={flipEditToggle}>Edit magic item</button> : <button onClick={flipEditToggle}>Discard changes</button>}
 			<hr />
 				{
@@ -48,7 +48,6 @@ export default function AdvNewPage({ user }) {
 					:
 					<MagicItemEdit user={user} magicItem={magicItem} flipEditToggle={flipEditToggle} flipSubmittedForm={flipSubmittedForm}/>
 				}
-			<hr />
 			<BreadcrumbNav user={user} magicItem={magicItem.name} char={magicItem && magicItem.character.name}/>
 		</main>
 	)

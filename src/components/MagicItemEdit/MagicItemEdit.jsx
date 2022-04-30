@@ -57,23 +57,52 @@ export default function MagicItemEdit({ user, flipEditToggle, magicItem, flipSub
 		<section>
 			<h1>Edit Magic Item</h1>
 			<hr />
-			<form>
-				<input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Magic Item name (required)" />
-				<input type="text" name="effects" value={formData.effects} onChange={handleChange} placeholder="Effects" />
-				<input type="text" name="flavor" value={formData.flavor} onChange={handleChange} />
-				<input type="text" name="rarity" value={formData.rarity} onChange={handleChange} />
-				<input type="checkbox" id="attunement" checked={attunement === true} name="attunement"  onChange={toggleAttunement}/>
-				<select id="itemCategory" name="itemCategory" value={formData.itemCategory} onChange={handleChange}>
-					<option value="permanent">Permanent Magic Item</option>
-					<option value="consumable">Consumeable (ex: necklace of fireballs)</option>
-					<option value="scroll">Scroll</option>
-					<option value="potion">Potion</option>
-				</select>
+			<form className="magicItem-formContainer">
+				<div>
+					<label>Magic Item name</label>
+					<input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Magic Item name (required)" />
+				</div>
+				<article>
+					<div>
+						<label>Rarity</label>
+						<select id="rarity" name="rarity" value={formData.rarity} onChange={handleChange}>
+							<option value="Common">Common</option>
+							<option value="Uncommon">Uncommon</option>
+							<option value="Rare">Rare</option>
+							<option value="Very Rare">Very rare</option>
+							<option value="Legendary">Legendary</option>
+							<option value="Artifact">Artifact</option>
+							<option value="Varies">Varies</option>
+							<option value="Unknown">Unknown</option>
+						</select>
+					</div>
+					<div>
+						<label>Attunement?</label>
+						<input type="checkbox" id="attunement" className="checkbox" checked={attunement === true} name="attunement"  onChange={toggleAttunement}/>
+					</div>
+					<div>
+						<label>Item Type</label>
+						<select id="itemCategory" name="itemCategory" value={formData.itemCategory} onChange={handleChange}>
+							<option value="permanent">Permanent Magic Item</option>
+							<option value="consumable">Consumeable (ex: necklace of fireballs)</option>
+							<option value="scroll">Scroll</option>
+							<option value="potion">Potion</option>
+						</select>
+					</div>
 
-				<button type="submit" onClick={handleSubmit}>Save edited magic item</button>
+				</article>
+				<div className="textarea">
+					<label>Magic item description</label>
+					<textarea className="textarea"name="effects" value={formData.effects} onChange={handleChange} placeholder="Magic item description" />
+				</div>
+				<div className="textarea">
+					<label>Additional flavor</label>
+					<textarea type="text" name="flavor" value={formData.flavor} onChange={handleChange} placeholder="Anything particularly special about your item?" />
+				</div>
+
+				<button className="button-center button-fixed-width red-button"type="submit" onClick={handleSubmit}>Log magic item</button>
 			</form>
-			<hr />
-			<h1 className="error-message">&nbsp;{error}</h1>
+			<h1 className="error-message">{error}</h1>
 		</section>
 	)
 }

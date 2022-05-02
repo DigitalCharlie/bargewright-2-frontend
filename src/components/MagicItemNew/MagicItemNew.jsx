@@ -19,6 +19,7 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
         flavor: '',
 		rarity:'',
 		attunement:'',
+		charges:'',
 		itemCategory:'Permanent',
     })
 
@@ -152,11 +153,18 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 						<label>Item Type</label>
 						<select id="itemCategory" name="itemCategory" value={formData.itemCategory} onChange={handleChange}>
 							<option value="Permanent">Permanent Magic Item</option>
-							<option value="Consumable">Consumeable (ex: necklace of fireballs)</option>
+							<option value="Consumable">Consumeable (ex: +1 arrows)</option>
 							<option value="Scroll">Scroll</option>
 							<option value="Potion">Potion</option>
 						</select>
 					</div>
+					{
+						formData.itemCategory === 'Consumable' &&
+						<div className={styles.charges}>
+							<label>Uses/Charges</label>
+							<input type="number" min='0' id='charges' name='charges' value={formData.charges} onChange={handleChange} />
+						</div>
+					}
 				</article>
 				<div className="textarea">
 					<label>Magic item description</label>
@@ -166,7 +174,6 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 					<label>Additional flavor</label>
 					<textarea type="text" name="flavor" value={formData.flavor} onChange={handleChange} placeholder="Anything particularly special about your item?" />
 				</div>
-
 				<button className="button-center button-fixed-width red-button"type="submit" onClick={handleSubmit}>Log magic item</button>
 			</form>
 			<h1 className="error-message">{error}</h1>

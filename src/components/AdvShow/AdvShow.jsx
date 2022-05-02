@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import * as advAPI from '../../utilities/adv-api'
 import * as moment from 'moment'
+import styles from './AdvShow.module.css'
 
 export default function AdvShow({ user, adv, flipEditToggle }) {
 
@@ -72,7 +73,6 @@ export default function AdvShow({ user, adv, flipEditToggle }) {
 							<td>{adv.magicItemNotes}</td>
 						</tr>
 					}
-
 					{
 						adv.notes &&
 						<tr>
@@ -80,8 +80,28 @@ export default function AdvShow({ user, adv, flipEditToggle }) {
 							<td>{adv.notes}</td>
 						</tr>
 					}
-
 				</table>
+				{
+					adv.storyAwards &&
+					<>
+						<h3 className={styles.storyAwardHeader}>Story Awards and Other Boons</h3>
+						<table>
+							{
+								adv.storyAwards.map((award) => (
+									<tr>
+										<td>
+											{award.title}
+										</td>
+										<td>
+											{award.description}
+										</td>
+									</tr>
+								))
+							}
+						</table>
+					</>
+				}
+
 			</div>
 			<div className="show-buttons-container">
 				<button onClick={flipEditToggle}>Edit adventure log</button>

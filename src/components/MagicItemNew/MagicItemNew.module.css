@@ -2,3 +2,12 @@
 	color:black;
 	margin-top:5px;
 }
+
+.charges {
+	margin-left:10px;
+}
+
+select {
+	border:none;
+	padding-left:6px;
+}

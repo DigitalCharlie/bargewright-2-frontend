@@ -5,7 +5,7 @@ import AdvShow from '../../components/AdvShow/AdvShow'
 import AdvEdit from '../../components/AdvEdit/AdvEdit'
 import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
 
-export default function NewAdvPage({ user }) {
+export default function AdvShowPage({ user }) {
 
 	const [editToggle, setEditToggle] = useState(false)
 	const [submittedForm, setSubmittedForm] = useState(false)

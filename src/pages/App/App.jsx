@@ -17,6 +17,8 @@ import CharHome from '../CharHome/CharHome'
 import AdvNew from '../AdvNew/AdvNew'
 import AdvShow from '../AdvShow/AdvShow'
 import MagicItem from '../MagicItem/MagicItem'
+import DowntimeNew from '../DowntimeNew/DowntimeNew'
+import DowntimePage from '../DowntimePage/DowntimePage'
 
 function App() {
   const [user, setUser ] = useState(getUser());
@@ -36,7 +38,8 @@ function App() {
                 <Route path={`/user/${user.username}/character/:charId/adventure/new`} element={<AdvNew user={user}/>}/>
                 <Route path={`/user/${user.username}/character/:charId/adventure/:advId/`} element={<AdvShow user={user}/>}/>
                 <Route path={`/user/${user.username}/character/:charId/magicitem/:magicItemId/`} element={<MagicItem user={user}/>}/>
-
+                <Route path={`/user/${user.username}/character/:charId/downtime/new`} element={<DowntimeNew user={user}/>}/>
+                <Route path={`/user/${user.username}/character/:charId/downtime/:downtimeId/`} element={<DowntimePage user={user}/>}/>
               </>
               :
               ''

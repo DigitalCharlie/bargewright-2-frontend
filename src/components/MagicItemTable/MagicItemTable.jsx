@@ -12,6 +12,8 @@ export default function MagicItemTable ({charLink, magicItems}) {
 	const [filterAttunement, setFilterAttunement] = useState(null)
 	const [filterRarity, setFilterRarity] = useState([])
 	const [filterType, setFilterType] = useState([])
+	const [filterStatus, setFilterStatus] = useState(['owned'])
+
 
 	const handleMagicSort = (type) => {
 		if (sortType === type) {
@@ -130,6 +132,31 @@ export default function MagicItemTable ({charLink, magicItems}) {
 		}
 	}
 
+	const statusOptions = [
+		{value:'owned', label:'Owned'},
+		{value:'destroyed', label:'Destroyed'},
+		{value:'traded', label:'Traded'},
+		{value: 'consumed', label:'Used up'},
+	]
+
+	const handleStatus = (option) => {
+		const tempArr = []
+		option.forEach((status) => {
+			tempArr.push(status.value)
+		})
+		if (option) {
+				setFilterStatus(tempArr)
+		} else {
+			setFilterStatus([])
+		}
+	}
+	const statusFilter = (magicItem) => {
+		if (filterType.length === 0) {
+			return magicItem
+		} else if (filterType.indexOf(magicItem.itemCategory.toLowerCase()) !== -1) {
+			return magicItem
+		}
+	}
 
 
 	const toggleShowFilters = () => {
@@ -174,6 +201,16 @@ export default function MagicItemTable ({charLink, magicItems}) {
 							className={`${styles.type} ${styles.dropdown}`}
 						/>
 					</div>
+					<div className={styles.dropdownWrapper}>
+						<label>Owned, destroyed, etc?</label>
+						<Select
+							onChange={handleStatus}
+							options={statusOptions}
+							isClearable
+							isMulti
+							className={`${styles.options} ${styles.dropdown}`}
+						/>
+					</div>
 				</div>
 			}
 			</div>
@@ -190,7 +227,7 @@ export default function MagicItemTable ({charLink, magicItems}) {
 				</thead>
 				<tbody>
 					{
-						magicItems.filter(attunementFilter).filter(rarityFilter).filter(typeFilter).sort(sortMagic).map((magicItem) => (
+						magicItems.filter(attunementFilter).filter(rarityFilter).filter(typeFilter).filter(statusFilter).sort(sortMagic).map((magicItem) => (
 							<tr key={`${magicItem._id}`} className="table-row">
 								<td>
 									<Link to={`${charLink}/magicitem/${magicItem._id}`}>{magicItem.name}</Link>

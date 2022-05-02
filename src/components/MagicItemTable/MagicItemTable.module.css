@@ -13,7 +13,7 @@
 }
 
 .active {
-	height:100px;
+	height:160px;
 	opacity:1
 }
 
@@ -26,10 +26,11 @@
 .filterContainer {
 	transition:.5s;
 	display:flex;
+	flex-wrap: wrap;
 }
 
 .dropdownWrapper {
-	flex: 0 0 33.3333%;
+	flex: 0 0 50%;
 	padding:3px;
 }
 

@@ -1,0 +1,42 @@
+.rule {
+	margin-top:30px;
+}
+
+.storyAwardSection {
+	width:100%;
+	padding:0 2%;
+}
+
+.storyAwardSection .storyAwardTitle {
+	width:350px;
+}
+
+.storyAwardDesc {
+	width:100%;
+	height:100px;
+	margin-bottom:30px;
+}
+
+.storyAwardTitle {
+	margin-top:11px;
+}
+
+.dropdown {
+	color:black;
+	padding:0!important;
+	margin:5px 30px 10px 0;
+}
+/* 
+.dropdown > div > div > div {
+	height:32px;
+	padding-top:6px;
+} */
+
+.awardTypeAndTitle {
+	display:flex;
+}
+
+.awardTypeAndTitle .labelAndDescDiv {
+	flex: 0 0 40%;
+	padding:0;
+}

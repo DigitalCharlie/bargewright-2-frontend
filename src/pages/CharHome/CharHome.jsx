@@ -100,6 +100,7 @@ export default function UserHome({user}){
 				</div>
 				<div className={styles.buttons}>
 					<Link to={`/user/${user.username}/character/${charId}/adventure/new`}><button>Log Adventure</button></Link>
+					<Link to={`/user/${user.username}/character/${charId}/downtime/new`}><button>Log Downtime</button></Link>
 					<a href="" target="_blank"><button>View Character Sheet</button></a>
 					{!editToggle ? <button onClick={flipEditToggle}>Edit character details</button> : <button onClick={flipEditToggle}>Discard changes</button>}
 					<button onClick={handleDelete}>delete character</button>

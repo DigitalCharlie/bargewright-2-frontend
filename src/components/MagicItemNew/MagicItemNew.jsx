@@ -4,7 +4,7 @@ import * as magicAPI from '../../utilities/magic-api'
 import CreatableSelect from 'react-select/creatable';
 import styles from './MagicItemNew.module.css';
 
-export default function MagicItemNew({ user, magicItemCount, updateMagicItems, advId }) {
+export default function MagicItemNew({ user, magicItemCount, updateMagicItems, advId, downtimeId }) {
 
 	const [selectedOption, setSelectedOption] = useState(null);
     const [ error, setError ] = useState('')
@@ -14,6 +14,7 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 	const [formData, setFormData ] = useState({
 		character: '',
         adventureFound: '',
+		downtimeActivity:'',
         name:'',
         effects: '',
         flavor: '',
@@ -36,6 +37,8 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 			attunement === true ? formData.attunement = true : formData.attunement = false;
 			formData.character = charId
 			formData.adventureFound = advId
+			formData.downtimeActivity = downtimeId
+			console.log(formData)
 			const createdMagicItem = await magicAPI.createNew(user.username, charId, formData)
 			setForNextMagicItem()
 			updateMagicItems(magicItemCount-1, advId)
@@ -47,6 +50,8 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 	const toggleAttunement = () => {
 		setAttunement(!attunement)
 	}
+
+	console.log(formData)
 
 	const setForNextMagicItem = () => {
 		setFormData({

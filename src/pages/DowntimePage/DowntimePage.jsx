@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import * as downtimeAPI from '../../utilities/downtime-api'
+
+// COMPONENTS
 import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
+import DowntimeShow from "../../components/DowntimeShow/DowntimeShow"
 
 export default function DowntimePage({ user }) {
 
@@ -36,10 +39,10 @@ export default function DowntimePage({ user }) {
 
 	return (
 		<main>
-			<h1>Downtime log</h1>
+			<h1>Downtime log for {downtime.activity && downtime.character.name}</h1>
 				{
 					!editToggle ?
-					<p>Show downtime — activity: {downtime.activity}</p>
+					<DowntimeShow downtime={downtime} flipEditToggle={flipEditToggle} user={user}/>
 					:
 					<p>Edit downtime</p>
 				}

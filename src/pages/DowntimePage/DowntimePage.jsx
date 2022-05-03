@@ -5,6 +5,7 @@ import * as downtimeAPI from '../../utilities/downtime-api'
 // COMPONENTS
 import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
 import DowntimeShow from "../../components/DowntimeShow/DowntimeShow"
+import DowntimeEdit from "../../components/DowntimeEdit/DowntimeEdit"
 
 export default function DowntimePage({ user }) {
 
@@ -44,7 +45,7 @@ export default function DowntimePage({ user }) {
 					!editToggle ?
 					<DowntimeShow downtime={downtime} flipEditToggle={flipEditToggle} user={user}/>
 					:
-					<p>Edit downtime</p>
+					<DowntimeEdit user={user} downtime={downtime} flipEditToggle={flipEditToggle} flipSubmittedForm={flipSubmittedForm}/>
 				}
 			<BreadcrumbNav user={user} />
 		</main>

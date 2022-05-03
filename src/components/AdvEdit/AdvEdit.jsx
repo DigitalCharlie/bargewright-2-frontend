@@ -26,7 +26,6 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 	useEffect(() => {
 		(async () => {
 			try {
-				// const data = await advAPI.getById(user.username, charId, advId)
 				const data = adv
 				const date = data.datePlayed.slice(0,10)
 				setFormData({...data, datePlayed:date})

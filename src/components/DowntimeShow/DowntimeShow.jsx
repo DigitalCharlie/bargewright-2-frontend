@@ -1,7 +1,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import * as downtimeAPI from '../../utilities/downtime-api'
 
-export default function AdvShow({ user, flipEditToggle, downtime }) {
+export default function DowntimeShow({ user, flipEditToggle, downtime }) {
 
 	const {charId, downtimeId} = useParams()
 	const navigate = useNavigate()
@@ -25,6 +25,7 @@ export default function AdvShow({ user, flipEditToggle, downtime }) {
 		<section className='show-section needs-min-height'>
 			<div className="log-details-container">
 				<table cellSpacing="0" cellPadding="0">
+					<tbody>
 					<tr>
 						<td>Type of Activity: </td>
 						<td>{downtime.activity}</td>
@@ -59,13 +60,11 @@ export default function AdvShow({ user, flipEditToggle, downtime }) {
 						</tr>
 					}
 					{
+						downtime.magicItemGained &&
 						<tr>
 							<td>Magic Items Gained: </td>
 							<td>
-								{
-									downtime.magicItemGained &&
-									<Link className="block" to={`${charLink}/magicitem/${downtime.magicItemGained._id}`}>{downtime.magicItemGained.name}</Link>
-								}
+								<Link className="block" to={`${charLink}/magicitem/${downtime.magicItemGained._id}`}>{downtime.magicItemGained.name}</Link>
 							</td>
 						</tr>
 					}
@@ -76,6 +75,7 @@ export default function AdvShow({ user, flipEditToggle, downtime }) {
 							<td>{downtime.notes}</td>
 						</tr>
 					}
+					</tbody>
 				</table>
 
 			</div>

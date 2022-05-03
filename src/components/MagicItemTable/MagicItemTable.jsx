@@ -242,7 +242,10 @@ export default function MagicItemTable ({charLink, magicItems}) {
 									<Link to={`${charLink}/magicitem/${magicItem._id}`}>{magicItem.attunement ? 'Yes' : 'No'}</Link>
 								</td>
 								<td>
-									<Link to={`${charLink}/magicitem/${magicItem._id}`}>{magicItem.adventureFound.adventureName}</Link>
+									{
+										magicItem.adventureFound &&
+										<Link to={`${charLink}/magicitem/${magicItem._id}`}>{magicItem.adventureFound.adventureName}</Link>
+									}
 								</td>
 								<td className="center"><Link to={`${charLink}/magicitem/${magicItem._id}`}>edit</Link>
 								</td>            

@@ -57,6 +57,10 @@ p {
 	color:var(--light-gray)
 }
 
+.black {
+	color:black;
+}
+
 /* GENERAL LINKS */
 
 a {

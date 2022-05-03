@@ -37,7 +37,11 @@ export default function UserHome({user}){
 				const fullTitle = displayName(charData.name, charData.race, charData.class)
 				let advLevels = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.levelGain), 1)
 				let currentLevel = charData.levelAdjust + parseInt(advLevels)
-				setChar({...charData, fullTitle, currentLevel})
+				let advGold = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.goldFound), 0)
+				let advDowntime = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.downtimeEarned), 0)
+				let advHealthPotions = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.healingPotions), 0)
+				let advCount = charData.adventures.length
+				setChar({...charData, fullTitle, currentLevel, advGold, advDowntime, advHealthPotions, advCount})
 			} catch(e) {
 				console.log(e)
 			}
@@ -77,21 +81,23 @@ export default function UserHome({user}){
 						</tr>
 						<tr>
 							<td>Gold:</td>
-							<td>21987123</td>
+							<td>{char.advGold}</td>
 						</tr>
 						<tr>
 							<td>Downtime:</td>
-							<td>100</td>
+							<td>{char.advDowntime}</td>
 						</tr>
 						<tr>
 							<td>Adventures Played:</td>
-							<td>0</td>
+							<td>{char.advCount}</td>
 						</tr>
 						<tr>
 							<td>Healing Potions in Stock:</td>
-							<td>7</td>
+							<td>{char.advHealthPotions}</td>
 						</tr>
-						<br />
+						<tr>
+							<td></td>
+						</tr>
 						<tr>
 							<td>Campaign Setting:</td>
 							<td>Forgotten Realms</td>

@@ -47,7 +47,7 @@ export default function AdvNewPage({ user }) {
 			const newDowntime = await downtimeAPI.createNew(user.username, charId, formData)
 			console.log(newDowntime)
 			setDowntimeId(newDowntime._id)
-			newDowntime.activity === "Trading Magic Item" ? setMagicItemCount(1) : setMagicItemCount(0)
+			formData.activity === "Trading Magic Item" ? setMagicItemCount(1) : setMagicItemCount(0)
 			magicItemCount === 0 && navigate(`/user/${user.username}/character/${charId}/downtime/${newDowntime._id}`)
         } catch (error) {
           setError(error.message)
@@ -67,10 +67,11 @@ export default function AdvNewPage({ user }) {
 		formData.activity = e.value
 		if(e.value === 'Brewing Potions') setFormData({...formData, downtimeUsed: -5})
 		if(e.value === 'Buying Basic Gear')setFormData({...formData, downtimeUsed: 0})
-		if(e.value === 'Catching Up') setFormData({...formData, downtimeUsed: -10})
+		if(e.value === 'Catching Up') setFormData({...formData, downtimeUsed: -10, levelGain:1})
 		if(e.value === 'Copying Spells')setFormData({...formData, downtimeUsed: -1})
 		if(e.value === 'Scribing Scroll')setFormData({...formData, downtimeUsed: -5})
 		if(e.value === 'Trading Magic Item')setFormData({...formData, downtimeUsed: -5})
+		if(e.value !== 'Trading Magic Item')setMagicItemCount(0)
 		setSelectedOption(e.value)
 	} 
 
@@ -147,7 +148,7 @@ export default function AdvNewPage({ user }) {
 			</section>
 		}
 		{
-			magicItemCount &&
+			magicItemCount > 0 &&
 			<MagicItemNew user={user} magicItemCount={magicItemCount} downtimeId={downtimeId} updateMagicItems={updateMagicItems}/>
 		}
 			<BreadcrumbNav user={user} />

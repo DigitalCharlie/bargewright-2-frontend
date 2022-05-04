@@ -56,6 +56,7 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 	const setForNextMagicItem = () => {
 		setFormData({
 			character: '',
+			downtimeActivity:'',
 			adventureFound: '',
 			name:'',
 			effects: '',

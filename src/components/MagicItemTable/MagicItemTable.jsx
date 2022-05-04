@@ -12,7 +12,7 @@ export default function MagicItemTable ({charLink, magicItems}) {
 	const [filterAttunement, setFilterAttunement] = useState(null)
 	const [filterRarity, setFilterRarity] = useState([])
 	const [filterType, setFilterType] = useState([])
-	const [filterStatus, setFilterStatus] = useState(['owned'])
+	const [filterStatus, setFilterStatus] = useState([])
 
 
 	const handleMagicSort = (type) => {
@@ -44,9 +44,17 @@ export default function MagicItemTable ({charLink, magicItems}) {
 			a = x.attunement;
 			b = y.attunement;
 		}
-		if (sortType === 'adventure') {
-			a = x.adventureFound.adventureName.toUpperCase();
-			b = y.adventureFound.adventureName.toUpperCase();
+		if (sortType === 'source') {
+			if (x.adventureFound) {
+				a = x.adventureFound.adventureName.toUpperCase();
+				b = y.adventureFound.adventureName.toUpperCase();
+			} else {
+				// a = x.downtimeActivity.activity.toUpperCase();
+				// b = y.downtimeActivity.activity.toUpperCase();
+				a = x.downtimeActivity
+				b = y.downtimeActivity
+			}
+
 		}
 
 		if (sortOrder === true) {
@@ -136,7 +144,7 @@ export default function MagicItemTable ({charLink, magicItems}) {
 		{value:'owned', label:'Owned'},
 		{value:'destroyed', label:'Destroyed'},
 		{value:'traded', label:'Traded'},
-		{value: 'consumed', label:'Used up'},
+		{value:'consumed', label:'Used up'},
 	]
 
 	const handleStatus = (option) => {
@@ -145,15 +153,16 @@ export default function MagicItemTable ({charLink, magicItems}) {
 			tempArr.push(status.value)
 		})
 		if (option) {
-				setFilterStatus(tempArr)
+			setFilterStatus(tempArr)
 		} else {
 			setFilterStatus([])
 		}
+		console.log(tempArr)
 	}
 	const statusFilter = (magicItem) => {
-		if (filterType.length === 0) {
+		if (filterStatus.length === 0) {
 			return magicItem
-		} else if (filterType.indexOf(magicItem.itemCategory.toLowerCase()) !== -1) {
+		} else if (filterStatus.indexOf(magicItem.status) !== -1) {
 			return magicItem
 		}
 	}
@@ -164,6 +173,10 @@ export default function MagicItemTable ({charLink, magicItems}) {
 	}
 
 	useEffect(() => {
+		magicItems.forEach((item) => {
+			if(!item.adventureFound) item.adventureFound = ''
+			if(!item.downtimeActivity) item.downtimeActivity = ''
+		})
 	}, [sortOrder, sortType])
 
 	return (
@@ -220,8 +233,8 @@ export default function MagicItemTable ({charLink, magicItems}) {
 						<th className="pointer" scope="col" onClick={() => {handleMagicSort('name')}}>Magic Item {sortType === 'name' && sortOrder ===true ? ' ▲' : sortType === 'name' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0" }</th>
 						<th className="pointer" scope="col" onClick={() => {handleMagicSort('type')}}>Type {sortType === 'type' && sortOrder ===true ? ' ▲' : sortType === 'type' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
 						<th className="pointer" scope="col" onClick={() => {handleMagicSort('rarity')}}>Rarity {sortType === 'rarity' && sortOrder ===true ? ' ▲' : sortType === 'rarity' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
-						<th className="pointer" scope="col" onClick={() => {handleMagicSort('attunement')}}>Attunement {sortType === 'attunement' && sortOrder ===true ? ' ▲' : sortType === 'attunement' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
-						<th className="pointer" scope="col" onClick={() => {handleMagicSort('adventure')}}>Source {sortType === 'adventure' && sortOrder ===true ? ' ▲' : sortType === 'adventure' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
+						<th className="pointer" scope="col" onClick={() => {handleMagicSort('attunement')}}>Attunement {sortType === 'attunement' && sortOrder ===true ? ' ▲' : sortType === 'attunement' ? ' ▼' : ""}</th>
+						<th className="pointer" scope="col" onClick={() => {handleMagicSort('source')}}>Source {sortType === 'source' && sortOrder ===true ? ' ▲' : sortType === 'source' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
 						<th scope="col" className="center">Quicklinks</th>
 					</tr>
 				</thead>
@@ -244,7 +257,11 @@ export default function MagicItemTable ({charLink, magicItems}) {
 								<td>
 									{
 										magicItem.adventureFound &&
-										<Link to={`${charLink}/magicitem/${magicItem._id}`}>{magicItem.adventureFound.adventureName}</Link>
+										<Link to={`${charLink}/adventure/${magicItem.adventureFound._id}`}>{magicItem.adventureFound.adventureName}</Link>
+									}
+									{
+										magicItem.downtimeActivity &&
+										<Link to={`${charLink}/downtime/${magicItem.downtimeActivity._id}`}>{magicItem.downtimeActivity}</Link>
 									}
 								</td>
 								<td className="center"><Link to={`${charLink}/magicitem/${magicItem._id}`}>edit</Link>

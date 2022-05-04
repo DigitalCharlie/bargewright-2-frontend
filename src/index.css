@@ -191,6 +191,15 @@ td {
 
 /* GENERAL FORMS */
 
+.simple-dropdown {
+	height:40px;
+	font-size:1em;
+	margin-bottom:10px;
+	margin-top:5px;
+	padding-right:5px;
+	min-width:220px;
+}
+
 /* ALL FORMS */
 
 /* Doing something weird with the typing dropdown */

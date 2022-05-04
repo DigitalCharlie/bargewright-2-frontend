@@ -90,7 +90,8 @@ export default function AdvShow({ user, adv, flipEditToggle }) {
 								adv.storyAwards.map((award) => (
 									<tr>
 										<td>
-											{award.title}
+											{award.title}<br />
+											{award.type}
 										</td>
 										<td>
 											{award.description}

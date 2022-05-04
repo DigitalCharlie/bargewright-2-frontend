@@ -28,3 +28,7 @@ export async function getAllAdv (username, charId) {
 export async function getAllMagic (username, charId) {
   return sendRequest(`${BASE_URL}/${username}/character/${charId}/magicitem/all`)
 }
+
+export async function getAllDowntime (username, charId) {
+  return sendRequest(`${BASE_URL}/${username}/character/${charId}/downtime/all`)
+}

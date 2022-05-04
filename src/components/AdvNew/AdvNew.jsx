@@ -11,7 +11,9 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 
 	const {charId} = useParams()
 
-	const [storyAwardCount, setStoryAwardCount] = useState([])
+	const [storyAwardCount, setStoryAwardCount] = useState(0)
+
+	const [currentStoryAwards, setCurrentStoryAwards] = useState([])
 
 	const [formData, setFormData ] = useState({
 		character: '',
@@ -29,6 +31,36 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 		storyAwards:[],
     })
 
+	const renderAwards = () => {
+		const awardhtml = []
+		for(let i=0; i<storyAwardCount ; i++) {
+			awardhtml.push(
+				<>
+					<div className={styles.awardTypeAndTitle}>
+						<div className={styles.labelAndDescDiv}>
+						<label>Award Type</label>
+						<CreatableSelect
+							defaultValue={'Story Award'}
+							onChange={(e) => handleAwardType({e:e,idx:i})}
+							options={awardOptions}
+							className={styles.dropdown}
+						/>
+						</div>
+						<div className={styles.labelAndDescDiv}>
+						<label>Award Name</label>
+						<input className={styles.storyAwardTitle} placeholder="Enemy of the Red Wizards" onChange={(e)=>handleStoryTitleChange({e:e,idx:i})} type="text"/>
+						</div>
+					</div>
+					<div>
+						<label>Award Description</label>
+						<textarea className={styles.storyAwardDesc} placeholder="Describe your award" onChange={(e)=>handleStoryDescChange({e:e,idx:i})}/>
+					</div>
+				</>
+			)
+		}
+		return awardhtml
+	}
+
     const [ error, setError ] = useState('')
 
     const handleChange = (evt) => {
@@ -40,6 +72,7 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
         evt.preventDefault();
         try {
 			formData.character = charId
+			formData.storyAwards = currentStoryAwards
 			console.log(formData)			
 			const createdAdv = await advAPI.createNew(user.username, charId, formData)
 			console.log(createdAdv)
@@ -50,28 +83,24 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
         }
     }
 
-	const currentStoryAwards = []
-
-	// const handleStoryCountIncrease = () => {
-	// 	let newAward = {
-	// 		title:'',
-	// 		description: '',
-	// 		awardType:''
-	// 	}
-	// 	currentStoryAwards.push(newAward)
-	// 	setStoryAwardCount([...storyAwardCount, 1])
-	// 	console.log(currentStoryAwards)
-	// }
-
 	const handleStoryTitleChange = (obj) => {
-		if(!currentStoryAwards[obj.idx]) currentStoryAwards.push({})
-		currentStoryAwards[obj.idx].title=obj.e.target.value
-		formData.storyAwards[obj.idx]=currentStoryAwards[obj.idx]
+		// const newStoryObject = {title:obj.e.target.value}
+		// updateState(obj, newStoryObject)
+		
+		const stateArray = [...currentStoryAwards]
+		if(!stateArray[obj.idx]) stateArray[obj.idx] = {}
+		stateArray[obj.idx].title=obj.e.target.value
+		setCurrentStoryAwards(stateArray)
 	}
 	const handleStoryDescChange = (obj) => {
-		if(!currentStoryAwards[obj.idx]) currentStoryAwards.push({})
-		currentStoryAwards[obj.idx].description=obj.e.target.value
-		formData.storyAwards[obj.idx]=currentStoryAwards[obj.idx]
+		// const newStoryObject = {description:obj.e.target.value}
+		// updateState(obj, newStoryObject)
+
+		const stateArray = [...currentStoryAwards]
+		if(!stateArray[obj.idx]) stateArray[obj.idx] = {}
+		stateArray[obj.idx].description=obj.e.target.value
+		setCurrentStoryAwards(stateArray)
+
 	}
 
 	const awardOptions = [
@@ -82,20 +111,17 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 	]
 
 	const handleAwardType = (obj) => {
-		console.log(obj)
-		console.log(obj.idx)
-		console.log(obj.e.value)
-		if(!currentStoryAwards[obj.idx]) currentStoryAwards.push({})
-		console.log(currentStoryAwards)
-		currentStoryAwards[obj.idx].awardType=obj.e.value
-				currentStoryAwards[obj.idx].awardType=obj.e.value
-
-		// formData.storyAwards[obj.idx]=currentStoryAwards[obj.idx]
-		console.log(currentStoryAwards)
+		const stateArray = [...currentStoryAwards]
+		if(!stateArray[obj.idx]) stateArray[obj.idx] = {}
+		stateArray[obj.idx].type=obj.e.value
+		setCurrentStoryAwards(stateArray)
 	}
 
+	const increaseStoryAwards = () => {
+		setStoryAwardCount(storyAwardCount+1)
+	}
 
-	console.log(formData)
+	console.log(currentStoryAwards)
 
 	return (
 		<section>
@@ -145,48 +171,16 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 					<textarea name="notes" value={formData.notes} onChange={handleChange} placeholder="notes"/>
 				</div>
 				{
-					storyAwardCount.length > 0 &&
+					storyAwardCount > 0 &&
 					<section className={styles.storyAwardSection}>
 					<hr className={styles.rule} />
 					<h2 className="center">Story Awards and Other Boons</h2>
-					{storyAwardCount.map((ele, idx)=> {
-						return (
-							<>
-								<div className={styles.awardTypeAndTitle}>
-									{/* <div className={styles.labelAndDescDiv}>
-									<label>Award Type</label>
-									<CreatableSelect
-										defaultValue={'Story Award'}
-										onChange={(e) => handleAwardType({e:e,idx:idx})}
-										options={awardOptions}
-										className={styles.dropdown}
-									/>
-									<select name="awardType" defaultValue="Story Award" onChange={(e) => handleAwardType({e:e,idx:idx})} >
-										<option value="Story Award">Story Award</option>
-										<option value="New Downtime Option">New Downtime Option</option>
-										<option value="Other">Other</option>
-									</select>
-
-									</div> */}
-									<div className={styles.labelAndDescDiv}>
-									<label>Award Name</label>
-									<input className={styles.storyAwardTitle} placeholder="Enemy of the Red Wizards" onChange={(e)=>handleStoryTitleChange({e:e,idx:idx})} type="text"/>
-									</div>
-								</div>
-								<div>
-									<label>Award Description</label>
-									<textarea className={styles.storyAwardDesc} placeholder="Describe your award" onChange={(e)=>handleStoryDescChange({e:e,idx:idx})}/>
-								</div>
-							</>
-						)
-					})}
+					{renderAwards()}
 					</section>
 				}
-				<button className="button-center button-fixed-width" type="button" onClick={()=>setStoryAwardCount([...storyAwardCount, 1])
-}>Add Story Award (or other boon)</button>
+				<button className="button-center button-fixed-width" type="button" onClick={increaseStoryAwards}>Add Story Award (or other boon)</button>
 				<button className="button-fixed-width button-center red-button" type="submit" onClick={handleSubmit}>Log adventure</button>
 			</form>
-
 			<h1 className="error-message">{error}</h1>
 		</section>
 	)

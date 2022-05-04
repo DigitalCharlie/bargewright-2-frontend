@@ -30,7 +30,7 @@ export default function AdvNewPage({ user }) {
 					:
 					<MagicItemNew user={user} updateMagicItems={updateMagicItems} magicItemCount={magicItemCount} advId={advId} magicItemsFound={magicItemsFound} />
 				}
-			<BreadcrumbNav user={user} />
+			<BreadcrumbNav user={user} charId={charId} />
 		</main>
 	)
 }

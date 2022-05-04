@@ -5,6 +5,7 @@ import * as charAPI from '../../utilities/char-api'
 // OTHER COMPONENTS
 import MagicItemTable from "../MagicItemTable/MagicItemTable"
 import CharTable from "../AdvTable/AdvTable"
+import MoreInfoTab from "../MoreInfo/MoreInfo"
 
 // CSS
 import styles from './CharShow.module.css'
@@ -12,6 +13,7 @@ import styles from './CharShow.module.css'
 export default function UserHome({user, char}){
 	const [advs, setAdvs] = useState([])
 	const [magicItems, setmagicItems] = useState([])
+	const [downtimes, setDowntimes] = useState([])
 	const [currentTable, setCurrentTable] = useState('adventures')
 
 	const {charId} = useParams()
@@ -32,7 +34,8 @@ export default function UserHome({user, char}){
 				setAdvs(advData)
 				const magicData = await charAPI.getAllMagic(user.username, charId)
 				setmagicItems(magicData)
-				console.log(magicData)
+				const downtimeData = await charAPI.getAllDowntime(user.username, charId)
+				console.log(downtimeData)
 			} catch(e) {
 				console.log(e)
 			}
@@ -44,11 +47,14 @@ export default function UserHome({user, char}){
 			<div className={styles.headlineToggles}>
 				<h2 onClick={()=> setCurrentTable('adventures')} className={currentTable === 'adventures' ? styles.active : styles.inactive}>Adventures</h2>
 				<h2 onClick={()=> setCurrentTable('magicItems')} className={currentTable === 'magicItems' ? styles.active : styles.inactive}>Magic Items</h2>
+				<h2 onClick={()=> setCurrentTable('moreInfo')} className={currentTable === 'moreInfo' ? styles.active : styles.inactive}>Other Details</h2>
 			</div>
 			{
 				currentTable === 'adventures'
 				? <CharTable charLink={charLink} advs={advs} />
-				: <MagicItemTable charLink={charLink} magicItems={magicItems} />
+				: currentTable === 'magicItems' 
+				? <MagicItemTable charLink={charLink} magicItems={magicItems} />
+				: <MoreInfoTab charLink={charLink} advs={advs} downtimes={downtimes} />
 			}
 
 

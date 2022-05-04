@@ -62,9 +62,18 @@ export default function DowntimeShow({ user, flipEditToggle, downtime }) {
 					{
 						downtime.magicItemGained &&
 						<tr>
-							<td>Magic Items Gained: </td>
+							<td>Magic Item Received: </td>
 							<td>
 								<Link className="block" to={`${charLink}/magicitem/${downtime.magicItemGained._id}`}>{downtime.magicItemGained.name}</Link>
+							</td>
+						</tr>
+					}
+					{
+						downtime.magicItemLost &&
+						<tr>
+							<td>Magic Item Traded Away: </td>
+							<td>
+								<Link className="block" to={`${charLink}/magicitem/${downtime.magicItemLost._id}`}>{downtime.magicItemLost.name}</Link>
 							</td>
 						</tr>
 					}

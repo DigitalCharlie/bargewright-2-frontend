@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams, useNavigate } from 'react-router-dom'
 import * as magicAPI from '../../utilities/magic-api'
+import styles from '../MagicItemNew/MagicItemNew.module.css';
 
 export default function MagicItemEdit({ user, flipEditToggle, magicItem, flipSubmittedForm }) {
 
@@ -102,6 +103,13 @@ export default function MagicItemEdit({ user, flipEditToggle, magicItem, flipSub
 							<option value="Potion">Potion</option>
 						</select>
 					</div>
+					{
+						formData.itemCategory === 'Consumable' &&
+						<div className={styles.charges}>
+							<label>Uses/Charges</label>
+							<input type="number" min='0' id='charges' name='charges' value={formData.charges} onChange={handleChange} />
+						</div>
+					}
 
 				</article>
 				<div className="textarea">

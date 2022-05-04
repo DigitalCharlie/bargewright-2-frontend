@@ -60,10 +60,10 @@ function App() {
                 <Route path={`/user/${user.username}/character/new`} element={<CharNew user={user}/>}/>
                 <Route path={`/user/${user.username}/character/:charId`} element={<CharHome user={user}/>}/>
                 <Route path={`/user/${user.username}/character/:charId/adventure/new`} element={<AdvNew user={user}/>}/>
-                <Route path={`/user/${user.username}/character/:charId/adventure/:advId/`} element={<AdvShow user={user}/>}/>
-                <Route path={`/user/${user.username}/character/:charId/magicitem/:magicItemId/`} element={<MagicItem user={user}/>}/>
+                <Route path={`/user/${user.username}/character/:charId/adventure/:advId`} element={<AdvShow user={user}/>}/>
+                <Route path={`/user/${user.username}/character/:charId/magicitem/:magicItemId`} element={<MagicItem user={user}/>}/>
                 <Route path={`/user/${user.username}/character/:charId/downtime/new`} element={<DowntimeNew user={user}/>}/>
-                <Route path={`/user/${user.username}/character/:charId/downtime/:downtimeId/`} element={<DowntimePage user={user}/>}/>
+                <Route path={`/user/${user.username}/character/:charId/downtime/:downtimeId`} element={<DowntimePage user={user}/>}/>
               </>
               :
               <Route path="/" element={<HomePage  setUser={setUser}/>}/>

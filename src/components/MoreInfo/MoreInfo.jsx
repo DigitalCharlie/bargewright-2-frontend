@@ -74,12 +74,19 @@ console.log(allTrades)
 										<td>
 											<Link to={`${charLink}/magicitem/${trade._id}`}>{trade.date.slice(0,10)}</Link>
 										</td>
-										{/* <td>
-											<Link to={`${charLink}/magicitem/${trade.magicItemGained._id}`}>{trade.magicItemGained.name}</Link>
-										</td>
-										<td>
-											<Link to={`${charLink}/magicitem/${trade.magicItemLost.name}`}>{trade.magicItemLost.name}</Link>
-										</td> */}
+										{
+											trade.magicItemGained ?
+											<td>
+												<Link to={`${charLink}/magicitem/${trade.magicItemGained._id}`}>{trade.magicItemGained.name}</Link>
+											</td>
+										: <td></td>
+										}
+										{ trade.magicItemLost ?
+											<td>
+												<Link to={`${charLink}/magicitem/${trade.magicItemLost.name}`}>{trade.magicItemLost.name}</Link>
+											</td>
+										: <td></td>
+										}
 									</tr>
 								))
 							}

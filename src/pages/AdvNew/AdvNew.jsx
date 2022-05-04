@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react"
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import * as advAPI from '../../utilities/adv-api'
-import * as moment from 'moment'
+import { useState } from "react"
+import { useNavigate, useParams } from 'react-router-dom'
 import AdvNew from '../../components/AdvNew/AdvNew'
 import MagicItemNew from "../../components/MagicItemNew/MagicItemNew"
 import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
@@ -30,7 +28,7 @@ export default function AdvNewPage({ user }) {
 					:
 					<MagicItemNew user={user} updateMagicItems={updateMagicItems} magicItemCount={magicItemCount} advId={advId} magicItemsFound={magicItemsFound} />
 				}
-			<BreadcrumbNav user={user} charId={charId} />
+			<BreadcrumbNav user={user} charId={charId}  />
 		</main>
 	)
 }

@@ -2,6 +2,9 @@ import { useState, useEffect } from "react"
 import { useParams, useNavigate } from 'react-router-dom'
 import * as advAPI from '../../utilities/adv-api'
 import * as moment from 'moment'
+import CreatableSelect from 'react-select/creatable';
+import styles from '../AdvNew/AdvNew.module.css'
+
 
 export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedForm }) {
 
@@ -19,9 +22,12 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 		levelGain: 1,
 		notes:'',
 		magicItemNotes:'',
-		healingPotions:0
+		healingPotions:0,
+		storyAwards:[]
     })
     const [ error, setError ] = useState('')
+
+	const [currentStoryAwards, setCurrentStoryAwards] = useState([])
 
 	useEffect(() => {
 		(async () => {
@@ -29,11 +35,13 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 				const data = adv
 				const date = data.datePlayed.slice(0,10)
 				setFormData({...data, datePlayed:date})
+				setCurrentStoryAwards(data.storyAwards)
 			} catch(e) {
 				console.log(e)
 			}
 		})()
 	}, [])
+	console.log(formData)
 
     const handleChange = (evt) => {
       setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -43,6 +51,7 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
     const handleSubmit = async (evt) => {
         evt.preventDefault();
         try {
+			formData.storyAwards = currentStoryAwards
 			const editedAdv = await advAPI.editAdv(user.username, charId, advId, formData)
 			flipEditToggle()
 			flipSubmittedForm()
@@ -62,6 +71,64 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 		} catch(err) {
 			console.log(err)
 		}
+	}
+
+	const renderAwards = () => {
+		const awardhtml = []
+		for(let i=0; i<formData.storyAwards.length ; i++) {
+			awardhtml.push(
+				<>
+					<div className={styles.awardTypeAndTitle}>
+						<div className={styles.labelAndDescDiv}>
+						<label>Award Type</label>
+						<CreatableSelect
+							defaultValue={{value:formData.storyAwards[i].type, label:formData.storyAwards[i].type}}
+							onChange={(e) => handleAwardType({e:e,idx:i})}
+							options={awardOptions}
+							className={styles.dropdown}
+						/>
+						</div>
+						<div className={styles.labelAndDescDiv}>
+						<label>Award Name</label>
+						<input className={styles.storyAwardTitle} placeholder="Enemy of the Red Wizards" onChange={(e)=>handleStoryTitleChange({e:e,idx:i})} type="text" defaultValue={formData.storyAwards[i].title}/>
+						</div>
+					</div>
+					<div>
+						<label>Award Description</label>
+						<textarea className={styles.storyAwardDesc} placeholder="Describe your award" defaultValue={formData.storyAwards[i].description} onChange={(e)=>handleStoryDescChange({e:e,idx:i})}/>
+					</div>
+				</>
+			)
+		}
+		return awardhtml
+	}
+
+	const handleStoryTitleChange = (obj) => {
+		const stateArray = [...currentStoryAwards]
+		if(!stateArray[obj.idx]) stateArray[obj.idx] = {}
+		stateArray[obj.idx].title=obj.e.target.value
+		setCurrentStoryAwards(stateArray)
+	}
+	const handleStoryDescChange = (obj) => {
+		const stateArray = [...currentStoryAwards]
+		if(!stateArray[obj.idx]) stateArray[obj.idx] = {}
+		stateArray[obj.idx].description=obj.e.target.value
+		setCurrentStoryAwards(stateArray)
+
+	}
+
+	const awardOptions = [
+		{value:'Story Award', label:'Story Award'},
+		{value:'Downtime Activity', label:'Downtime Activity'},
+		{value:'Permanent Boon', label:'Permanent Boon'},
+		{value:'Other', label:'Other'},
+	]
+
+	const handleAwardType = (obj) => {
+		const stateArray = [...currentStoryAwards]
+		if(!stateArray[obj.idx]) stateArray[obj.idx] = {}
+		stateArray[obj.idx].type=obj.e.value
+		setCurrentStoryAwards(stateArray)
 	}
 
 	return (
@@ -112,7 +179,14 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 					<label>Adventure Notes</label>
 					<textarea name="notes" value={formData.notes} onChange={handleChange} placeholder="notes"/>
 				</div>
-
+				{
+					formData.storyAwards && formData.storyAwards.length > 0 &&
+					<section className={styles.storyAwardSection}>
+					<hr className={styles.rule} />
+					<h2 className="center">Story Awards and Other Boons</h2>
+					{renderAwards()}
+					</section>
+				}
 
 				<button className="button-fixed-width button-center red-button" type="submit" onClick={handleSubmit}>Save changes</button>
 			</form>

@@ -101,7 +101,7 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 					<input type="number" name="healingPotions" value={formData.healingPotions} onChange={handleChange}/>
 				</div>
 				<div>
-					<label>Magic Item Notes?</label>
+					<label>Magic Item Notes</label>
 					<input type="text" name="magicItemNotes" value={formData.magicItemNotes} onChange={handleChange} placeholder="Anything destroyed? Used?"/>
 				</div>
 				<div>
@@ -114,7 +114,7 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 				</div>
 
 
-				<button className="button-fixed-width button-center red-button" type="submit" onClick={handleSubmit}>Log adventure</button>
+				<button className="button-fixed-width button-center red-button" type="submit" onClick={handleSubmit}>Save changes</button>
 			</form>
 				<button className="button-fixed-width button-center" onClick={flipEditToggle}>Discard changes</button>
 				<p className="center">or</p>

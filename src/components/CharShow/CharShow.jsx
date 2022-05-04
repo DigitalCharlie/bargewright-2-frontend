@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link, useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import * as charAPI from '../../utilities/char-api'
 
 // OTHER COMPONENTS
@@ -35,7 +35,7 @@ export default function UserHome({user, char}){
 				const magicData = await charAPI.getAllMagic(user.username, charId)
 				setmagicItems(magicData)
 				const downtimeData = await charAPI.getAllDowntime(user.username, charId)
-				console.log(downtimeData)
+				setDowntimes(downtimeData)
 			} catch(e) {
 				console.log(e)
 			}

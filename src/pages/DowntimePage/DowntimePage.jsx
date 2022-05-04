@@ -47,7 +47,7 @@ export default function DowntimePage({ user }) {
 					:
 					<DowntimeEdit user={user} downtime={downtime} flipEditToggle={flipEditToggle} flipSubmittedForm={flipSubmittedForm}/>
 				}
-			<BreadcrumbNav user={user} />
+			<BreadcrumbNav user={user} charId={charId} char={downtime.character && downtime.character.name} downtime={downtime.activity} />
 		</main>
 	)
 }

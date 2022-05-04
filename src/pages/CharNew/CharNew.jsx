@@ -37,7 +37,7 @@ export default function NewCharPage({ user }) {
 			formData.player = user.username
           const createdChar = await charAPI.createNew(user.username, formData)
 		  console.log(createdChar)
-          navigate(`/user/${user.username}/character/createdChar._id`);
+          navigate(`/user/${user.username}/character/${createdChar._id}`);
         } catch (error) {
           setError(error.message)
         }

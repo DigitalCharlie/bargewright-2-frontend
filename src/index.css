@@ -34,6 +34,10 @@ h2 {
 	text-align: center;
 }
 
+h3 {
+	font-size:1.5em;
+}
+
 .narrow-para {
 	max-width:550px;
 	margin:20px auto;
@@ -45,6 +49,14 @@ p {
 
 .needs-min-height {
 	min-height:300px;
+}
+
+.italic {
+	font-style:italic;
+}
+
+.strikethrough {
+	text-decoration:line-through;
 }
 
 /* Text specific stuff */
@@ -130,6 +142,10 @@ button:hover, button a:hover {
 
 .center {
 	text-align:center;
+}
+
+.left {
+	text-align: left;
 }
 
 .block {

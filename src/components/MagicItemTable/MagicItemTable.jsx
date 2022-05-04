@@ -14,7 +14,13 @@ export default function MagicItemTable ({charLink, magicItems}) {
 	const [filterType, setFilterType] = useState([])
 	const [filterStatus, setFilterStatus] = useState([])
 
-
+	useEffect(() => {
+		magicItems.forEach((item) => {
+			if(!item.adventureFound) item.adventureFound = ''
+			if(!item.downtimeActivity) item.downtimeActivity = ''
+		})
+	}, [sortOrder, sortType])
+	
 	const handleMagicSort = (type) => {
 		if (sortType === type) {
 			setSortOrder(!sortOrder)
@@ -172,12 +178,7 @@ export default function MagicItemTable ({charLink, magicItems}) {
 		setShowFilters(!showFilters)
 	}
 
-	useEffect(() => {
-		magicItems.forEach((item) => {
-			if(!item.adventureFound) item.adventureFound = ''
-			if(!item.downtimeActivity) item.downtimeActivity = ''
-		})
-	}, [sortOrder, sortType])
+
 
 	return (
 		<>
@@ -241,7 +242,7 @@ export default function MagicItemTable ({charLink, magicItems}) {
 				<tbody>
 					{
 						magicItems.filter(attunementFilter).filter(rarityFilter).filter(typeFilter).filter(statusFilter).sort(sortMagic).map((magicItem) => (
-							<tr key={`${magicItem._id}`} className="table-row">
+							<tr key={`${magicItem._id}`} className={`table-row ${magicItem.status === "owned" ? '' : 'strikethrough' }` }>
 								<td>
 									<Link to={`${charLink}/magicitem/${magicItem._id}`}>{magicItem.name}</Link>
 								</td>
@@ -271,6 +272,7 @@ export default function MagicItemTable ({charLink, magicItems}) {
 					}
 				</tbody>
 			</table>
+			<p className="italic center">Destroyed, traded and consumed items are <span className="strikethrough">struckthrough</span></p>
 		</>
 	)
 }

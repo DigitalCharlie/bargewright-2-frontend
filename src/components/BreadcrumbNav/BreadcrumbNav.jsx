@@ -1,9 +1,9 @@
 import { useParams, Link, useNavigate } from "react-router-dom"
 import styles from './BreadcrumbNav.module.css'
 
-export default function BreadcrumbNav ({user, char, adv, magicItem}) {
+export default function BreadcrumbNav ({user, char, adv, magicItem, downtime}) {
 
-	const {charId, advId, magicItemId} = useParams()
+	const {charId, advId, magicItemId, downtimeId} = useParams()
 	const navigate = useNavigate()
 
 	return (
@@ -31,6 +31,13 @@ export default function BreadcrumbNav ({user, char, adv, magicItem}) {
 					magicItemId 
 					?
 					<li> &gt; <Link to={`/user/${user.username}/character/${charId}/magicitem/${magicItemId}`}>{magicItem}</Link></li>
+					:
+					''
+				}
+				{
+					downtimeId 
+					?
+					<li> &gt; <Link to={`/user/${user.username}/character/${charId}/downtime/${downtimeId}`}>{downtime}</Link></li>
 					:
 					''
 				}

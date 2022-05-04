@@ -35,6 +35,10 @@ export default function NewAdvPage({ user, magicItem, flipEditToggle }) {
 								magicItem.adventureFound &&
 								<Link to={`/user/${user.username}/character/${charId}/adventure/${magicItem.adventureFound._id}`}>{magicItem.adventureFound.adventureName}</Link>
 							}
+							{
+								magicItem.downtimeActivity &&
+								<Link to={`/user/${user.username}/character/${charId}/downtime/${magicItem.downtimeActivity}`}>{magicItem.downtimeActivity}</Link>
+							}
 						</td>
 					</tr>
 					<tr>
@@ -49,6 +53,24 @@ export default function NewAdvPage({ user, magicItem, flipEditToggle }) {
 						<td>Attunement?</td>
 						<td>{magicItem.attunement === true ? "Yes" : "No"}</td>
 					</tr>
+					{
+						magicItem.charges &&
+						<>
+							<tr>
+								<td>Charges:</td>
+								<td>{magicItem.charges}</td>
+							</tr>
+						</>
+					}
+					{
+						magicItem.status && magicItem.status !== 'owned' &&
+						<>
+							<tr>
+								<td>Status:</td>
+								<td>{magicItem.status.toUpperCase()}</td>
+							</tr>
+						</>
+					}
 					{
 						magicItem.effects &&
 						<>

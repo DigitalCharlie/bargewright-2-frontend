@@ -40,7 +40,6 @@ export default function DowntimeNewPage({ user }) {
 			try {
 				const magicData = await charAPI.getAllMagic(user.username, charId)
 				const ownedMagic = magicData.filter(magicItem => magicItem.status === 'owned')
-				console.log(ownedMagic)
 				setMagicItems(ownedMagic)
 			} catch(e) {
 				console.log(e)

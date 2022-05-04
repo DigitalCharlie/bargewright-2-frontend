@@ -26,7 +26,6 @@ export default function HomePage({setUser}){
                     ?
                     <>
                         <LoginForm setUser={setUser} setShowForm={setShowForm} />
-
                     </>
                     :
                     <>

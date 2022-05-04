@@ -62,40 +62,44 @@ export default function UserShow ({user, chars, flipEditToggle}) {
 			<hr />
 			<h2 className="center">Your characters</h2>
 
-
-			<table cellSpacing="0" cellPadding="0">
-				<thead>
-					<tr>
-						<th className="pointer" scope="col" onClick={() => {handleCharacterSort('name')}}>Name{sortType === 'name' && sortOrder ===true ? ' ▲' : sortType === 'name' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0" }</th>
-						<th className="pointer" scope="col" onClick={() => {handleCharacterSort('race')}}>Race{sortType === 'race' && sortOrder ===true ? ' ▲' : sortType === 'race' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
-						<th className="pointer" scope="col" onClick={() => {handleCharacterSort('class')}}>Class{sortType === 'class' && sortOrder ===true ? ' ▲' : sortType === 'class' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
-						<th className="pointer" scope="col" onClick={() => {handleCharacterSort('level')}}>Level{sortType === 'level' && sortOrder ===true ? ' ▲' : sortType === 'level' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
-						<th scope="col" className="center">Quicklinks</th>
-					</tr>
-				</thead>
-				<tbody>
-					{
-						chars.sort(sortCharacters).map((character) => (
-							<tr key={`${character._id}`} className="table-row">
-								<td>
-									<Link to={`/user/${user.username}/character/${character._id}`}>{character.name}</Link>
-								</td>
-								<td>
-									<Link to={`/user/${user.username}/character/${character._id}`}>{character.race}</Link>
-								</td>
-								<td>
-									<Link to={`/user/${user.username}/character/${character._id}`}>{character.class}</Link>
-								</td>
-								<td>
-									<Link to={`/user/${user.username}/character/${character._id}`}>{character.currentLevel}</Link>
-								</td>
-								<td className="center"><Link to={`/user/${user.username}/character/${character._id}/adventure/new`}>🆕</Link>
-								</td>                                                                                                                 
-							</tr>
-						))
-					}
-				</tbody>
-			</table>
+			{
+				chars.length === 0 ?
+				<p className="center">It looks like you don't have any characters yet.<br />Click the button below to add your first one!</p>
+				:
+				<table cellSpacing="0" cellPadding="0">
+					<thead>
+						<tr>
+							<th className="pointer" scope="col" onClick={() => {handleCharacterSort('name')}}>Name{sortType === 'name' && sortOrder ===true ? ' ▲' : sortType === 'name' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0" }</th>
+							<th className="pointer" scope="col" onClick={() => {handleCharacterSort('race')}}>Race{sortType === 'race' && sortOrder ===true ? ' ▲' : sortType === 'race' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
+							<th className="pointer" scope="col" onClick={() => {handleCharacterSort('class')}}>Class{sortType === 'class' && sortOrder ===true ? ' ▲' : sortType === 'class' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
+							<th className="pointer" scope="col" onClick={() => {handleCharacterSort('level')}}>Level{sortType === 'level' && sortOrder ===true ? ' ▲' : sortType === 'level' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
+							<th scope="col" className="center">Quicklinks</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							chars.sort(sortCharacters).map((character) => (
+								<tr key={`${character._id}`} className="table-row">
+									<td>
+										<Link to={`/user/${user.username}/character/${character._id}`}>{character.name}</Link>
+									</td>
+									<td>
+										<Link to={`/user/${user.username}/character/${character._id}`}>{character.race}</Link>
+									</td>
+									<td>
+										<Link to={`/user/${user.username}/character/${character._id}`}>{character.class}</Link>
+									</td>
+									<td>
+										<Link to={`/user/${user.username}/character/${character._id}`}>{character.currentLevel}</Link>
+									</td>
+									<td className="center"><Link to={`/user/${user.username}/character/${character._id}/adventure/new`}>🆕</Link>
+									</td>                                                                                                                 
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			}
 			<Link to={`/user/${user.username}/character/new`}><button className="red-button button-center button-fixed-width">Add new character</button></Link>
 			<p className="smallText grayText center offsetTop pointer" onClick={flipEditToggle}>edit account</p>
 		</main>

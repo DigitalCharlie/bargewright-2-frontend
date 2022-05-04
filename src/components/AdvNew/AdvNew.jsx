@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import * as advAPI from '../../utilities/adv-api'
+import * as charAPI from '../../utilities/char-api'
+import * as magicAPI from '../../utilities/magic-api'
 import * as moment from 'moment'
 import styles from './AdvNew.module.css'
 import CreatableSelect from 'react-select/creatable';
@@ -10,6 +12,12 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 	const navigate = useNavigate()
 
 	const {charId} = useParams()
+
+	const [magicItems, setMagicItems] = useState([])
+	const [wasMagicItemLost, setWasMagicItemLost] = useState(null)
+	const [itemLost, setItemLost] = useState(null)
+	const [newStatus, setNewStatus] = useState(null)
+	const [newCharges, setNewCharges] = useState(null)
 
 	const [storyAwardCount, setStoryAwardCount] = useState(0)
 
@@ -30,6 +38,49 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 		magicItemsFound:0,
 		storyAwards:[],
     })
+
+    const [ error, setError ] = useState('')
+
+	useEffect(() => {
+		(async () => {
+			try {
+				const magicData = await charAPI.getAllMagic(user.username, charId)
+				const ownedMagic = magicData.filter(magicItem => magicItem.status === 'owned')
+				setMagicItems(ownedMagic)
+			} catch(e) {
+				console.log(e)
+			}
+		})()
+	}, [])
+
+    const handleChange = (evt) => {
+      setFormData({ ...formData, [evt.target.name]: evt.target.value });
+      setError('');
+    }
+
+    const handleSubmit = async (evt) => {
+        evt.preventDefault();
+        try {
+			formData.character = charId
+			formData.storyAwards = currentStoryAwards
+			if(wasMagicItemLost === 'yes') {
+				const itemChanged = await magicItems.find(mi => mi._id === itemLost)
+				itemChanged.status = newStatus
+				itemChanged.charges = newCharges
+				const editedItem = await magicAPI.editMagicItem(user.username, charId, itemChanged._id, itemChanged)
+				console.log(editedItem)
+				if (newStatus === 'owned') formData.magicItemNotes = `${itemChanged.name} now has ${newCharges} charges remaining`
+				if (newStatus !== 'owned') formData.magicItemNotes = `${itemChanged.name} was ${newStatus}`
+			}
+			console.log(formData)			
+			const createdAdv = await advAPI.createNew(user.username, charId, formData)
+			console.log(createdAdv)
+			setAdvId(createdAdv._id)
+			updateMagicItems(createdAdv.magicItemsFound, createdAdv._id)
+        } catch (error) {
+          setError(error.message)
+        }
+    }
 
 	const renderAwards = () => {
 		const awardhtml = []
@@ -60,28 +111,6 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 		}
 		return awardhtml
 	}
-
-    const [ error, setError ] = useState('')
-
-    const handleChange = (evt) => {
-      setFormData({ ...formData, [evt.target.name]: evt.target.value });
-      setError('');
-    }
-
-    const handleSubmit = async (evt) => {
-        evt.preventDefault();
-        try {
-			formData.character = charId
-			formData.storyAwards = currentStoryAwards
-			console.log(formData)			
-			const createdAdv = await advAPI.createNew(user.username, charId, formData)
-			console.log(createdAdv)
-			setAdvId(createdAdv._id)
-			updateMagicItems(createdAdv.magicItemsFound, createdAdv._id)
-        } catch (error) {
-          setError(error.message)
-        }
-    }
 
 	const handleStoryTitleChange = (obj) => {
 		// const newStoryObject = {title:obj.e.target.value}
@@ -121,8 +150,6 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 		setStoryAwardCount(storyAwardCount+1)
 	}
 
-	console.log(currentStoryAwards)
-
 	return (
 		<section>
 			<form className="wide-formContainer">
@@ -132,7 +159,7 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 				</div>
 				<div>
 					<label>Adventure title (required) </label>
-					<input type="text" name="adventureName" value={formData.adventureName} onChange={handleChange} placeholder="Super awesome adventure title" />
+					<input type="text" name="adventureName" value={formData.adventureName} onChange={handleChange} placeholder="Super awesome adventure title" required />
 				</div>
 				<div>
 					<label>Date played</label>
@@ -159,13 +186,48 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 					<input type="number" name="healingPotions" value={formData.healingPotions} onChange={handleChange}/>
 				</div>
 				<div>
-					<label>Magic Item Notes?</label>
-					<input type="text" name="magicItemNotes" value={formData.magicItemNotes} onChange={handleChange} placeholder="Anything destroyed? Used?"/>
-				</div>
-				<div>
-					<label>Magic Items Found (details recorded on next page)</label>
+					<label>Magic Items Found (details entered later)</label>
 					<input type="number" name="magicItemsFound" min='0' value={formData.magicItemsFound} onChange={handleChange}/>
 				</div>
+				<div>
+					<label>Did you destroy one of your magic items?</label>
+					<select name="magicItemLost" className="simple-dropdown" onChange={(e)=>setWasMagicItemLost(e.target.value)} defaultValue="no">
+						<option value="yes">Yes</option>
+						<option value="no">No</option>
+					</select>
+				</div>
+				{	wasMagicItemLost === 'yes' &&
+					<>
+						<div>
+							<label>Was it destroyed, consumed, etc?</label>
+							<select name="newStatus" onChange={(e) => setNewStatus(e.target.value)} className="simple-dropdown">
+								<option value="">Select New Status</option>
+								<option value="destroyed">Destroyed</option>
+								<option value="consumed">Consumed All Charges</option>
+								<option value="owned">Consumed Some Charges</option>
+							</select>
+						</div>
+						<div>
+							<label>Which magic item?</label>
+							<select name="magicItemLost" onChange={(e) => setItemLost(e.target.value)} className="simple-dropdown">
+								<option value="">Select Magic Item</option>
+								{
+									magicItems.map((magicItem) => (
+										<option value={magicItem._id}>{magicItem.name}</option>
+									))
+								}
+							</select>
+						</div>
+						{
+							newStatus && newStatus === 'owned' &&
+							<div>
+							<label>How many remain?</label>
+							<input type="number" onChange={(e)=> setNewCharges(e.target.value)}/>
+							</div>
+						}
+					</>
+				}
+
 				<div className="textarea">
 					<label>Adventure Notes</label>
 					<textarea name="notes" value={formData.notes} onChange={handleChange} placeholder="notes"/>

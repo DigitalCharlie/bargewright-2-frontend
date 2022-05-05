@@ -53,7 +53,7 @@ export default function NewCharPage({ user }) {
 			<hr />
 			<form className="narrow-formContainer">
 				<label>Name (required)</label>
-				<input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Flowers" />
+				<input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Flowers" required/>
 				<label>Race</label>
 				<input type="text" name="race" value={formData.race} onChange={handleChange} placeholder="Half-orc" />
 				<label>Class</label>
@@ -64,7 +64,7 @@ export default function NewCharPage({ user }) {
 						<label>Image URL</label>
 						<input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Ideally ending in .png or .jpeg" />
 						<label>Link to character sheet — please include https://</label>
-						<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} placeholder="dndbeyond.com, for example" />
+						<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} placeholder="https://dndbeyond.com, for example" />
 						<label>Level adjustment (if not starting at 1)</label>
 						<input type="number" name="levelAdjust" value={formData.levelAdjust} onChange={handleChange}/>
 						<label>Health potion adjustment (for those not logged in adventures)</label>

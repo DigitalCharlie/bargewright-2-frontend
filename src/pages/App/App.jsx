@@ -22,33 +22,30 @@ import DowntimePage from '../DowntimePage/DowntimePage'
 
 function App() {
   const [user, setUser ] = useState(getUser());
-  // const [currentPhoto, setCurrentPhoto] = useState('../../../public/images/yawning-portal.jpeg')
+  const [currentPhoto, setCurrentPhoto] = useState(`${process.env.PUBLIC_URL}/images/yawning-portal.jpeg`)
 
-  // const photoArray = [
-  //   '../../../public/images/classic.jpeg',
-  //   '../../../public/images/default-image.jpg',
-  //   '../../../public/images/icewind.jpeg',
-  //   '../../../public/images/mm-cover.jpeg',
-  //   '../../../public/images/phb-cover.jpeg',
-  //   '../../../public/images/startset-cover.jpeg',
-  //   '../../../public/images/tod-cover.jpg',
-  //   '../../../public/images/yawning-portal.jpeg'
-  // ]
+  const photoArray = [
+    `${process.env.PUBLIC_URL}/images/classic.jpeg`,
+    `${process.env.PUBLIC_URL}/images/icewind.jpeg`,
+    `${process.env.PUBLIC_URL}/images/mm-cover.jpeg`,
+    `${process.env.PUBLIC_URL}/images/phb-cover.jpeg`,
+    `${process.env.PUBLIC_URL}/images/startset-cover.jpeg`,
+    `${process.env.PUBLIC_URL}/images/tod-cover.jpg`,
+    `${process.env.PUBLIC_URL}/images/yawning-portal.jpeg`
+  ]
 
-  // useEffect(() => {
-  // }, [currentPhoto])
+  useEffect(() => {
+  }, [currentPhoto])
 
-  // const handlePhotoClick = () => {
-  //   const tempArray = photoArray.filter(url => url !== currentPhoto)
-  //   let newIndex = Math.floor(Math.random()*tempArray.length)
-  //   console.log(tempArray[newIndex])
-  //   setCurrentPhoto(tempArray[newIndex])
-  // }
-  // STYLE I WAS USING style={{backgroundImage:`url(${currentPhoto})`}}
-  // button i was using         <button onClick={handlePhotoClick}>Rotate image</button>
+  const handlePhotoClick = () => {
+    const tempArray = photoArray.filter(url => url !== currentPhoto)
+    let newIndex = Math.floor(Math.random()*tempArray.length)
+    console.log(tempArray[newIndex])
+    setCurrentPhoto(tempArray[newIndex])
+  }
   
   return (
-    <div className="App" >
+    <div className="App" style={{backgroundImage:`url(${currentPhoto})`}} >
       <Header user={user} setUser={setUser} />
         <div className="spacemaker">
           <Routes>
@@ -71,6 +68,7 @@ function App() {
             <Route path="*" element={<ErrorPage/>}/>
           </Routes>
         </div>
+        <button onClick={handlePhotoClick} className="bg-rotate-btn">🎲</button>
       <Footer />
     </div>
   );

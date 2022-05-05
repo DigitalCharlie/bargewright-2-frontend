@@ -61,10 +61,11 @@ export default function DowntimeNewPage({ user }) {
 			const newDowntime = await downtimeAPI.createNew(user.username, charId, formData)
 			console.log(newDowntime)
 			setDowntimeId(newDowntime._id)
-			if (magicItemEarned === 1) setMagicItemCount(1)
-			formData.activity === "Trading Magic Item" ? setMagicItemCount(1) : setMagicItemCount(0)
+			console.log(magicItemEarned)
+			if(magicItemEarned === 1)setMagicItemCount(1)
+			if(formData.activity === "Trading Magic Item")setMagicItemCount(1)
 			console.log(magicItemCount)
-			magicItemCount === 0 && navigate(`/user/${user.username}/character/${charId}/downtime/${newDowntime._id}`)
+			magicItemEarned === 0 && magicItemCount === 0 && navigate(`/user/${user.username}/character/${charId}/downtime/${newDowntime._id}`)
         } catch (error) {
           setError(error.message)
         }

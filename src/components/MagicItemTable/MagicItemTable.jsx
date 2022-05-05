@@ -262,7 +262,7 @@ export default function MagicItemTable ({charLink, magicItems}) {
 									}
 									{
 										magicItem.downtimeActivity &&
-										<Link to={`${charLink}/downtime/${magicItem.downtimeActivity._id}`}>{magicItem.downtimeActivity}</Link>
+										<Link to={`${charLink}/downtime/${magicItem.downtimeActivity._id}`}>{magicItem.downtimeActivity.activity}</Link>
 									}
 								</td>
 								<td className="center"><Link to={`${charLink}/magicitem/${magicItem._id}`}>edit</Link>

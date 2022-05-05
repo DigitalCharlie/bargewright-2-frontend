@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import {useState, useEffect} from 'react'
 
-export default function MoreInfoTab ({charLink, advs, downtimes}) {
+export default function MoreInfoTab ({charLink, advs, downtimes, charName}) {
 
 	const [storyAwardArray, setStoryAwardArray] = useState([])
 	const [allDowntime, setAllDowntime] = useState([])
@@ -27,6 +27,7 @@ console.log(allTrades)
 			<article>
 				<h3 className="center">Story Awards</h3>
 				{
+					storyAwardArray.length === 0 ? <p className="center">{charName} doesn't have any story awards yet.</p> :
 					storyAwardArray && storyAwardArray.length > 0 &&
 					<table  cellSpacing="0" cellPadding="0">
 						<thead>
@@ -59,7 +60,8 @@ console.log(allTrades)
 			<br />
 			<article>
 				<h3 className="center">Trade Logs</h3>
-				{					
+				{
+					allTrades.length === 0 ? <p className="center">{charName} hasn't made any trades yet.</p> :					
 					<table  cellSpacing="0" cellPadding="0">
 						<thead>
 							<tr>
@@ -96,7 +98,8 @@ console.log(allTrades)
 			<br />
 			<article>
 				<h3 className="center">Downtime Logs</h3>
-				{
+				{					
+					allDowntime.length === 0 ? <p className="center">{charName} hasn't spent any downtime yet.</p> :					
 					<table  cellSpacing="0" cellPadding="0">
 					<thead>
 						<tr>

@@ -284,6 +284,11 @@ input {
 
 /* NARRROW FORMS */
 
+.narrow {
+	width:400px;
+	margin:0 auto;
+}
+
 .narrow-formContainer {
 	width:300px;
 	margin:0 auto;

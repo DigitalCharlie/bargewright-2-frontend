@@ -26,6 +26,7 @@ export default function AdvShow({ user, adv, flipEditToggle }) {
 	return (
 		<section className='show-section'>
 			<div className="log-details-container">
+				
 				<table cellSpacing="0" cellPadding="0">
 					<tr>
 						<td>Date Played: </td>

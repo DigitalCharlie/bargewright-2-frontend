@@ -6,6 +6,7 @@ import * as userService from '../../utilities/users-service';
 // COMPONENTS
 import UserEdit from "../../components/UserEdit/UserEdit";
 import UserShow from "../../components/UserShow/UserShow"
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 export default function UserHome({user, setUser}){
 
@@ -13,6 +14,7 @@ export default function UserHome({user, setUser}){
     const navigate = useNavigate()
     const [editToggle, setEditToggle] = useState(false)
 	const [submittedForm, setSubmittedForm] = useState(false)
+    const [loaded, setLoaded] = useState(null)
 
     const flipEditToggle = () => {
 		setEditToggle(!editToggle)
@@ -31,6 +33,9 @@ export default function UserHome({user, setUser}){
                     character.currentLevel = character.levelAdjust + parseInt(advLevels)
                 })
 				setChars(data)
+                setTimeout(() => {
+                    setLoaded(true)
+                }, 200)
 			} catch(e) {
 				console.log(e)
 			}
@@ -43,7 +48,7 @@ export default function UserHome({user, setUser}){
             editToggle ?
             <UserEdit flipEditToggle={flipEditToggle} flipSubmittedForm={flipSubmittedForm} user={user} setUser={setUser} />
             :
-            <UserShow flipEditToggle={flipEditToggle} user={user} chars={chars} />
+            <UserShow flipEditToggle={flipEditToggle} user={user} chars={chars} loaded={loaded} />
     }
     </>
     )

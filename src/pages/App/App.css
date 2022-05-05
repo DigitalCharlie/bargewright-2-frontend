@@ -31,3 +31,17 @@ main {
   max-width:600px;
 }
 
+.bg-rotate-btn {
+  width:30px;
+  height:30px;
+  position:absolute;
+  bottom:2vw;
+  right:1vw;
+  padding:0;
+  border-radius:55px;
+  background:rgba(255,255,255, .3)
+}
+
+.bg-rotate-btn:hover {
+  background:rgba(0,0,0, .4)
+}

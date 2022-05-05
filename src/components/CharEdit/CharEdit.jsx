@@ -67,8 +67,8 @@ export default function NewCharPage({ user, flipEditToggle, char, flipSubmittedF
 					<input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Ideally ending in .png or .jpeg" />
 				</div>
 				<div>
-					<label>Link to character sheet — please include https://</label>
-					<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} placeholder="dndbeyond.com, for example" />
+					<label>Link to character sheet - include https://</label>
+					<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} placeholder="https://dndbeyond.com, for example" />
 				</div>
 				<div>
 					<label>Level adjustment (if not starting at 1)</label>

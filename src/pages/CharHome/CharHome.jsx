@@ -33,7 +33,6 @@ export default function UserHome({user}){
 		(async () => {
 			try {
 				const charData = await charAPI.getById(user.username, charId)
-				console.log(charData)
 				const fullTitle = displayName(charData.name, charData.race, charData.class)
 				let advLevels = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.levelGain), 1)
 				let currentLevel = charData.levelAdjust + parseInt(advLevels)

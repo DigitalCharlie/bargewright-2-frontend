@@ -6,6 +6,7 @@ import * as downtimeAPI from '../../utilities/downtime-api'
 import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
 import DowntimeShow from "../../components/DowntimeShow/DowntimeShow"
 import DowntimeEdit from "../../components/DowntimeEdit/DowntimeEdit"
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner"
 
 export default function DowntimePage({ user }) {
 
@@ -13,6 +14,8 @@ export default function DowntimePage({ user }) {
 	const [submittedForm, setSubmittedForm] = useState(false)
 	const [downtime, setDowntime] = useState('')
 	const [displayName, setDisplayName] = useState(null)
+	const [loaded, setLoaded] = useState(null)
+
 
 	const {charId, downtimeId} = useParams()
 
@@ -29,12 +32,14 @@ export default function DowntimePage({ user }) {
 		(async () => {
 			try {
 				const data = await downtimeAPI.getById(user.username, charId, downtimeId)
-				console.log(data)
 				const date = data.date.slice(0,10)
 				setDowntime({...data, date:date})
 			} catch(e) {
 				console.log(e)
 			}
+			setTimeout(() => {
+				setLoaded(true)
+			}, 300)	
 		})()
 	}, [submittedForm])
 
@@ -42,6 +47,12 @@ export default function DowntimePage({ user }) {
 		<main>
 			<h1>Downtime log for {downtime.activity && downtime.character.name}</h1>
 				{
+					loaded === null ? 
+						<>
+							<h3 className="center">Loading</h3>
+							<LoadingSpinner />
+						</> 
+					:
 					!editToggle ?
 					<DowntimeShow downtime={downtime} flipEditToggle={flipEditToggle} user={user}/>
 					:

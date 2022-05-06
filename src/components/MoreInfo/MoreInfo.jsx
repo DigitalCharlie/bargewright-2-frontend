@@ -20,7 +20,6 @@ export default function MoreInfoTab ({charLink, advs, downtimes, charName}) {
 		})()
 	}, [])
 
-console.log(allTrades)
 
 	return (
 		<>
@@ -74,7 +73,7 @@ console.log(allTrades)
 								allTrades.map((trade) => (
 									<tr key={trade._id}>
 										<td>
-											<Link to={`${charLink}/magicitem/${trade._id}`}>{trade.date.slice(0,10)}</Link>
+											<Link to={`${charLink}/downtime/${trade._id}`}>{trade.date.slice(0,10)}</Link>
 										</td>
 										{
 											trade.magicItemGained ?

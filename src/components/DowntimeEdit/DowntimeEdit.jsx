@@ -31,14 +31,12 @@ export default function DowntimeEdit({ user, downtime, flipEditToggle, flipSubmi
 		(async () => {
 			try {
 				setSelectedOption({value:downtime.activity, label:downtime.activity})
-				console.log(downtime.activity)
 				setFormData({...downtime})
 			} catch(e) {
 				console.log(e)
 			}
 		})()
 	}, [])
-	console.log(selectedOption)
 
     const handleChange = (evt) => {
       setFormData({ ...formData, [evt.target.name]: evt.target.value });

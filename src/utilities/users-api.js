@@ -5,6 +5,10 @@ export async function signUp(userData){
     return sendRequest(`${BASE_URL}`, 'POST', userData)
 }
 
+export async function userExists(username){
+  return sendRequest(`${BASE_URL}/exists/${username}`)
+}
+
 export async function checkToken(){
     return sendRequest(`${BASE_URL}/check-token`)
 }

@@ -31,6 +31,7 @@ function App() {
     `${process.env.PUBLIC_URL}/images/phb-cover.jpeg`,
     `${process.env.PUBLIC_URL}/images/startset-cover.jpeg`,
     `${process.env.PUBLIC_URL}/images/tod-cover.jpg`,
+    `${process.env.PUBLIC_URL}/images/bridge-fight.jpg`,
     `${process.env.PUBLIC_URL}/images/yawning-portal.jpeg`
   ]
 
@@ -40,7 +41,6 @@ function App() {
   const handlePhotoClick = () => {
     const tempArray = photoArray.filter(url => url !== currentPhoto)
     let newIndex = Math.floor(Math.random()*tempArray.length)
-    console.log(tempArray[newIndex])
     setCurrentPhoto(tempArray[newIndex])
   }
   

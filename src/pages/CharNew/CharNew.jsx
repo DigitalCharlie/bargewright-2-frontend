@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link, useNavigate } from 'react-router-dom'
 import * as charAPI from '../../utilities/char-api'
-
+import { characterSchema } from "../../validations/characterValidation"
 import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
 
 export default function NewCharPage({ user }) {
@@ -33,6 +33,11 @@ export default function NewCharPage({ user }) {
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
+		const isValid = await characterSchema.isValid(formData)
+        if (isValid === false) {
+          setError('Character name is required and must be less than 64 characters')
+          return
+        }
         try {
 			formData.player = user.username
           const createdChar = await charAPI.createNew(user.username, formData)

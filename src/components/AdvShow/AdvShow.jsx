@@ -15,7 +15,6 @@ export default function AdvShow({ user, adv, flipEditToggle }) {
 			let confirm = window.confirm('Are you sure you want to delete this adventure log?')
 			if (confirm === true) {
 				const deletedAdv = await advAPI.deleteAdv(user.username, charId, advId)
-				console.log(deletedAdv)
 				navigate(`/user/${user.username}/character/${charId}`)
 			}
 		} catch(err) {

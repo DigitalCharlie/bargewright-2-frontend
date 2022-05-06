@@ -11,7 +11,6 @@ export default function NewAdvPage({ user, magicItem, flipEditToggle }) {
 			let confirm = window.confirm('Are you sure you want to delete this magic item?')
 			if (confirm === true) {
 				const deletedMagicItem = await magicAPI.deleteMagicItem(user.username, charId, magicItemId)
-				console.log(deletedMagicItem)
 				navigate(`/user/${user.username}/character/${charId}`)
 			}
 		} catch(err) {

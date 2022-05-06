@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
+
+// PAGES AND COMPONENTS
 import AdvNew from '../../components/AdvNew/AdvNew'
 import MagicItemNew from "../../components/MagicItemNew/MagicItemNew"
 import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
@@ -15,7 +17,7 @@ export default function AdvNewPage({ user }) {
 
 	const updateMagicItems = async (num, newAdvId) => {
 		await setMagicItemCount(num)	
-		if(num === 0) navigate(`/user/${user.username}/character/${charId}/adventure/${newAdvId}`)
+		if(num <= 0) navigate(`/user/${user.username}/character/${charId}/adventure/${newAdvId}`)
 	}
 
 	return (

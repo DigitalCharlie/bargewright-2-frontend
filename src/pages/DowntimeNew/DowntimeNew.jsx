@@ -6,6 +6,7 @@ import * as moment from 'moment'
 import CreatableSelect from 'react-select/creatable';
 import Select from "react-select"
 import styles from './DowntimeNew.module.css'
+import { downtimeSchema } from "../../validations/downtimeValidation"
 
 // COMPONENTS 
 import MagicItemNew from "../../components/MagicItemNew/MagicItemNew"
@@ -54,17 +55,18 @@ export default function DowntimeNewPage({ user }) {
 
 	const handleSubmit = async (evt) => {
         evt.preventDefault();
+		const isValid = await downtimeSchema.isValid(formData)
+        if (isValid === false) {
+          setError('Downtime activity is required')
+          return
+        }
         try {
 			formData.character = charId
 			formData.user = user.username
-			console.log(formData)			
 			const newDowntime = await downtimeAPI.createNew(user.username, charId, formData)
-			console.log(newDowntime)
 			setDowntimeId(newDowntime._id)
-			console.log(magicItemEarned)
 			if(magicItemEarned === 1)setMagicItemCount(1)
 			if(formData.activity === "Trading Magic Item")setMagicItemCount(1)
-			console.log(magicItemCount)
 			magicItemEarned === 0 && magicItemCount === 0 && navigate(`/user/${user.username}/character/${charId}/downtime/${newDowntime._id}`)
         } catch (error) {
           setError(error.message)
@@ -96,6 +98,7 @@ export default function DowntimeNewPage({ user }) {
 
 	const updateMagicItems = async (num) => {
 		await setMagicItemCount(num)	
+		console.log(downtimeId)
 		if(num === 0) navigate(`/user/${user.username}/character/${charId}/downtime/${downtimeId}`)
 	}
 

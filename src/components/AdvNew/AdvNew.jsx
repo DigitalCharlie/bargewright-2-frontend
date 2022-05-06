@@ -6,6 +6,7 @@ import * as magicAPI from '../../utilities/magic-api'
 import * as moment from 'moment'
 import styles from './AdvNew.module.css'
 import CreatableSelect from 'react-select/creatable';
+import { adventureSchema } from "../../validations/adventureValidation"
 
 export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 
@@ -60,6 +61,11 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
+		const isValid = await adventureSchema.isValid(formData)
+        if (isValid === false) {
+          setError('Adventure title is required')
+          return
+        }
         try {
 			formData.character = charId
 			formData.storyAwards = currentStoryAwards
@@ -68,13 +74,10 @@ export default function AdvNew({ user, updateMagicItems, setAdvId }) {
 				itemChanged.status = newStatus
 				itemChanged.charges = newCharges
 				const editedItem = await magicAPI.editMagicItem(user.username, charId, itemChanged._id, itemChanged)
-				console.log(editedItem)
 				if (newStatus === 'owned') formData.magicItemNotes = `${itemChanged.name} now has ${newCharges} charges remaining`
 				if (newStatus !== 'owned') formData.magicItemNotes = `${itemChanged.name} was ${newStatus}`
 			}
-			console.log(formData)			
 			const createdAdv = await advAPI.createNew(user.username, charId, formData)
-			console.log(createdAdv)
 			setAdvId(createdAdv._id)
 			updateMagicItems(createdAdv.magicItemsFound, createdAdv._id)
         } catch (error) {

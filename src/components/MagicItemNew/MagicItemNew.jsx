@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import * as magicAPI from '../../utilities/magic-api'
 import CreatableSelect from 'react-select/creatable';
 import styles from './MagicItemNew.module.css';
+import { magicItemSchema } from "../../validations/magicItemValidation";
 
 export default function MagicItemNew({ user, magicItemCount, updateMagicItems, advId, downtimeId }) {
 
@@ -33,12 +34,16 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
+		const isValid = await magicItemSchema.isValid(formData)
+        if (isValid === false) {
+          setError('Magic item name is required')
+          return
+        }
         try {
 			attunement === true ? formData.attunement = true : formData.attunement = false;
 			formData.character = charId
 			formData.adventureFound = advId
 			formData.downtimeActivity = downtimeId
-			console.log(formData)
 			const createdMagicItem = await magicAPI.createNew(user.username, charId, formData)
 			setForNextMagicItem()
 			updateMagicItems(magicItemCount-1, advId)
@@ -51,7 +56,6 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 		setAttunement(!attunement)
 	}
 
-	console.log(formData)
 
 	const setForNextMagicItem = () => {
 		setFormData({
@@ -74,13 +78,11 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 				const response = await fetch('https://www.dnd5eapi.co/api/magic-items/')
 				const data = await response.json()
 				setMagicItemList(data.results)
-				console.log(data.results)
 				const tempArray = data.results
 				const optionsArray = []
 				tempArray.map((magicItem) => (
 					optionsArray.push({value:magicItem.index, label:magicItem.name})
 				))
-				console.log(optionsArray)
 				setOptions(optionsArray)
 			} catch(e) {
 				console.log(e)
@@ -90,13 +92,11 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 
 	const handleSelect = async (option) => {
 		setSelectedOption(option)
-		console.log(option.value)
 		if(magicItemList.find(x => x.index === option.value)) {
 			let index = magicItemList.findIndex(x => x.index === option.value)
 			let urlToFetch = 'https://www.dnd5eapi.co'+magicItemList[index].url
 			const magicItemResponse = await fetch(urlToFetch)
 			const magicItemData = await magicItemResponse.json()
-			console.log(magicItemData)
 			setFormData({
 				...formData,
 				effects: magicItemData.desc.join('\r\n \r\n'),
@@ -182,6 +182,8 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 				</div>
 				<button className="button-center button-fixed-width red-button"type="submit" onClick={handleSubmit}>Log magic item</button>
 			</form>
+			<hr />
+			<button className="button-center button-fixed-width" onClick={() => updateMagicItems(magicItemCount-1, advId)}>Skip entry</button>
 			<h1 className="error-message">{error}</h1>
 		</section>
 	)

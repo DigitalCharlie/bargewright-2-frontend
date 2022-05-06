@@ -163,7 +163,6 @@ export default function MagicItemTable ({charLink, magicItems}) {
 		} else {
 			setFilterStatus([])
 		}
-		console.log(tempArr)
 	}
 	const statusFilter = (magicItem) => {
 		if (filterStatus.length === 0) {

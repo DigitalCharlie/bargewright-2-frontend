@@ -4,6 +4,7 @@ import * as advAPI from '../../utilities/adv-api'
 import AdvShow from '../../components/AdvShow/AdvShow'
 import AdvEdit from '../../components/AdvEdit/AdvEdit'
 import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner"
 
 export default function AdvShowPage({ user }) {
 
@@ -11,7 +12,7 @@ export default function AdvShowPage({ user }) {
 	const [submittedForm, setSubmittedForm] = useState(false)
 	const [adv, setAdv] = useState('')
 	const [displayName, setDisplayName] = useState(null)
-
+	const [loaded, setLoaded] = useState(null)
 	const {charId, advId} = useParams()
 
 
@@ -27,7 +28,6 @@ export default function AdvShowPage({ user }) {
 		(async () => {
 			try {
 				const data = await advAPI.getById(user.username, charId, advId)
-				console.log(data)
 				const date = data.datePlayed.slice(0,10)
 				setAdv({...data, datePlayed:date})
 				if(data.adventureCode && data.adventureName) {
@@ -37,6 +37,9 @@ export default function AdvShowPage({ user }) {
 				} else {
 					setDisplayName(data.adventureCode)
 				}
+				setTimeout(() => {
+					setLoaded(true)
+				}, 200)	
 			} catch(e) {
 				console.log(e)
 			}
@@ -47,6 +50,12 @@ export default function AdvShowPage({ user }) {
 		<main>
 			<h1>Adventure log for {displayName}</h1>
 				{
+					loaded === null ? 
+					<>
+						<h3 className="center">Loading</h3>
+						<LoadingSpinner />
+					</> 
+					:
 					!editToggle ?
 					<AdvShow user={user} adv={adv} flipEditToggle={flipEditToggle}/>
 					:

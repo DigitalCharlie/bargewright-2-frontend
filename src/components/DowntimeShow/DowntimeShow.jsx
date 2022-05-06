@@ -13,7 +13,6 @@ export default function DowntimeShow({ user, flipEditToggle, downtime }) {
 			let confirm = window.confirm('Are you sure you want to delete this downtime log?')
 			if (confirm === true) {
 				const deletedDt = await downtimeAPI.deleteDowntime(user.username, charId, downtimeId)
-				console.log(deletedDt)
 				navigate(`/user/${user.username}/character/${charId}`)
 			}
 		} catch(err) {

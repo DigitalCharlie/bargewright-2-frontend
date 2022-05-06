@@ -20,7 +20,6 @@ export default function UserEdit({user, flipEditToggle, flipSubmittedForm, setUs
 		(async () => {
 			try {
 				setFormData({...user})
-				console.log(user)
 			} catch(e) {
 				console.log(e)
 			}
@@ -48,7 +47,6 @@ export default function UserEdit({user, flipEditToggle, flipSubmittedForm, setUs
 	const handleSubmit = async (evt) => {
         evt.preventDefault();
         try {
-		console.log(formData)
           const editedUser = await usersAPI.editUser(user.username, formData)
 		  flipEditToggle()
 		  flipSubmittedForm()

@@ -7,12 +7,15 @@ import * as magicAPI from '../../utilities/magic-api'
 import MagicItemShow from '../../components/MagicItemShow/MagicItemShow'
 import MagicItemEdit from '../../components/MagicItemEdit/MagicItemEdit'
 import BreadcrumbNav from "../../components/BreadcrumbNav/BreadcrumbNav"
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner"
 
 export default function AdvNewPage({ user }) {
 
 	const [editToggle, setEditToggle] = useState(false)
 	const [submittedForm, setSubmittedForm] = useState(false)
 	const [magicItem, setMagicItem] = useState('')
+	const [loaded, setLoaded] = useState(null)
+
 
 	const {charId, magicItemId} = useParams()
 
@@ -29,10 +32,12 @@ export default function AdvNewPage({ user }) {
 			try {
 				const data = await magicAPI.getById(user.username, charId, magicItemId)
 				setMagicItem(data)
-				console.log(data)
 			} catch(e) {
 				console.log(e)
 			}
+			setTimeout(() => {
+				setLoaded(true)
+			}, 200)	
 		})()
 	}, [submittedForm])
 
@@ -42,6 +47,12 @@ export default function AdvNewPage({ user }) {
 			<h1>{magicItem.name}</h1>
 			<hr />
 				{
+					loaded === null ? 
+						<>
+							<h3 className="center">Loading</h3>
+							<LoadingSpinner />
+						</> 
+					:
 					!editToggle ?
 					<MagicItemShow user={user} magicItem={magicItem} flipEditToggle={flipEditToggle}/>
 					:

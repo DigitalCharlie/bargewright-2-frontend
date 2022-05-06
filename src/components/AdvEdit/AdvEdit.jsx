@@ -41,7 +41,6 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 			}
 		})()
 	}, [])
-	console.log(formData)
 
     const handleChange = (evt) => {
       setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -65,7 +64,6 @@ export default function NewAdvPage({ user, flipEditToggle, adv, flipSubmittedFor
 			let confirm = window.confirm('Are you sure you want to delete this adventure log?')
 			if (confirm === true) {
 				const deletedAdv = await advAPI.deleteAdv(user.username, charId, advId)
-				console.log(deletedAdv)
 				navigate(`/user/${user.username}/character/${charId}`)
 			}
 		} catch(err) {

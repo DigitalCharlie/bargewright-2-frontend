@@ -34,10 +34,8 @@ export default function UserHome({user, char}){
 					: adv.adventureCode
 				))
 				setAdvs(advData)
-				console.log(user.username + charId)
 				const magicData = await charAPI.getAllMagic(user.username, charId)
 				setmagicItems(magicData)
-				console.log(magicData)
 				const downtimeData = await charAPI.getAllDowntime(user.username, charId)
 				setDowntimes(downtimeData)
 				setTimeout(() => {

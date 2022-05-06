@@ -13,19 +13,19 @@ This is the repo for the frontend — backend repo is [here](https://github.com/
 ## Screenshots
 
 Users can login on the homepage.
-![](public/images/Bargewright-login.png)
+![](public/readmeImages/loginscreen.png)
 
 A user's homepage shows a sortable list of their characters — clicking any of the characters takes them to that character's own page. The quicklinks also let users go directly to log a new adventure.
-![](public/images/Bargewright-user-ex.png)
+![](public/readmeImages/userhome.png)
 
 A character's homepage works similarly to a user's homepage with sortable columns — but also lets you toggle what information you see between adventures, magic items, and downtime activities.
-![](public/images/Bargewright-char-ex.png)
+![](public/readmeImages/charhome.png)
 
 Users are able to add or destroy magic items on adventures, as well as enter story awards and other boons.
-![](public/images/Bargewright-char-ex.png)
+![](public/readmeImages/newadv.png)
 
 When characters enter magic items, it first queries [https://www.dnd5eapi.co](https://www.dnd5eapi.co) for a list of all magic items, and if one is selected it populates the related fields. If it's a different item, the user can create the item and enter the details themselves
-![](public/images/Bargewright-char-ex.png)
+![](public/readmeImages/magicitem.png)
 
 Options to go back are generally at the bottom of the page the user is on — but clicking the logo in the upper left or "my account" will take the user back to their homepage.
 
@@ -45,7 +45,7 @@ This project was an iteration on a previous build that used express-react-views.
 
 The process was much easier working from a more robust ERD than my previous project — it gave me a clear sense of what order to build out components in. Here's the [Trello I used to track my build](https://trello.com/b/i87kvULr/bargewright-2). 
 
-![](public/images/ERD.png)
+![](public/readmeImages/ERD.png)
 
 I struggle with organization a bit. I left everything inside of pages and components folders, and realize I should have broken them down into areas of each, like a folder in components related to downtime, magic items, and adventures.
 

@@ -33,14 +33,22 @@ export default function UserHome({user}){
 		(async () => {
 			try {
 				const charData = await charAPI.getById(user.username, charId)
+				console.log(charData)
 				const fullTitle = displayName(charData.name, charData.race, charData.class)
 				let advLevels = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.levelGain), 1)
-				let currentLevel = charData.levelAdjust + parseInt(advLevels)
+				let downtimeLevels = charData.downtimeActivities.reduce((acc, downtime) => acc + parseInt(downtime.levelGain), 0)
+				let currentLevel = charData.levelAdjust + parseInt(advLevels) + parseInt(downtimeLevels)
 				let advGold = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.goldFound), 0)
+				let downtimeGold = charData.downtimeActivities.reduce((acc, downtime) => acc + parseInt(downtime.gold), 0)
+				let charGold = advGold+downtimeGold
 				let advDowntime = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.downtimeEarned), 0)
+				let downtimeUsed = charData.downtimeActivities.reduce((acc, downtime) => acc + parseInt(downtime.downtimeUsed), 0)
+				let charDowntime = advDowntime+downtimeUsed
 				let advHealthPotions = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.healingPotions), 0)
+				let downtimeHealthPotions = charData.downtimeActivities.reduce((acc, downtime) => acc + parseInt(downtime.healingPotions), 0)
+				let charHealthPotion = advHealthPotions+downtimeHealthPotions
 				let advCount = charData.adventures.length
-				setChar({...charData, fullTitle, currentLevel, advGold, advDowntime, advHealthPotions, advCount})
+				setChar({...charData, fullTitle, currentLevel, charGold, charDowntime, charHealthPotion, advCount})
 			} catch(e) {
 				console.log(e)
 			}
@@ -76,15 +84,15 @@ export default function UserHome({user}){
 					<table cellSpacing="0" cellPadding="0" className={styles.tableStats}>
 						<tr>
 							<td>Level:</td>
-							<td>{char.currentLevel} / {char.levelTotal}</td>
+							<td>{char.currentLevel}</td>
 						</tr>
 						<tr>
 							<td>Gold:</td>
-							<td>{char.advGold}</td>
+							<td>{char.charGold}</td>
 						</tr>
 						<tr>
 							<td>Downtime:</td>
-							<td>{char.advDowntime}</td>
+							<td>{char.charDowntime}</td>
 						</tr>
 						<tr>
 							<td>Adventures Played:</td>
@@ -92,7 +100,7 @@ export default function UserHome({user}){
 						</tr>
 						<tr>
 							<td>Healing Potions in Stock:</td>
-							<td>{char.advHealthPotions}</td>
+							<td>{char.charHealthPotion}</td>
 						</tr>
 						<tr>
 							<td></td>

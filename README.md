@@ -8,7 +8,7 @@ The app is made as a fan site under the D&D license. I am deeply indebted to [Ad
 
 This is the repo for the frontend — backend repo is [here](https://github.com/DigitalCharlie/bargewright-2-backend).
 
-[Visit the Bargewright Inn]()
+[**Visit the Bargewright Inn**]()
 
 ## Screenshots
 

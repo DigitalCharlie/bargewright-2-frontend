@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import * as magicAPI from '../../utilities/magic-api'
 import CreatableSelect from 'react-select/creatable';
 import styles from './MagicItemNew.module.css';
-import { magicItemSchema } from "../../validations/magicItemValidation";
 
 export default function MagicItemNew({ user, magicItemCount, updateMagicItems, advId, downtimeId }) {
 
@@ -34,11 +33,6 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
-		const isValid = await magicItemSchema.isValid(formData)
-        if (isValid === false) {
-          setError('Magic item name is required')
-          return
-        }
         try {
 			attunement === true ? formData.attunement = true : formData.attunement = false;
 			formData.character = charId

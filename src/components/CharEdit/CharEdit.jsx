@@ -71,7 +71,7 @@ export default function NewCharPage({ user, flipEditToggle, char, flipSubmittedF
 					<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} placeholder="https://dndbeyond.com, for example" />
 				</div>
 				<div>
-					<label>Level adjustment (if not starting at 1)</label>
+					<label>Starting level / level adjustment</label>
 					<input type="number" name="levelAdjust" value={formData.levelAdjust} onChange={handleChange}/>
 				</div>
 				<div>

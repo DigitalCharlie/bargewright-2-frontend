@@ -16,7 +16,7 @@ export default function NewCharPage({ user }) {
         image: '',
         sheet: '',
 		notes: '',
-		levelAdjust: 0,
+		levelAdjust: 1,
 		healthPotionAdjust:0
     })
     const [ error, setError ] = useState('')
@@ -70,7 +70,7 @@ export default function NewCharPage({ user }) {
 						<input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Ideally ending in .png or .jpeg" />
 						<label>Link to character sheet — please include https://</label>
 						<input type="text" name="sheet" value={formData.sheet} onChange={handleChange} placeholder="https://dndbeyond.com, for example" />
-						<label>Level adjustment (if not starting at 1)</label>
+						<label>Starting level (if not starting at 1)</label>
 						<input type="number" name="levelAdjust" value={formData.levelAdjust} onChange={handleChange}/>
 						<label>Health potion adjustment (for those not logged in adventures)</label>
 						<input type="number" name="healthPotionAdjust" value={formData.healthPotionAdjust} onChange={handleChange} />

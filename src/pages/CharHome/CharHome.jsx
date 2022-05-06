@@ -35,7 +35,7 @@ export default function UserHome({user}){
 				const charData = await charAPI.getById(user.username, charId)
 				console.log(charData)
 				const fullTitle = displayName(charData.name, charData.race, charData.class)
-				let advLevels = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.levelGain), 1)
+				let advLevels = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.levelGain), 0)
 				let downtimeLevels = charData.downtimeActivities.reduce((acc, downtime) => acc + parseInt(downtime.levelGain), 0)
 				let currentLevel = charData.levelAdjust + parseInt(advLevels) + parseInt(downtimeLevels)
 				let advGold = charData.adventures.reduce((acc, adv) => acc + parseInt(adv.goldFound), 0)

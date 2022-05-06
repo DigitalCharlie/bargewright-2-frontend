@@ -29,7 +29,7 @@ export default function UserHome({user, setUser}){
 			try {
 				const data = await usersAPI.getAllChars(user.username)
                 data.forEach((character) => {
-                    let advLevels = character.adventures.reduce((acc, adv) => acc + parseInt(adv.levelGain), 1)
+                    let advLevels = character.adventures.reduce((acc, adv) => acc + parseInt(adv.levelGain), 0)
                     character.currentLevel = character.levelAdjust + parseInt(advLevels)
                 })
 				setChars(data)

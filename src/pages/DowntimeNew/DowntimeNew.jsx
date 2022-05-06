@@ -127,7 +127,7 @@ export default function DowntimeNewPage({ user }) {
 					</div>
 					<div>
 						<label>Date</label>
-						<input type="date" name="datePlayed" value={formData.date} onChange={handleChange} />
+						<input type="date" name="date" value={formData.date} onChange={handleChange} />
 					</div>
 					{
 					selectedOption && selectedOption !== 'Trading Magic Item' &&

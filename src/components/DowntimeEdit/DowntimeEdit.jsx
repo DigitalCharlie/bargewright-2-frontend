@@ -87,7 +87,7 @@ export default function DowntimeEdit({ user, downtime, flipEditToggle, flipSubmi
 				</div>
 				<div>
 					<label>Date</label>
-					<input type="date" name="datePlayed" value={formData.date} onChange={handleChange} />
+					<input type="date" name="date" value={formData.date} onChange={handleChange} />
 				</div>
 					<div>
 						<label>Downtime +/-</label>

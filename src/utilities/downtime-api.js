@@ -1,6 +1,6 @@
 import sendRequest from './send-request';
 
-const BASE_URL = `http://localhost:8080/user`;
+const BASE_URL = `https://bargewrightinn.herokuapp.com/user`;
 
 export function getById(username, charId, downtimeId) {
   return sendRequest(`${BASE_URL}/${username}/character/${charId}/downtime/${downtimeId}`);

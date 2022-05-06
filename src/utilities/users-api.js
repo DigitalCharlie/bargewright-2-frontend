@@ -1,5 +1,5 @@
 import { getToken } from './users-service'
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://bargewrightinn.herokuapp.com';
 
 export async function signUp(userData){
     return sendRequest(`${BASE_URL}`, 'POST', userData)

@@ -6,7 +6,7 @@ After creating an account, users can track their characters' adventures, trades 
 
 The app is made as a fan site under the D&D license. I am deeply indebted to [Adventurers League Log](https://www.adventurersleaguelog.com/users/3397/characters), partially for inspiration, partially for making season 8 tracking less of a mess.
 
-Finally, although this is in one repo it is deployed as separate frontend and backend pieces.
+This is the repo for the frontend — backend repo is [here](https://github.com/DigitalCharlie/bargewright-2-backend).
 
 [Visit the Bargewright Inn]()
 

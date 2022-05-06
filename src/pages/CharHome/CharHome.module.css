@@ -6,6 +6,8 @@
 
 .portrait {
 	width:200px;
+	height: auto;
+    object-fit: cover;
 }
 
 .tableStats td {

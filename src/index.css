@@ -204,6 +204,18 @@ td {
 	white-space: pre-line;
 }
 
+.log-details-container .td-border-bottom {
+	border-top:1px solid white;
+}
+
+.log-details-container .td-border-bottom:nth-of-type(2) {
+	padding: 20px 5px;	
+}
+
+.story-awards-table > tr:first-of-type > td {
+	border-top:none!important;
+}
+
 
 /* GENERAL FORMS */
 

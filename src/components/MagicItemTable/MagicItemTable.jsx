@@ -51,14 +51,15 @@ export default function MagicItemTable ({charLink, magicItems}) {
 			b = y.attunement;
 		}
 		if (sortType === 'source') {
-			if (x.adventureFound) {
+			if (x.adventureFound !== '') {
 				a = x.adventureFound.adventureName.toUpperCase();
+			} else {
+				a = x.downtimeActivity.activity.toUpperCase();
+			}
+			if (y.adventureFound !== '') {
 				b = y.adventureFound.adventureName.toUpperCase();
 			} else {
-				// a = x.downtimeActivity.activity.toUpperCase();
-				// b = y.downtimeActivity.activity.toUpperCase();
-				a = x.downtimeActivity
-				b = y.downtimeActivity
+				b = y.downtimeActivity.activity.toUpperCase();
 			}
 
 		}
@@ -230,11 +231,11 @@ export default function MagicItemTable ({charLink, magicItems}) {
 			<table cellSpacing="0" cellPadding="0">
 				<thead>
 					<tr>
-						<th className="pointer" scope="col" onClick={() => {handleMagicSort('name')}}>Magic Item {sortType === 'name' && sortOrder ===true ? ' ▲' : sortType === 'name' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0" }</th>
-						<th className="pointer" scope="col" onClick={() => {handleMagicSort('type')}}>Type {sortType === 'type' && sortOrder ===true ? ' ▲' : sortType === 'type' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
-						<th className="pointer" scope="col" onClick={() => {handleMagicSort('rarity')}}>Rarity {sortType === 'rarity' && sortOrder ===true ? ' ▲' : sortType === 'rarity' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
+						<th className="pointer" scope="col" onClick={() => {handleMagicSort('name')}}>Magic Item {sortType === 'name' && sortOrder ===true ? ' ▲' : sortType === 'name' ? ' ▼' : "" }</th>
+						<th className="pointer" scope="col" onClick={() => {handleMagicSort('type')}}>Type {sortType === 'type' && sortOrder ===true ? ' ▲' : sortType === 'type' ? ' ▼' : ""}</th>
+						<th className="pointer" scope="col" onClick={() => {handleMagicSort('rarity')}}>Rarity {sortType === 'rarity' && sortOrder ===true ? ' ▲' : sortType === 'rarity' ? ' ▼' : ""}</th>
 						<th className="pointer" scope="col" onClick={() => {handleMagicSort('attunement')}}>Attunement {sortType === 'attunement' && sortOrder ===true ? ' ▲' : sortType === 'attunement' ? ' ▼' : ""}</th>
-						<th className="pointer" scope="col" onClick={() => {handleMagicSort('source')}}>Source {sortType === 'source' && sortOrder ===true ? ' ▲' : sortType === 'source' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
+						<th className="pointer" scope="col" onClick={() => {handleMagicSort('source')}}>Source {sortType === 'source' && sortOrder ===true ? ' ▲' : sortType === 'source' ? ' ▼' : ""}</th>
 						<th scope="col" className="center">Quicklinks</th>
 					</tr>
 				</thead>

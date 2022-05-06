@@ -91,32 +91,34 @@ export default function MagicItemNew({ user, magicItemCount, updateMagicItems, a
 			let urlToFetch = 'https://www.dnd5eapi.co'+magicItemList[index].url
 			const magicItemResponse = await fetch(urlToFetch)
 			const magicItemData = await magicItemResponse.json()
+			if (magicItemData.name.toUpperCase().includes('SCROLL')) {
+				magicItemData.itemCategory = "Scroll"
+			} else if (magicItemData.name.toUpperCase().includes('POTION')) {
+				magicItemData.itemCategory = "Potion"
+			} else magicItemData.itemCategory = "Permanent"
 			setFormData({
 				...formData,
 				effects: magicItemData.desc.join('\r\n \r\n'),
 				rarity: magicItemData.rarity.name,
-				name: magicItemData.name
+				name: magicItemData.name,
+				itemCategory: magicItemData.itemCategory
 			})
 			magicItemData.desc[0].includes('attunement') ? setAttunement(true) : setAttunement(false)
 		} else {
+			if (option.value.toUpperCase().includes('SCROLL')) {
+				option.itemCategory = "Scroll"
+			} else if (option.value.toUpperCase().includes('POTION')) {
+				option.itemCategory = "Potion"
+			} else option.itemCategory = "Permanent"
 			setFormData ({
 				...formData,
-				name:option.value
-			})
-		}
-		if (option.value.toUpperCase().includes('SCROLL')) {
-			setFormData({
-				...formData,
-				itemCategory: 'Scroll'
-			})
-		}
-		if (option.value.toUpperCase().includes('POTION')) {
-			setFormData({
-				...formData,
-				itemCategory: 'Potion'
+				name:option.value,
+				itemCategory: option.itemCategory
 			})
 		}
 	}
+
+	console.log(formData)
 
 	return (
 		<section>

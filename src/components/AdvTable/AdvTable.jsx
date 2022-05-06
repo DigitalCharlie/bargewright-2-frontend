@@ -45,10 +45,10 @@ export default function AdvTable ({charLink, advs}) {
 		<table cellSpacing="0" cellPadding="0">
 				<thead>
 					<tr>
-						<th className="pointer" scope="col" onClick={() => {handleAdventureSort('title')}}>Adventure Title {sortType === 'title' && sortOrder ===true ? ' ▲' : sortType === 'title' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0" }</th>
-						<th className="pointer" scope="col" onClick={() => {handleAdventureSort('date')}}>Date Played {sortType === 'date' && sortOrder ===true ? ' ▲' : sortType === 'date' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
-						<th className="pointer" scope="col" onClick={() => {handleAdventureSort('gold')}}>Gold Found {sortType === 'gold' && sortOrder ===true ? ' ▲' : sortType === 'gold' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
-						<th className="pointer" scope="col" onClick={() => {handleAdventureSort('magicItems')}}>Magic Items {sortType === 'magicItems' && sortOrder ===true ? ' ▲' : sortType === 'magicItems' ? ' ▼' : "\u00A0\u00A0\u00A0\u00A0"}</th>
+						<th className="pointer" scope="col" onClick={() => {handleAdventureSort('title')}}>Adventure Title {sortType === 'title' && sortOrder ===true ? ' ▲' : sortType === 'title' ? ' ▼' : "" }</th>
+						<th className="pointer" scope="col" onClick={() => {handleAdventureSort('date')}}>Date Played {sortType === 'date' && sortOrder ===true ? ' ▲' : sortType === 'date' ? ' ▼' : ""}</th>
+						<th className="pointer" scope="col" onClick={() => {handleAdventureSort('gold')}}>Gold Found {sortType === 'gold' && sortOrder ===true ? ' ▲' : sortType === 'gold' ? ' ▼' : ""}</th>
+						<th className="pointer" scope="col" onClick={() => {handleAdventureSort('magicItems')}}>Magic Items {sortType === 'magicItems' && sortOrder ===true ? ' ▲' : sortType === 'magicItems' ? ' ▼' : ""}</th>
 						<th scope="col" className="center">Quicklinks</th>
 					</tr>
 				</thead>

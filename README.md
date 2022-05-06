@@ -63,6 +63,8 @@ FEATURES
 5. Create a printable version so people can export characters if they need to print their log. 
 6. Autofill adventures based on what's in the database if the title is matching.
 7. Make scrolls, potions, etc that are the same name handle in an inventory rather than all separate items.
+8. Make it possible to remove individual story awards
+9. Make it possible to remove multiple items on a single adventure
 
 DESIGN
 1. I did very minimal mobile style work, and I actually care more about it as a mobile platform than a desktop one. It's easy to remember to log your adventures when you play online because you're already at a computer. It's a bit more of a challenge when you're playing face to face.

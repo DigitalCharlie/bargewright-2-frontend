@@ -85,15 +85,15 @@ export default function AdvShow({ user, adv, flipEditToggle }) {
 					adv.storyAwards &&
 					<>
 						<h3 className={styles.storyAwardHeader}>Story Awards and Other Boons</h3>
-						<table cellSpacing="0" cellPadding="0">
+						<table cellSpacing="0" cellPadding="0" className="story-awards-table">
 							{
 								adv.storyAwards.map((award) => (
 									<tr>
-										<td>
+										<td className="td-border-bottom">
 											{award.title}<br />
 											{award.type}
 										</td>
-										<td>
+										<td className="td-border-bottom">
 											{award.description}
 										</td>
 									</tr>

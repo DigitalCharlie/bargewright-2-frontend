@@ -8,7 +8,7 @@ The app is made as a fan site under the D&D license. I am deeply indebted to [Ad
 
 This is the repo for the frontend — backend repo is [here](https://github.com/DigitalCharlie/bargewright-2-backend).
 
-[**Visit the Bargewright Inn**]()
+[**Visit the Bargewright Inn**](https://bargewright.netlify.app/)
 
 ## Screenshots
 
@@ -43,10 +43,9 @@ The Bargewright Inn was created using react and mongoose.
 
 This project was an iteration on a previous build that used express-react-views. It was difficult at times to reconcile solutions from previous code, and ultimately was easier once I decided this would be a full rebuild rather than starting with a restructure.
 
-The process was much easier working from a more robust ERD than my previous project — it gave me a clear sense of what order to build out components in.
+The process was much easier working from a more robust ERD than my previous project — it gave me a clear sense of what order to build out components in. Here's the [Trello I used to track my build](https://trello.com/b/i87kvULr/bargewright-2). 
 
 ![](public/images/ERD.png)
-
 
 I struggle with organization a bit. I left everything inside of pages and components folders, and realize I should have broken them down into areas of each, like a folder in components related to downtime, magic items, and adventures.
 
